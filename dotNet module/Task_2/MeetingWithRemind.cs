@@ -3,33 +3,32 @@ using System.Timers;
 
 namespace Task_2
 {
-  class MeetingWithRemind : Meeting, IRemind
+  public class MeetingWithRemind : Meeting, IRemind
   {
     public System.Timers.Timer timer;
     private DateTime remind;
 
-    public DateTime Remind { get => remind; set => remind = value; }
+    public DateTime Remind { get => this.remind; set => this.remind = value; }
 
     public void SetTimer()
     {
       // Create a timer with a 2 second interval.
-      timer = new System.Timers.Timer(2000);
+      this.timer = new System.Timers.Timer(2000);
       // Hook up the Elapsed event for the timer. 
-      timer.Elapsed += OnTimedEvent;
-      timer.AutoReset = true;
-      timer.Enabled = true;
+      this.timer.Elapsed += OnTimedEvent;
+      this.timer.AutoReset = true;
+      this.timer.Enabled = true;
     }
     private void OnTimedEvent(Object source, ElapsedEventArgs e)
     {
-      if (remind >= DateTime.Now)
-        TRemind();
-      else
-        timer.Stop();
+      if (DateTime.Now >= this.remind)
+        RemindTime();
     }
 
-    private void TRemind()
+    private void RemindTime()
     {
-      Console.WriteLine($"The Elapsed event was raised at {DateTime.Now}");
+      Console.WriteLine("Напоминание: Твоя встреча скоро начнется!");
+      this.timer.Stop();
     }
   }
 }

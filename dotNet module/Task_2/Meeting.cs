@@ -14,22 +14,22 @@ namespace Task_2
 
     public DateTime StartMeeting 
     {
-      get => startMeeting;
+      get => this.startMeeting;
       set
       {
-        if (startMeeting < endMeeting)
-          startMeeting = value;
+        if (value < this.endMeeting)
+          this.startMeeting = value;
       }
     }
     public DateTime EndMeeting 
     { 
-      get => endMeeting;
+      get => this.endMeeting;
       set
       {
-        if (startMeeting < endMeeting)
-          endMeeting = value;
+        if (value > this.startMeeting)
+          this.endMeeting = value;
       }
     }
-    public TimeSpan Duration => endMeeting.Subtract(startMeeting);
+    public TimeSpan Duration => this.endMeeting.Subtract(this.startMeeting);
   }
 }

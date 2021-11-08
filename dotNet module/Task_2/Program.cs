@@ -16,7 +16,6 @@ namespace Task_2
       meetWithRemind.Remind = remind;
       meetWithRemind.SetTimer();
       Console.ReadKey();
-      Console.WriteLine($"Твоя встреча начнется через {startMeeting.Subtract(remind)}");
     }
   }
 }
