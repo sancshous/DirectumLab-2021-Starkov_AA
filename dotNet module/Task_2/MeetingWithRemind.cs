@@ -22,10 +22,10 @@ namespace Task_2
     private void OnTimedEvent(Object source, ElapsedEventArgs e)
     {
       if (DateTime.Now >= this.remind)
-        RemindTime();
+        ShowRemind();
     }
 
-    private void RemindTime()
+    private void ShowRemind()
     {
       Console.WriteLine("Напоминание: Твоя встреча скоро начнется!");
       this.timer.Stop();
