@@ -6,27 +6,17 @@ namespace Task_2
   {
     public static void Main(string[] args)
     {
-      Meeting a;
-      DateTime startDate = new DateTime(2021, 11, 3, 17, 30, 25);
-      DateTime endDate = new DateTime(2021, 11, 3, 18, 30, 25);
-      if (startDate < endDate)
-      {
-        a = new Meeting(startDate, endDate);
-        Console.WriteLine($"Дата начала: {a.StartDate} \nДата конца: {a.EndDate} \nПродолжительность: {a.Duration}");
-      }
-      else Console.WriteLine("Дата конца не может быть меньше даты начала");
+      DateTime startMeeting = DateTime.Now.AddHours(5);
+      DateTime endMeeting = DateTime.Now.AddHours(8);
+      var meeting = new Meeting(startMeeting, endMeeting);
+      Console.WriteLine($"Начало встречи: {meeting.StartMeeting} \nОкончание встречи: {meeting.EndMeeting} \nПродолжительность встречи: {meeting.Duration}");
 
-      MeetingWithRemind b = new MeetingWithRemind();
-      DateTime remindDate = new DateTime(2021, 11, 3, 16, 41, 25); // выставить значение которое немного больше DateTime.Now
-      b.GetSetRemind = remindDate;
-      while(b.GetSetRemind >= DateTime.Now)
-      {
-        b.SetTimer();
-      }
-      Console.WriteLine("Напоминание: Твоя встреча скоро начнется");
-      b.aTimer.Stop();
-      b.aTimer.Dispose();
-
+      var meetWithRemind = new MeetingWithRemind();
+      var remind = DateTime.Now.AddSeconds(10);
+      meetWithRemind.Remind = remind;
+      meetWithRemind.SetTimer();
+      Console.ReadKey();
+      Console.WriteLine($"Твоя встреча начнется через {startMeeting.Subtract(remind)}");
     }
   }
 }

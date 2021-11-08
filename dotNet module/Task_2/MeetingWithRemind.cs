@@ -5,26 +5,31 @@ namespace Task_2
 {
   class MeetingWithRemind : Meeting, IRemind
   {
-    public System.Timers.Timer aTimer;
-    private DateTime remindDate;
+    public System.Timers.Timer timer;
+    private DateTime remind;
 
-    public DateTime GetSetRemind { get => remindDate; set => remindDate = value; }
+    public DateTime Remind { get => remind; set => remind = value; }
 
     public void SetTimer()
     {
-      // Create a timer with a 5 second interval.
-      aTimer = new System.Timers.Timer(5000);
-      //aTimer.Interval = 1000;
+      // Create a timer with a 2 second interval.
+      timer = new System.Timers.Timer(2000);
       // Hook up the Elapsed event for the timer. 
-      aTimer.Elapsed += Remind;
-      aTimer.AutoReset = true;
-      aTimer.Enabled = true;
+      timer.Elapsed += OnTimedEvent;
+      timer.AutoReset = true;
+      timer.Enabled = true;
     }
-    private static void Remind(Object source, ElapsedEventArgs e)
+    private void OnTimedEvent(Object source, ElapsedEventArgs e)
     {
-      Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
-
+      if (remind >= DateTime.Now)
+        TRemind();
+      else
+        timer.Stop();
     }
 
+    private void TRemind()
+    {
+      Console.WriteLine($"The Elapsed event was raised at {DateTime.Now}");
+    }
   }
 }

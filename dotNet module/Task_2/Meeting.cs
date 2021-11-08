@@ -4,21 +4,32 @@ namespace Task_2
 {
   public class Meeting
   {
-    private DateTime startDate, endDate;
-    private TimeSpan duration;
+    private DateTime startMeeting, endMeeting;
     public Meeting() { }
-    public Meeting(DateTime startDate, DateTime endDate)
+    public Meeting(DateTime startMeeting, DateTime endMeeting)
     {
-      this.startDate = startDate;
-      this.endDate = endDate;
-      duration = endDate.Subtract(startDate);
+      this.startMeeting = startMeeting;
+      this.endMeeting = endMeeting;
     }
 
-    public DateTime StartDate { get => startDate; set => startDate = value; }
-    public DateTime EndDate { get => endDate; set => endDate = value; }
-    public TimeSpan Duration => duration;
-
-    //public void UpdateDuration(DateTime startDate, DateTime endDate) { duration = endDate.Subtract(startDate); }
-
+    public DateTime StartMeeting 
+    {
+      get => startMeeting;
+      set
+      {
+        if (startMeeting < endMeeting)
+          startMeeting = value;
+      }
+    }
+    public DateTime EndMeeting 
+    { 
+      get => endMeeting;
+      set
+      {
+        if (startMeeting < endMeeting)
+          endMeeting = value;
+      }
+    }
+    public TimeSpan Duration => endMeeting.Subtract(startMeeting);
   }
 }
