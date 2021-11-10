@@ -4,32 +4,75 @@ using System.Text;
 
 namespace Task_3
 {
-  class Triangle : Shape
+  /// <summary>
+  /// <para></para>
+  /// </summary>
+  public class Triangle : Shape
   {
+    /// <summary>
+    /// <para></para>
+    /// </summary>
     public double FirstSide { get; set; }
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
     public double SecondSide { get; set; }
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
     public double ThirdSide { get; set; }
 
-    //Треугольник можно объявить в виде 3 точек
+    /// <summary>
+    /// Треугольник можно объявить в виде 3 точек
+    /// </summary>
     public Triangle(int x, int y, int x1, int y1, int x2, int y2) : base(x, y)
     {
-      FirstSide = Dist(x, y, x1, y1);
-      SecondSide = Dist(x1, y1, x2, y2);
-      ThirdSide = Dist(x, y, x2, y2);
+      this.FirstSide = Dist(x, y, x1, y1);
+      this.SecondSide = Dist(x1, y1, x2, y2);
+      this.ThirdSide = Dist(x, y, x2, y2);
     }
 
-    public override double Perimeter()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Perimeter
     {
-      return FirstSide + SecondSide + ThirdSide;
+      get 
+      {
+        return this.FirstSide + this.SecondSide + this.ThirdSide;
+      }
+
+      set
+      {
+        this.Perimeter = value; 
+      }
     }
-    public override double Area()
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Area
     {
-      double p = (FirstSide + SecondSide + ThirdSide) / 2;
-      return Math.Sqrt(p * (p - FirstSide) * (p - SecondSide) * (p - ThirdSide));
+      get
+      {
+        double p = (this.FirstSide + this.SecondSide + this.ThirdSide) / 2;
+        return Math.Sqrt(p * (p - this.FirstSide) * (p - this.SecondSide) * (p - this.ThirdSide));
+      }
+
+      set 
+      {
+        this.Area = value; 
+      }
     }
-    public override void Display()
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override string ToString()
     {
-      Console.WriteLine($"Треугольник со сторонами {FirstSide}; {SecondSide}; {ThirdSide}");
+      return "Треугольник со сторонами: " + this.FirstSide + this.SecondSide + this.ThirdSide;
     }
   }
 }

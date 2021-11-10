@@ -4,26 +4,57 @@ using System.Text;
 
 namespace Task_3
 {
-  class Square : Shape
+  /// <summary>
+  /// <para></para>
+  /// </summary>
+  public class Square : Rectangle
   {
-    public double Width { get; set; }
-    //Квадрат можно объявить в виде начальной и конечной точки стороны
-    public Square(int x, int y, int x1, int y1) : base(x, y)
+    /// <summary>
+    /// Квадрат можно объявить в виде начальной и конечной точки стороны
+    /// </summary>
+    public Square(int x, int y, int x1, int y1) : base(x, y, x1, y1)
     {
-      Width = Dist(x, y, x1, y1);
+      this.Width = Dist(x, y, x, y1);
     }
 
-    public override double Perimeter()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Perimeter
     {
-      return Width * 4;
+      get 
+      {
+        return this.Width * 4; 
+      }
+
+      set 
+      {
+        this.Perimeter = value; 
+      }
     }
-    public override double Area()
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Area
     {
-      return Width * Width;
+      get 
+      {
+        return this.Width * this.Width; 
+      }
+
+      set 
+      {
+        this.Area = value; 
+      }
     }
-    public override void Display()
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override string ToString()
     {
-      Console.WriteLine($"Квадрат со стороной {Width}");
+      return "Квадрат со стороной " + this.Width;
     }
   }
 }

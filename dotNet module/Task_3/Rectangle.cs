@@ -4,30 +4,68 @@ using System.Text;
 
 namespace Task_3
 {
-  class Rectangle : Square
+  /// <summary>
+  /// <para></para>
+  /// </summary>
+  public class Rectangle : Shape
   {
+    /// <summary>
+    /// <para></para>
+    /// </summary>
     public double Width { get; set; }
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
     public double Height { get; set; }
 
-    //Прямоугольник можно объявить в виде 3 точек:
-    //начальная "угловая точка" являющаяся началом длины и ширины, конечная точка длины, конечная точка ширины
-    public Rectangle(int x, int y, int x1, int y1, int x2, int y2) : base(x, y, x1, y1)
+    /// <summary>
+    /// Прямоугольник можно объявить в виде 2 точек: начальная точка диагонали и конечная точка диагонали
+    /// </summary>
+    public Rectangle(int x, int y, int x1, int y1) : base(x, y)
     {
-      Width = Dist(x, y, x1, y1);
-      Height = Dist(x, y, x2, y2);
+      this.Width = Dist(x, y, x1, y);
+      this.Height = Dist(x, y, x, y1);
     }
 
-    public override double Perimeter()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Perimeter
     {
-      return Width * 2 + Height * 2;
+      get 
+      {
+        return this.Width * 2 + this.Height * 2; 
+      }
+
+      set 
+      {
+        this.Perimeter = value; 
+      }
     }
-    public override double Area()
+
+/// <summary>
+/// <para></para>
+/// </summary>
+public override double Area
     {
-      return Width * Height;
+      get 
+      {
+        return this.Width * this.Height; 
+      }
+
+      set 
+      { 
+        this.Area = value; 
+      }
     }
-    public override void Display()
+
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override string ToString()
     {
-      Console.WriteLine($"Прямоугольник с длиной {Height} и шириной {Width}");
+      return "Прямоугольник с длиной " + this.Height + " и шириной " + this.Width;
     }
   }
 }

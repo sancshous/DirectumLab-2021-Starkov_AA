@@ -4,29 +4,59 @@ using System.Text;
 
 namespace Task_3
 {
-  class Circle : Shape
+  /// <summary>
+  /// <para></para>
+  /// </summary>
+  public class Circle : Shape
   {
+    /// <summary>
+    /// <para></para>
+    /// </summary>
     public double Radius { get; set; }
 
-    //Окружность можно объявить в виде центральной точки и любой точки на окружности (таким образом находим радиус)
+    /// <summary>
+    /// Окружность можно объявить в виде центральной точки и любой точки на окружности (таким образом находим радиус)
+    /// </summary>
     public Circle(int x, int y, int x1, int y1) : base(x, y)
     {
-      Radius = Dist(x, y, x1, y1);
+      this.Radius = Dist(x, y, x1, y1);
     }
 
-    public override double Perimeter() //длина окружности
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Perimeter //длина окружности
     {
-      return 2 * Math.PI * Radius;
+      get
+      {
+        return 2 * Math.PI * this.Radius;
+      }
+
+      set
+      {
+        this.Perimeter = value; 
+      }
     }
 
-    public override double Area() // у окружности нет площади
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Area // у окружности нет площади
     {
-      throw new NotImplementedException();
+      get 
+      {
+        return 0; 
+      }
+
+      set { }
     }
 
-    public override void Display()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override string ToString()
     {
-      Console.WriteLine($"Окружность радиусом {Radius}"); 
+      return "Окружность радиусом " + this.Radius;
     }
   }
 }

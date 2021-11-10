@@ -4,32 +4,64 @@ using System.Text;
 
 namespace Task_3
 {
-  class Ring : Circle
+  /// <summary>
+  /// <para></para>
+  /// </summary>
+  public class Ring : Circle
   {
-    public double OutRadius { get; set; } //радиус внешней окружности
-    public double InRadius { get; set; } //радиус внутренней окружности
+    /// <summary>
+    /// радиус внешней окружности
+    /// </summary>
+    public double OutRadius { get; set; }
 
-    //Кольцо можно объявить в виде 3 точек:
-    //центральной точки, любой точки на внешней окружности и любой точки на внутренней окружности
+    /// <summary>
+    /// Кольцо можно объявить в виде 3 точек:
+    /// центральной точки, любой точки на внешней окружности и любой точки на внутренней окружности
+    /// </summary>
     public Ring(int x, int y, int x1, int y1, int x2, int y2) : base(x, y, x1, y1)
     {
-      InRadius = Dist(x, y, x1, y1);
-      OutRadius = Dist(x, y, x2, y2);
+      this.Radius = Dist(x, y, x1, y1);
+      this.OutRadius = Dist(x, y, x2, y2);
     }
 
-    public override double Perimeter()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Perimeter
     {
-      return 2 * Math.PI * (OutRadius + InRadius);
+      get 
+      {
+        return 2 * Math.PI * (this.OutRadius + this.Radius);
+      }
+
+      set
+      {
+        this.Perimeter = value; 
+      }
     }
 
-    public override double Area()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Area
     {
-      return Math.PI * (Math.Pow(OutRadius, 2) - Math.Pow(InRadius, 2));
+      get 
+      {
+        return Math.PI * (Math.Pow(this.OutRadius, 2) - Math.Pow(this.Radius, 2)); 
+      }
+
+      set 
+      {
+        this.Area = value; 
+      }
     }
 
-    public override void Display()
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override string ToString()
     {
-      Console.WriteLine($"Кольцо с внутренним радиусом {InRadius} и внешним радиусом {OutRadius}");
+      return "Кольцо с внутренним радиусом " + this.Radius + "и внешним радиусом " + this.OutRadius;
     }
   }
 }

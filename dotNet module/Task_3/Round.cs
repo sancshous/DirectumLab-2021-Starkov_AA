@@ -4,24 +4,38 @@ using System.Text;
 
 namespace Task_3
 {
-  class Round : Circle
+  /// <summary>
+  /// <para></para>
+  /// </summary>
+  public class Round : Circle
   {
-    public double Radius { get; set; }
+    /// <summary>
+    /// Круг это окружность с внутренней площадью, поэтому метод длины окружности не нужно переопределять
+    /// </summary>
+    public Round(int x, int y, int x1, int y1) : base(x, y, x1, y1) { }
 
-    //Круг это окружность с внутренней площадью, поэтому метод длины окружности не нужно переопределять
-    public Round(int x, int y, int x1, int y1) : base(x, y, x1, y1)
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override double Area
     {
-      Radius = Dist(x, y, x1, y1);
+      get 
+      {
+        return Math.PI * Math.Pow(this.Radius, 2); 
+      }
+
+      set 
+      {
+        this.Area = value;
+      }
     }
 
-    public override double Area() 
+    /// <summary>
+    /// <para></para>
+    /// </summary>
+    public override string ToString()
     {
-      return Math.PI * Math.Pow(Radius, 2);
-    }
-
-    public override void Display()
-    {
-      Console.WriteLine($"Круг радиусом {Radius}");
+      return "Круг радиусом " + this.Radius;
     }
   }
 }
