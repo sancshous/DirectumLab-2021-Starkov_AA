@@ -6,22 +6,15 @@ namespace Task_2
   {
     private DateTime startMeeting, endMeeting;
     public Meeting() { }
+
     public Meeting(DateTime startMeeting, DateTime endMeeting)
     {
-      this.startMeeting = startMeeting;
-      this.endMeeting = endMeeting;
+      StartMeeting = startMeeting;
+      EndMeeting = endMeeting;
     }
 
-    public DateTime StartMeeting 
-    {
-      get => this.startMeeting;
-      set
-      {
-        if (value < this.endMeeting)
-          this.startMeeting = value;
-      }
-    }
-    public DateTime EndMeeting 
+    public virtual DateTime StartMeeting { get; set; }
+    public virtual DateTime EndMeeting 
     { 
       get => this.endMeeting;
       set
@@ -30,6 +23,12 @@ namespace Task_2
           this.endMeeting = value;
       }
     }
-    public TimeSpan Duration => this.endMeeting.Subtract(this.startMeeting);
+    public virtual TimeSpan Duration => this.endMeeting.Subtract(this.startMeeting);
+
+    public override string ToString()
+    {
+      return "Начало встречи: " + StartMeeting + "\nОкончание встречи: " + EndMeeting + "\nПродолжительность встречи: " + Duration;
+    }
   }
+
 }
