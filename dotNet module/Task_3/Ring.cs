@@ -20,22 +20,16 @@ namespace Task_3
     /// </summary>
     public Ring(int x, int y, int x1, int y1, int x2, int y2) : base(x, y, x1, y1)
     {
-      this.OutRadius = Dist(x, y, x2, y2);
+      this.OutRadius = Shape.Distance(x, y, x2, y2);
     }
 
-    /// <summary>
-    /// Периметр.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Perimeter => 2 * Math.PI * (this.OutRadius + this.Radius);
 
-    /// <summary>
-    /// Площадь.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Area => Math.PI * (Math.Pow(this.OutRadius, 2) - Math.Pow(this.Radius, 2));
 
-    /// <summary>
-    /// ToString.
-    /// </summary>
+    /// <inheritdoc/>
     public override string ToString()
     {
       return "Кольцо с внутренним радиусом " + this.Radius + "и внешним радиусом " + this.OutRadius;

@@ -12,16 +12,14 @@ namespace Task_3
     /// <summary>
     /// Круг это окружность с внутренней площадью, поэтому метод длины окружности не нужно переопределять.
     /// </summary>
-    public Round(int x, int y, int x1, int y1) : base(x, y, x1, y1) { }
+    public Round(int x, int y, int x1, int y1) : base(x, y, x1, y1) 
+    {
+    }
 
-    /// <summary>
-    /// Площадь.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Area => Math.PI * Math.Pow(this.Radius, 2);
 
-    /// <summary>
-    /// ToString.
-    /// </summary>
+    /// <inheritdoc/>
     public override string ToString()
     {
       return "Круг радиусом " + this.Radius;

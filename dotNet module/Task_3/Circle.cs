@@ -15,26 +15,20 @@ namespace Task_3
     public double Radius { get; set; }
 
     /// <summary>
-    /// Окружность можно объявить в виде центральной точки и любой точки на окружности (таким образом находим радиус).
+    /// Окружность можно объявить в виде центральной точки и любой точки на окружности.
     /// </summary>
     public Circle(int x, int y, int x1, int y1) : base(x, y)
     {
-      this.Radius = Dist(x, y, x1, y1);
+      this.Radius = Shape.Distance(x, y, x1, y1);
     }
 
-    /// <summary>
-    /// Длина окружности.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Perimeter => 2 * Math.PI * this.Radius;
 
-    /// <summary>
-    /// У окружности нет площади.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Area => 0;
 
-    /// <summary>
-    /// ToString.
-    /// </summary>
+    /// <inheritdoc/>
     public override string ToString()
     {
       return "Окружность радиусом " + this.Radius;

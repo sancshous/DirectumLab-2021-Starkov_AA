@@ -32,7 +32,8 @@ namespace Task_3
     /// <summary>
     /// Расстояние между двух точек.
     /// </summary>
-    public static double Dist(int x, int y, int x1, int y1)
+    /// <returns>Возвращает вещественное значение расстояния между двух точек.</returns>
+    public static double Distance(int x, int y, int x1, int y1)
     {
       return Math.Sqrt(Math.Pow(x - x1, 2) + Math.Pow(y - y1, 2));
     }

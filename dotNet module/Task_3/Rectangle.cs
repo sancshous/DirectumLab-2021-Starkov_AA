@@ -24,23 +24,17 @@ namespace Task_3
     /// </summary>
     public Rectangle(int x, int y, int x1, int y1) : base(x, y)
     {
-      this.Width = Dist(x, y, x1, y);
-      this.Height = Dist(x, y, x, y1);
+      this.Width = Shape.Distance(x, y, x1, y);
+      this.Height = Shape.Distance(x, y, x, y1);
     }
 
-    /// <summary>
-    /// Периметр.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Perimeter => this.Width * 2 + this.Height * 2;
 
-    /// <summary>
-    /// Площадь.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Area => this.Width * this.Height;
 
-    /// <summary>
-    /// ToString.
-    /// </summary>
+    /// <inheritdoc/>
     public override string ToString()
     {
       return "Прямоугольник с длиной " + this.Height + " и шириной " + this.Width;

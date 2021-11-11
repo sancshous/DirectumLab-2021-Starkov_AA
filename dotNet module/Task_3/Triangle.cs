@@ -29,19 +29,15 @@ namespace Task_3
     /// </summary>
     public Triangle(int x, int y, int x1, int y1, int x2, int y2) : base(x, y)
     {
-      this.FirstSide = Dist(x, y, x1, y1);
-      this.SecondSide = Dist(x1, y1, x2, y2);
-      this.ThirdSide = Dist(x, y, x2, y2);
+      this.FirstSide = Shape.Distance(x, y, x1, y1);
+      this.SecondSide = Shape.Distance(x1, y1, x2, y2);
+      this.ThirdSide = Shape.Distance(x, y, x2, y2);
     }
 
-    /// <summary>
-    /// Периметр.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Perimeter => this.FirstSide + this.SecondSide + this.ThirdSide;
 
-    /// <summary>
-    /// Площадь.
-    /// </summary>
+    /// <inheritdoc/>
     public override double Area
     {
       get
@@ -51,9 +47,7 @@ namespace Task_3
       }
     }
 
-    /// <summary>
-    /// ToString.
-    /// </summary>
+    /// <inheritdoc/>
     public override string ToString()
     {
       return "Треугольник со сторонами: " + this.FirstSide + this.SecondSide + this.ThirdSide;
