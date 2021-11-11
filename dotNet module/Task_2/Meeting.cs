@@ -2,18 +2,41 @@
 
 namespace Task_2
 {
+  /// <summary>
+  /// Встреча.
+  /// </summary>
   public class Meeting
   {
-    private DateTime startMeeting, endMeeting;
-    public Meeting() { }
+    private DateTime startMeeting;
+    private DateTime endMeeting;
 
+    /// <summary>
+    /// Встреча.
+    /// </summary>
+    /// <param name="startMeeting">Начало встречи.</param>
+    /// <param name="endMeeting">Конец встречи.</param>
     public Meeting(DateTime startMeeting, DateTime endMeeting)
     {
-      StartMeeting = startMeeting;
-      EndMeeting = endMeeting;
+      this.startMeeting = startMeeting;
+      this.endMeeting = endMeeting;
     }
 
-    public virtual DateTime StartMeeting { get; set; }
+    /// <summary>
+    /// Начало встречи.
+    /// </summary>
+    public virtual DateTime StartMeeting
+    {
+      get => this.startMeeting;
+      set
+      {
+        if (value < this.endMeeting)
+          this.startMeeting = value;
+      }
+    }
+
+    /// <summary>
+    /// Конец встречи.
+    /// </summary>
     public virtual DateTime EndMeeting 
     { 
       get => this.endMeeting;
@@ -23,11 +46,16 @@ namespace Task_2
           this.endMeeting = value;
       }
     }
+
+    /// <summary>
+    /// Продолжительность.
+    /// </summary>
     public virtual TimeSpan Duration => this.endMeeting.Subtract(this.startMeeting);
 
+    /// <inheritdoc/>
     public override string ToString()
     {
-      return "Начало встречи: " + StartMeeting + "\nОкончание встречи: " + EndMeeting + "\nПродолжительность встречи: " + Duration;
+      return "Начало встречи: " + this.StartMeeting + "\nОкончание встречи: " + this.EndMeeting + "\nПродолжительность встречи: " + this.Duration;
     }
   }
 

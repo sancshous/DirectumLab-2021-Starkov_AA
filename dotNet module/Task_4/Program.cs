@@ -5,130 +5,45 @@ using Task_2;
 
 namespace Task_4
 {
-
-  /// <summary>
-  /// Тип прав.
-  /// </summary>
-  [Flags, Serializable]
-  public enum AccessRights : byte
-  {
-    /// <summary>
-    /// Просмотр.
-    /// </summary>
-    View = 1,
-
-    /// <summary>
-    /// Выполнение.
-    /// </summary>
-    Run = 2,
-
-    /// <summary>
-    /// Добавление.
-    /// </summary>
-    Add = 4,
-
-    /// <summary>
-    /// Изменение.
-    /// </summary>
-    Edit = 8,
-
-    /// <summary>
-    /// Утверждение.
-    /// </summary>
-    Ratify = 16,
-
-    /// <summary>
-    /// Удаление.
-    /// </summary>
-    Delete = 32,
-
-    /// <summary>
-    /// Нет доступа.
-    /// </summary>
-    /// <remarks>
-    /// Этот флаг имеет максимальный приоритет.
-    /// Если он установлен, остальные флаги игнорируются 
-    /// </remarks>
-    AccessDenied = 64
-  }
-
   public class Program
   {
-    public static void ShowAccessRights(AccessRights accessRights)
-    {
-      switch (accessRights)
-      {
-        case AccessRights.View:
-          Console.WriteLine("У вас есть разрешения на: Просмотр");
-          break;
-        case AccessRights.Run:
-          Console.WriteLine("У вас есть разрешения на: Выполнение, Просмотр");
-          break;
-        case AccessRights.Add:
-          Console.WriteLine("У вас есть разрешения на: Добавление, Выполнение, Просмотр");
-          break;
-        case AccessRights.Edit:
-          Console.WriteLine("У вас есть разрешения на: Изменение, Добавление, Выполнение, Просмотр");
-          break;
-        case AccessRights.Ratify:
-          Console.WriteLine("У вас есть разрешения на: Утверждение, Изменение, Добавление, Выполнение, Просмотр");
-          break;
-        case AccessRights.Delete:
-          Console.WriteLine("У вас есть разрешения на: Удаление, Утверждение, Изменение, Добавление, Выполнение, Просмотр");
-          break;
-        case AccessRights.AccessDenied:
-          Console.WriteLine("У вас нет доступа.");
-          break;
-        default:
-          Console.WriteLine("Неизвестное наименование прав доступа! Попробуйте ввести другое.");
-          break;
-      }
-    }
-    public static string parseTable(DataSet dataset, string rowSeparator, string columnSeparator)
-    {
-      StringBuilder sb = new StringBuilder();
-
-      foreach (DataRow dr in dataset.Tables[0].Rows)
-      {
-        foreach (var cell in dr.ItemArray)
-        {
-          if (cell.Equals(dr.ItemArray[^1]))
-          {
-            sb.Append(cell);
-            sb.Append(columnSeparator);
-          }
-          else
-          {
-            sb.Append(cell);
-            sb.Append(rowSeparator);
-          }
-        }
-      }
-      string value = sb.ToString();
-      return value;
-    }
-
     public static void Main(string[] args)
     {
+      //Task_4. Задание 1.1
+      Console.WriteLine("Задание 1.1");
+      TypeMeet typeMeeting = TypeMeet.Сonference;
+      var startMeeting = DateTime.Now.AddMinutes(5);
+      var endMeeting = DateTime.Now.AddMinutes(15);
+      var meetWithType = new MeetWithTypeMeet(typeMeeting, startMeeting, endMeeting);
+      Console.WriteLine(meetWithType.ToString());
+
+      //Task_4. Задание 1.2
+      Console.WriteLine("Задание 1.2");
+      var startMeeting1 = DateTime.Now.AddMinutes(5);
+      //DateTime endMeeting1 = DateTime.Now.AddMinutes(15); //для проверки подстановки нормального значения и значения null ниже
+      DateTime? endMeeting1 = null;
+      var meetWithoutEnd = new MeetWithoutEnd(startMeeting1, endMeeting1);
+      Console.WriteLine(meetWithoutEnd.ToString());
+
       //Задание 2
       Console.WriteLine("Задание 2");
-      DataSet bookStore = new DataSet("BookStore");
-      DataTable booksTable = new DataTable("Books");
+      var bookStore = new DataSet("BookStore");
+      var booksTable = new DataTable("Books");
       // добавляем таблицу в dataset
       bookStore.Tables.Add(booksTable);
 
       // создаем столбцы для таблицы Books
-      DataColumn idColumn = new DataColumn("Id", Type.GetType("System.Int32"));
+      var idColumn = new DataColumn("Id", Type.GetType("System.Int32"));
       idColumn.Unique = true; // столбец будет иметь уникальное значение
       idColumn.AllowDBNull = false; // не может принимать null
       idColumn.AutoIncrement = true; // будет автоинкрементироваться
       idColumn.AutoIncrementSeed = 1; // начальное значение
       idColumn.AutoIncrementStep = 1; // приращении при добавлении новой строки
 
-      DataColumn nameColumn = new DataColumn("Name", Type.GetType("System.String"));
-      DataColumn priceColumn = new DataColumn("Price", Type.GetType("System.Decimal"));
+      var nameColumn = new DataColumn("Name", Type.GetType("System.String"));
+      var priceColumn = new DataColumn("Price", Type.GetType("System.Decimal"));
       priceColumn.DefaultValue = 100; // значение по умолчанию
-      DataColumn discountColumn = new DataColumn("Discount", Type.GetType("System.Decimal"));
+      var discountColumn = new DataColumn("Discount", Type.GetType("System.Decimal"));
       discountColumn.Expression = "Price * 0.2";
 
       booksTable.Columns.Add(idColumn);
@@ -151,11 +66,35 @@ namespace Task_4
           Console.Write("\t{0}", cell);
         Console.WriteLine();
       }
-      Console.WriteLine(parseTable(bookStore, "|", ";"));
+      Console.WriteLine(TableParser.Parse(bookStore, "|", ";"));
 
       //Задание 3
       Console.WriteLine("Задание 3");
-      ShowAccessRights(AccessRights.Edit);
+      ShowAccessRights.Show(AccessRights.Edit | AccessRights.Ratify);
+
+      //Задание 4
+      Console.WriteLine("Задание 4");
+      DateTime now = DateTime.Now;
+      Console.WriteLine("D: " + now.ToString("D"));
+      Console.WriteLine("d: " + now.ToString("d"));
+      Console.WriteLine("F: " + now.ToString("F"));
+      Console.WriteLine("f: {0:f}", now);
+      Console.WriteLine("G: {0:G}", now);
+      Console.WriteLine("g: {0:g}", now);
+      Console.WriteLine("M: {0:M}", now);
+      Console.WriteLine("O: {0:O}", now);
+      Console.WriteLine("o: {0:o}", now);
+      Console.WriteLine("R: {0:R}", now);
+      Console.WriteLine("s: {0:s}", now);
+      Console.WriteLine("T: {0:T}", now);
+      Console.WriteLine("t: {0:t}", now);
+      Console.WriteLine("U: {0:U}", now);
+      Console.WriteLine("u: {0:u}", now);
+      Console.WriteLine("Y: {0:Y}", now);
+
+      //Задание 5
+      using var logger = new Logger("log.txt");
+      logger.WriteString("Тестовый лог.");
     }
   }
 }
