@@ -5,59 +5,36 @@ using System.Text;
 namespace Task_3
 {
   /// <summary>
-  /// <para></para>
+  /// Кольцо.
   /// </summary>
   public class Ring : Circle
   {
     /// <summary>
-    /// радиус внешней окружности
+    /// Радиус внешней окружности.
     /// </summary>
     public double OutRadius { get; set; }
 
     /// <summary>
     /// Кольцо можно объявить в виде 3 точек:
-    /// центральной точки, любой точки на внешней окружности и любой точки на внутренней окружности
+    /// центральной точки, любой точки на внешней окружности и любой точки на внутренней окружности.
     /// </summary>
     public Ring(int x, int y, int x1, int y1, int x2, int y2) : base(x, y, x1, y1)
     {
-      this.Radius = Dist(x, y, x1, y1);
       this.OutRadius = Dist(x, y, x2, y2);
     }
 
     /// <summary>
-    /// <para></para>
+    /// Периметр.
     /// </summary>
-    public override double Perimeter
-    {
-      get 
-      {
-        return 2 * Math.PI * (this.OutRadius + this.Radius);
-      }
-
-      set
-      {
-        this.Perimeter = value; 
-      }
-    }
+    public override double Perimeter => 2 * Math.PI * (this.OutRadius + this.Radius);
 
     /// <summary>
-    /// <para></para>
+    /// Площадь.
     /// </summary>
-    public override double Area
-    {
-      get 
-      {
-        return Math.PI * (Math.Pow(this.OutRadius, 2) - Math.Pow(this.Radius, 2)); 
-      }
-
-      set 
-      {
-        this.Area = value; 
-      }
-    }
+    public override double Area => Math.PI * (Math.Pow(this.OutRadius, 2) - Math.Pow(this.Radius, 2));
 
     /// <summary>
-    /// <para></para>
+    /// ToString.
     /// </summary>
     public override string ToString()
     {

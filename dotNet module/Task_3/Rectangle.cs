@@ -5,22 +5,22 @@ using System.Text;
 namespace Task_3
 {
   /// <summary>
-  /// <para></para>
+  /// Прямоугольник.
   /// </summary>
   public class Rectangle : Shape
   {
     /// <summary>
-    /// <para></para>
+    /// Ширина.
     /// </summary>
     public double Width { get; set; }
 
     /// <summary>
-    /// <para></para>
+    /// Длина.
     /// </summary>
     public double Height { get; set; }
 
     /// <summary>
-    /// Прямоугольник можно объявить в виде 2 точек: начальная точка диагонали и конечная точка диагонали
+    /// Прямоугольник можно объявить в виде 2 точек: начальная точка диагонали и конечная точка диагонали.
     /// </summary>
     public Rectangle(int x, int y, int x1, int y1) : base(x, y)
     {
@@ -29,39 +29,17 @@ namespace Task_3
     }
 
     /// <summary>
-    /// <para></para>
+    /// Периметр.
     /// </summary>
-    public override double Perimeter
-    {
-      get 
-      {
-        return this.Width * 2 + this.Height * 2; 
-      }
-
-      set 
-      {
-        this.Perimeter = value; 
-      }
-    }
-
-/// <summary>
-/// <para></para>
-/// </summary>
-public override double Area
-    {
-      get 
-      {
-        return this.Width * this.Height; 
-      }
-
-      set 
-      { 
-        this.Area = value; 
-      }
-    }
+    public override double Perimeter => this.Width * 2 + this.Height * 2;
 
     /// <summary>
-    /// <para></para>
+    /// Площадь.
+    /// </summary>
+    public override double Area => this.Width * this.Height;
+
+    /// <summary>
+    /// ToString.
     /// </summary>
     public override string ToString()
     {

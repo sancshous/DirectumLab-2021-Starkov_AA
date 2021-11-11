@@ -5,27 +5,27 @@ using System.Text;
 namespace Task_3
 {
   /// <summary>
-  /// <para></para>
+  /// Треугольник.
   /// </summary>
   public class Triangle : Shape
   {
     /// <summary>
-    /// <para></para>
+    /// FirstSide.
     /// </summary>
     public double FirstSide { get; set; }
 
     /// <summary>
-    /// <para></para>
+    /// SecondSide.
     /// </summary>
     public double SecondSide { get; set; }
 
     /// <summary>
-    /// <para></para>
+    /// ThirdSide.
     /// </summary>
     public double ThirdSide { get; set; }
 
     /// <summary>
-    /// Треугольник можно объявить в виде 3 точек
+    /// Треугольник можно объявить в виде 3 точек.
     /// </summary>
     public Triangle(int x, int y, int x1, int y1, int x2, int y2) : base(x, y)
     {
@@ -35,23 +35,12 @@ namespace Task_3
     }
 
     /// <summary>
-    /// <para></para>
+    /// Периметр.
     /// </summary>
-    public override double Perimeter
-    {
-      get 
-      {
-        return this.FirstSide + this.SecondSide + this.ThirdSide;
-      }
-
-      set
-      {
-        this.Perimeter = value; 
-      }
-    }
+    public override double Perimeter => this.FirstSide + this.SecondSide + this.ThirdSide;
 
     /// <summary>
-    /// <para></para>
+    /// Площадь.
     /// </summary>
     public override double Area
     {
@@ -60,15 +49,10 @@ namespace Task_3
         double p = (this.FirstSide + this.SecondSide + this.ThirdSide) / 2;
         return Math.Sqrt(p * (p - this.FirstSide) * (p - this.SecondSide) * (p - this.ThirdSide));
       }
-
-      set 
-      {
-        this.Area = value; 
-      }
     }
 
     /// <summary>
-    /// <para></para>
+    /// ToString.
     /// </summary>
     public override string ToString()
     {

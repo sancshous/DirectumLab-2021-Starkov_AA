@@ -5,33 +5,22 @@ using System.Text;
 namespace Task_3
 {
   /// <summary>
-  /// <para></para>
+  /// Круг.
   /// </summary>
   public class Round : Circle
   {
     /// <summary>
-    /// Круг это окружность с внутренней площадью, поэтому метод длины окружности не нужно переопределять
+    /// Круг это окружность с внутренней площадью, поэтому метод длины окружности не нужно переопределять.
     /// </summary>
     public Round(int x, int y, int x1, int y1) : base(x, y, x1, y1) { }
 
     /// <summary>
-    /// <para></para>
+    /// Площадь.
     /// </summary>
-    public override double Area
-    {
-      get 
-      {
-        return Math.PI * Math.Pow(this.Radius, 2); 
-      }
-
-      set 
-      {
-        this.Area = value;
-      }
-    }
+    public override double Area => Math.PI * Math.Pow(this.Radius, 2);
 
     /// <summary>
-    /// <para></para>
+    /// ToString.
     /// </summary>
     public override string ToString()
     {

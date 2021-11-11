@@ -5,40 +5,40 @@ using System.Text;
 namespace Task_3
 {
   /// <summary>
-  /// <para></para>
+  /// Фигура.
   /// </summary>
   public abstract class Shape
   {
     /// <summary>
-    /// <para></para>
+    /// Координата X.
     /// </summary>
     public int X { get; set; }
 
     /// <summary>
-    /// <para></para>
+    /// Координата Y.
     /// </summary>
     public int Y { get; set; }
 
     /// <summary>
-    /// <para></para>
+    /// Периметр.
     /// </summary>
-    public abstract double Perimeter { get; set; }
+    public abstract double Perimeter { get; }
 
     /// <summary>
-    /// <para></para>
+    /// Площадь.
     /// </summary>
-    public abstract double Area { get; set; }
+    public abstract double Area { get; }
 
     /// <summary>
-    /// <para></para>
+    /// Расстояние между двух точек.
     /// </summary>
-    public double Dist(int x, int y, int x1, int y1)
+    public static double Dist(int x, int y, int x1, int y1)
     {
       return Math.Sqrt(Math.Pow(x - x1, 2) + Math.Pow(y - y1, 2));
     }
 
     /// <summary>
-    /// <param></param>
+    /// Конструктор.
     /// </summary>
     public Shape(int x, int y)
     {
