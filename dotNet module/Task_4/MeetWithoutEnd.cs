@@ -60,7 +60,6 @@ namespace Task_4
     /// <param name="endMeeting">Конец встречи.</param>
     public MeetWithoutEnd(DateTime startMeeting, DateTime? endMeeting) : base(startMeeting, endMeeting ?? DateTime.MaxValue)
     {
-      this.StartMeeting = startMeeting;
       this.endMeeting = endMeeting;
     }
 
