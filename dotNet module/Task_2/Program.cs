@@ -6,12 +6,12 @@ namespace Task_2
   {
     public static void Main(string[] args)
     {
-      DateTime startMeeting = DateTime.Now.AddHours(5);
-      DateTime endMeeting = DateTime.Now.AddHours(8);
+      var startMeeting = DateTime.Now.AddHours(5);
+      var endMeeting = DateTime.Now.AddHours(8);
       var meeting = new Meeting(startMeeting, endMeeting);
-      Console.WriteLine($"Начало встречи: {meeting.StartMeeting} \nОкончание встречи: {meeting.EndMeeting} \nПродолжительность встречи: {meeting.Duration}");
+      Console.WriteLine(meeting.ToString());
 
-      var meetWithRemind = new MeetingWithRemind();
+      var meetWithRemind = new MeetingWithRemind(startMeeting, endMeeting);
       var remind = DateTime.Now.AddSeconds(10);
       meetWithRemind.Remind = remind;
       meetWithRemind.SetTimer();
