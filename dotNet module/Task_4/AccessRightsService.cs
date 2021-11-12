@@ -53,7 +53,7 @@ namespace Task_4
   /// <summary>
   /// Показать разрешенные права.
   /// </summary>
-  public class ShowAccessRights
+  public class AccessRightsService
   {
     /// <summary>
     /// Показать разрешенные права.

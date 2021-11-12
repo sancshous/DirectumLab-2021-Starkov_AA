@@ -8,7 +8,7 @@ namespace Task_4
   /// <summary>
   /// Тип встречи.
   /// </summary>
-  public enum TypeMeet
+  public enum MeetingType
   {
     /// <summary>
     /// Совещание. 
@@ -23,7 +23,7 @@ namespace Task_4
     /// <summary>
     /// Звонок.
     /// </summary>
-    Bell,
+    Call,
 
     /// <summary>
     /// День рождения.
@@ -36,28 +36,26 @@ namespace Task_4
   /// </summary>
   public class MeetWithTypeMeet : Meeting
   {
-    private TypeMeet meetType;
-
     /// <summary>
     /// Встреча с указанием типа встречи.
     /// </summary>
-    /// <param name="meetType">Тип встречи.</param>
+    /// <param name="type">Тип встречи.</param>
     /// <param name="startMeeting">Начало встречи.</param>
     /// <param name="endMeeting">Конец встречи.</param>
-    public MeetWithTypeMeet(TypeMeet meetType, DateTime startMeeting, DateTime endMeeting) : base(startMeeting, endMeeting)
+    public MeetWithTypeMeet(MeetingType type, DateTime startMeeting, DateTime endMeeting) : base(startMeeting, endMeeting)
     {
-      this.meetType = meetType;
+      this.Type = type;
     }
 
     /// <summary>
     /// Тип встречи.
     /// </summary>
-    public TypeMeet MeetType { get; set; }
+    public MeetingType Type { get; set; }
 
     /// <inheritdoc/>
     public override string ToString()
     {
-      return "Тип встречи: " + this.MeetType + "\nНачало встречи: " + this.StartMeeting + "\nОкончание встречи: " + this.EndMeeting + "\nПродолжительность встречи: " + this.Duration + "\n";
+      return "Тип встречи: " + this.Type + "\nНачало встречи: " + this.StartMeeting + "\nОкончание встречи: " + this.EndMeeting + "\nПродолжительность встречи: " + this.Duration + "\n";
     }
   }
 }

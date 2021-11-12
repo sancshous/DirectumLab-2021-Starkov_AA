@@ -11,7 +11,7 @@ namespace Task_4
     {
       //Task_4. Задание 1.1
       Console.WriteLine("Задание 1.1");
-      TypeMeet typeMeeting = TypeMeet.Сonference;
+      MeetingType typeMeeting = MeetingType.Сonference;
       var startMeeting = DateTime.Now.AddMinutes(5);
       var endMeeting = DateTime.Now.AddMinutes(15);
       var meetWithType = new MeetWithTypeMeet(typeMeeting, startMeeting, endMeeting);
@@ -70,7 +70,7 @@ namespace Task_4
 
       //Задание 3
       Console.WriteLine("Задание 3");
-      ShowAccessRights.Show(AccessRights.Edit | AccessRights.Ratify);
+      AccessRightsService.Show(AccessRights.Edit | AccessRights.Ratify);
 
       //Задание 4
       Console.WriteLine("Задание 4");

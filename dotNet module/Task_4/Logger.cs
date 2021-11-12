@@ -13,12 +13,12 @@ namespace Task_4
     /// <summary>
     /// Файллогов.
     /// </summary>
-    private FileStream logFile;
+    private readonly FileStream logFileStream;
 
     /// <summary>
     /// Писательвлог.
     /// </summary>
-    private StreamWriter logWriter;
+    private readonly StreamWriter logWriter;
 
     /// <summary>
     /// Создатьобъект.
@@ -26,15 +26,15 @@ namespace Task_4
     /// <param name="fileName">Имя файла логов.</param>
     public Logger(string fileName)
     {
-      this.logFile = new FileStream(fileName, FileMode.Append);
-      this.logWriter = new StreamWriter(this.logFile);
+      this.logFileStream = new FileStream(fileName, FileMode.Append);
+      this.logWriter = new StreamWriter(this.logFileStream);
     }
 
     /// <inheritdoc/>
     public void Dispose()
     {
       this.logWriter.Dispose();
-      this.logFile.Dispose();
+      this.logFileStream.Dispose();
     }
 
     /// <summary>

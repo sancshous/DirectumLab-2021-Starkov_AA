@@ -11,7 +11,6 @@ namespace Task_4
   public class MeetWithoutEnd : Meeting
   {
     private DateTime? endMeeting;
-    private DateTime startMeeting;
 
     /// <summary>
     /// EndMeeting.
@@ -31,12 +30,7 @@ namespace Task_4
 
       set
       {
-        if (value == null)
-        {
-          this.endMeeting = null;
-        }
-        else
-          this.endMeeting = value;
+        this.endMeeting = value;
       }
     }
 
@@ -66,17 +60,14 @@ namespace Task_4
     /// <param name="endMeeting">Конец встречи.</param>
     public MeetWithoutEnd(DateTime startMeeting, DateTime? endMeeting) : base(startMeeting, endMeeting ?? DateTime.MaxValue)
     {
-      this.startMeeting = startMeeting;
-      if (endMeeting.HasValue)
-        this.endMeeting = (DateTime)endMeeting;
-      else
-        this.endMeeting = endMeeting;
+      this.StartMeeting = startMeeting;
+      this.endMeeting = endMeeting;
     }
 
     /// <inheritdoc/>
     public override string ToString()
     {
-      return "Начало встречи: " + this.startMeeting + "\nОкончание встречи: " + this.EndMeeting + "\nПродолжительность встречи: " + this.Duration + "\n";
+      return "Начало встречи: " + this.StartMeeting + "\nОкончание встречи: " + this.EndMeeting + "\nПродолжительность встречи: " + this.Duration + "\n";
     }
   }
 }
