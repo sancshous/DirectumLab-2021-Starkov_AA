@@ -36,13 +36,23 @@ namespace Task_5
       return HashCode.Combine(this.Value);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Оператор сравнения обьектов класса StringValue.
+    /// </summary>
+    /// <param name="left">Обьект слева от равенства.</param>
+    /// <param name="right">Обьект справа от равенства.</param>
+    /// <returns>Возвращает true, если обьекты равны.</returns>
     public static bool operator ==(StringValue left, StringValue right)
     {
       return EqualityComparer<StringValue>.Default.Equals(left, right);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Оператор неравенства обьектов класса StringValue.
+    /// </summary>
+    /// <param name="left">Обьект слева от равенства.</param>
+    /// <param name="right">Обьект справа от равенства.</param>
+    /// <returns>Возвращает true, если обьекты не равны.</returns>
     public static bool operator !=(StringValue left, StringValue right)
     {
       return !(left == right);
