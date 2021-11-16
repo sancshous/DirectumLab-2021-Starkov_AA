@@ -7,10 +7,9 @@ namespace Task_6
   {
     static void Main(string[] args)
     {
-      string path = @"C:\Users\shura\Documents\GitHub\DirectumLab-2021-Starkov_AA\dotNet module\Task_6\log.txt";
-      var beginInterval = new DateTime(2018, 03, 01, 12, 00, 00);
-      var endInterval = new DateTime(2018, 04, 01, 12, 00, 00);
-      LogParser.LogParse(path, beginInterval, endInterval);
+      var beginInterval = new DateTime(2007, 12, 10, 12, 00, 00);
+      var endInterval = new DateTime(2007, 12, 16, 12, 00, 00);
+      Console.WriteLine("Количество записей: " + LogParser.LogParse("ClientConnectionLog.log", beginInterval, endInterval)); 
     }
   }
 }

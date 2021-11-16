@@ -17,7 +17,7 @@ namespace Task_6
     /// <param name="startDate">Начальная дата интервала.</param>
     /// <param name="endDate">Конечная дата интервала.</param>
     /// <returns>Возвращает true, если dateToCheck входит в интервал дат.</returns>
-    public static bool IsInRange(DateTime dateToCheck, DateTime startDate, DateTime endDate)
+    private static bool IsInRange(DateTime dateToCheck, DateTime startDate, DateTime endDate)
     {
       return dateToCheck >= startDate && dateToCheck < endDate;
     }
@@ -28,27 +28,37 @@ namespace Task_6
     /// <param name="path">Путь к текстовому файлу.</param>
     /// <param name="beginInterval">Начальная дата интервала.</param>
     /// <param name="endInterval">Конечная дата интервала.</param>
-    public static void LogParse (string path, DateTime beginInterval, DateTime endInterval)
+    /// ///<remarks>Можно увидеть выходные записи, раскоментировав строку кода 52.</remarks>
+    public static int LogParse(string path, DateTime beginInterval, DateTime endInterval)
     {
+      int count = 0;
       try
       {
-        using var sr = new StreamReader(path, System.Text.Encoding.Default);
+        using var reader = new StreamReader(path, System.Text.Encoding.Default);
+        DateTime parseDateTime;
         string line;
-        char separator = '-';
+        char separator = '\t';
         int indexOfSep;
         string parsedString;
-        while ((line = sr.ReadLine()) != null)
+        reader.ReadLine();
+        while ((line = reader.ReadLine()) != null)
         {
           indexOfSep = line.IndexOf(separator);
           parsedString = line[..indexOfSep];
-          if (IsInRange(DateTime.Parse(parsedString), beginInterval, endInterval))
-            Console.WriteLine(line);
+          if (DateTime.TryParse(parsedString, out parseDateTime))
+            if (IsInRange(parseDateTime, beginInterval, endInterval))
+            {
+              //Console.WriteLine(line);
+              count++;
+            }
         }
       }
       catch (Exception e)
       {
         Console.WriteLine(e.Message);
       }
+
+      return count;
     }
   }
 }
