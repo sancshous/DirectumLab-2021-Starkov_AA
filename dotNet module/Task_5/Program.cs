@@ -7,13 +7,15 @@ namespace Task_5
   {
     public static void Main(string[] args)
     {
-      //Задание 1
+      // Задание 1
       Console.WriteLine(new StringValue("AAA").Equals(new StringValue("AAA")));
-      //Задание 2
+
+      // Задание 2
       Console.WriteLine(new StringValue("AAA") == (new StringValue("AAA")));
 
-      //Задание 3
-      var twoComplexes = new ArrayList() { 
+      // Задание 3
+      var twoComplexes = new ArrayList() 
+      { 
         new Complex() { Re = 3, Im = 5 }, 
         new Complex() { Re = 2, Im = 2 } 
       };
