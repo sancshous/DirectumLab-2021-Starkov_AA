@@ -28,14 +28,12 @@ namespace Task_6
     /// <param name="path">Путь к текстовому файлу.</param>
     /// <param name="beginInterval">Начальная дата интервала.</param>
     /// <param name="endInterval">Конечная дата интервала.</param>
-    /// ///<remarks>Можно увидеть выходные записи, раскоментировав строку кода 52.</remarks>
     public static int LogParse(string path, DateTime beginInterval, DateTime endInterval)
     {
       int count = 0;
       try
       {
         using var reader = new StreamReader(path, System.Text.Encoding.Default);
-        DateTime parseDateTime;
         string line;
         char separator = '\t';
         int indexOfSep;
@@ -45,12 +43,9 @@ namespace Task_6
         {
           indexOfSep = line.IndexOf(separator);
           parsedString = line[..indexOfSep];
-          if (DateTime.TryParse(parsedString, out parseDateTime))
+          if (DateTime.TryParse(parsedString, out var parseDateTime))
             if (IsInRange(parseDateTime, beginInterval, endInterval))
-            {
-              //Console.WriteLine(line);
               count++;
-            }
         }
       }
       catch (Exception e)
