@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
+using System;
 
 namespace Task_7
 {
@@ -9,34 +11,6 @@ namespace Task_7
     ///  Required designer variable.
     /// </summary>
     private System.ComponentModel.IContainer components = null;
-
-    /// <summary>
-    /// Создает обьект типа RichTextBox.
-    /// </summary>
-    /// <returns>Возвращает обьект типа RichTextBox.</returns>
-    public RichTextBox CreateRichTextBox()
-    {
-      var richTextBox1 = new RichTextBox();
-      richTextBox1.Dock = DockStyle.Fill;
-      this.Controls.Add(richTextBox1);
-      return richTextBox1;
-    }
-
-    /// <summary>
-    /// Загружает данные из текстового файла, сжатого по методу GZIP, в RichTextBox.
-    /// </summary>
-    /// <param name="filename">Текстовый файл, сжатый по методу GZIP.</param>
-    /// <param name="edit">Обьект типа RichTextBox.</param>
-    public void LoadGZippedText(string filename, RichTextBox edit)
-    {
-      using (var sourceStream = new System.IO.FileStream(filename,
-              System.IO.FileMode.Open, System.IO.FileAccess.Read,
-              System.IO.FileShare.Read))
-      using (var uncompressedStream = new System.IO.Compression.GZipStream(
-              sourceStream, System.IO.Compression.CompressionMode.Decompress, true))
-      using (var textReader = new System.IO.StreamReader(uncompressedStream, true))
-        edit.Rtf = textReader.ReadToEnd();
-    }
 
     /// <summary>
     ///  Clean up any resources being used.
