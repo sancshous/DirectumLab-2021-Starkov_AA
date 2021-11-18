@@ -47,8 +47,8 @@ namespace Task_7
     /// </summary>
     public Form1()
     {
-      InitializeComponent();
-      LoadGZippedText("q2.rtf.gz", CreateRichTextBox());
+      this.InitializeComponent();
+      this.LoadGZippedText("q2.rtf.gz", this.CreateRichTextBox());
     }
   }
 }
