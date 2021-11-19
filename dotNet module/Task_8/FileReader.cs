@@ -10,7 +10,7 @@ namespace Task_8
   /// A custom class that implements IEnumerable(T). When you implement IEnumerable(T),
   /// you must also implement IEnumerable and IEnumerator(T).
   /// </summary>
-  public class StreamReaderEnumerable : IEnumerable<string>
+  public class FileReader : IEnumerable<string>
   {
     private readonly string filePath;
 
@@ -18,7 +18,7 @@ namespace Task_8
     /// Конструктор StreamReaderEnumerable
     /// </summary>
     /// <param name="filePath">Путь файла.</param>
-    public StreamReaderEnumerable(string filePath)
+    public FileReader(string filePath)
     {
       this.filePath = filePath;
     }
@@ -29,7 +29,7 @@ namespace Task_8
     /// <returns>Возвращает new StreamReaderEnumerator.</returns>
     public IEnumerator<string> GetEnumerator()
     {
-      return new StreamReaderEnumerator(this.filePath);
+      return new FileReaderEnumerator(this.filePath);
     }
 
     /// <summary>

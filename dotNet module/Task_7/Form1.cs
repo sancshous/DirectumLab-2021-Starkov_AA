@@ -42,13 +42,13 @@ namespace Task_7
       }
       catch (FileNotFoundException ex)
       {
-        Console.WriteLine($"Error: {ex.Message}");
-        throw new LoadFileException(ex.Message);
+        MessageBox.Show($"Файл {ex.FileName} не найден.");
+        throw new LoadFileException("Файл не найден.");
       }
       catch (UnauthorizedAccessException ex)
-      { 
-        Console.WriteLine($"Error: {ex.Message}");
-        throw new LoadFileException(ex.Message);
+      {
+        MessageBox.Show("Error: " + ex.Message);
+        throw new LoadFileException("Недостаточно прав доступа.");
       }
     }
 

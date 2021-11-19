@@ -54,7 +54,7 @@ namespace Task_8
 
       // Task 8.4
       Console.WriteLine("Task_8.4");
-      foreach (var line in new StreamReaderEnumerable("ClientConnectionLog.log"))
+      foreach (var line in new FileReader("ClientConnectionLog.log"))
         Console.WriteLine(line);
     }
   }

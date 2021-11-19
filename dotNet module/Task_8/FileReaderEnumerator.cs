@@ -10,7 +10,7 @@ namespace Task_8
   /// which will walk through the contents of the file one line at a time.
   /// Implementing IEnumerator(T) requires that you implement IEnumerator and IDisposable.
   /// </summary>
-  public class StreamReaderEnumerator : IEnumerator<string>
+  public class FileReaderEnumerator : IEnumerator<string>
   {
     private StreamReader reader;
     private string current;
@@ -20,7 +20,7 @@ namespace Task_8
     /// Конструктор StreamReaderEnumerator.
     /// </summary>
     /// <param name="filePath">Путь файла.</param>
-    public StreamReaderEnumerator(string filePath)
+    public FileReaderEnumerator(string filePath)
     {
       this.reader = new StreamReader(filePath);
     }
@@ -100,7 +100,7 @@ namespace Task_8
       this.disposedValue = true;
     }
 
-    ~StreamReaderEnumerator()
+    ~FileReaderEnumerator()
     {
       this.Dispose(disposing: false);
     }
