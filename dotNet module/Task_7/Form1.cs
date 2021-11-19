@@ -36,10 +36,23 @@ namespace Task_7
     /// <param name="textBox">Обьект типа RichTextBox.</param>
     public void LoadGZippedText(string filename, RichTextBox textBox)
     {
-      using (var sourceStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read)) 
-      using (var uncompressedStream = new GZipStream(sourceStream, CompressionMode.Decompress, true))
-      using (var textReader = new StreamReader(uncompressedStream, true))
-        textBox.Rtf = textReader.ReadToEnd();
+      try
+      {
+        using var sourceStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+          using var uncompressedStream = new GZipStream(sourceStream, CompressionMode.Decompress, true);
+            using var textReader = new StreamReader(uncompressedStream, true);
+              textBox.Rtf = textReader.ReadToEnd();
+      }
+      catch (FileNotFoundException ex)
+      {
+        MessageBox.Show($"Файл {ex.FileName} не найден.");
+        throw new LoadFileException("Файл не найден.");
+      }
+      catch (UnauthorizedAccessException ex)
+      {
+        MessageBox.Show("Error: " + ex.Message);
+        throw new LoadFileException("Недостаточно прав доступа.");
+      }
     }
 
     /// <summary>

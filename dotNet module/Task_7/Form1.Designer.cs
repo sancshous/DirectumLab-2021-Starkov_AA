@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
+using System;
 
 namespace Task_7
 {
