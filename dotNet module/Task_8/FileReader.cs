@@ -15,7 +15,7 @@ namespace Task_8
     private readonly string filePath;
 
     /// <summary>
-    /// Конструктор StreamReaderEnumerable
+    /// Конструктор FileReaderEnumerator.
     /// </summary>
     /// <param name="filePath">Путь файла.</param>
     public FileReader(string filePath)
@@ -24,26 +24,21 @@ namespace Task_8
     }
 
     /// <summary>
-    /// Must implement GetEnumerator, which returns a new StreamReaderEnumerator.
+    /// Must implement GetEnumerator, which returns a new FileReaderEnumerator.
     /// </summary>
-    /// <returns>Возвращает new StreamReaderEnumerator.</returns>
+    /// <returns>Возвращает new FileReaderEnumerator.</returns>
     public IEnumerator<string> GetEnumerator()
     {
       return new FileReaderEnumerator(this.filePath);
     }
 
     /// <summary>
-    /// Must also implement IEnumerable.GetEnumerator, but implement as a private method.
+    /// Must also implement IEnumerable.GetEnumerator.
     /// </summary>
-    /// <returns>Возвращает new StreamReaderEnumerator.</returns>
-    private IEnumerator GetEnumerator1()
-    {
-      return this.GetEnumerator();
-    }
-
+    /// <returns>Возвращает new FileReaderEnumerator.</returns>
     IEnumerator IEnumerable.GetEnumerator()
     {
-      return this.GetEnumerator1();
+      return this.GetEnumerator();
     }
   }
 }

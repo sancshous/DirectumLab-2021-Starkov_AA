@@ -17,7 +17,7 @@ namespace Task_8
     private bool disposedValue = false;
 
     /// <summary>
-    /// Конструктор StreamReaderEnumerator.
+    /// Конструктор FileReaderEnumerator.
     /// </summary>
     /// <param name="filePath">Путь файла.</param>
     public FileReaderEnumerator(string filePath)
@@ -42,14 +42,9 @@ namespace Task_8
       }
     }
 
-    private object Current1
-    {
-      get { return this.Current; }
-    }
-
     object IEnumerator.Current
     {
-      get { return this.Current1; }
+      get { return this.Current; }
     }
 
 

@@ -12,7 +12,6 @@ namespace Task_7
   {
     public LoadFileException(string message) : base(message)
     {
-      MessageBox.Show(message);
     }
   }
 }
