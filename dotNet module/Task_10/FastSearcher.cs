@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,11 +68,14 @@ namespace Task_10
     /// <param name="collection">Коллекция.</param>
     /// <param name="comparator">Условие для отбора элементов.</param>
     /// <param name="resultList">Результирующая коллекция.</param>
-    public void Search<T>(IEnumerable<T> collection, Predicate<T> comparator, List<T> resultList)
+    public void Search<T>(IEnumerable<T> collection, Predicate<T> comparator, ConcurrentBag<T> resultList)
     {
       for (int i = 0; i < collection.Count(); i++)
-        if (comparator(collection.ElementAt(i)))
-          resultList.Add(collection.ElementAt(i));
+      {
+        var value = collection.ElementAt(i);
+        if (comparator(value))
+          resultList.Add(value);
+      }
     }
 
     /// <summary>
@@ -83,9 +87,9 @@ namespace Task_10
     public IEnumerable<T> SearchValues<T>(IEnumerable<T> collection, Predicate<T> comparator)
     {
       this.InitializeTasks(collection.Count());
-      var result = new List<T>();
+      var result = new ConcurrentBag<T>();
 
-      int taskSize = collection.Count() / this.tasks.Length; // Количество элементов на одном таске
+      int taskSize = collection.Count() / this.tasks.Length; // Количество элементов в одной задаче
       for (int i = 0; i < this.tasks.Length; i++)
       {
         var mediateColecction = collection.Skip(taskSize * i).Take(taskSize);
