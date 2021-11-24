@@ -27,6 +27,8 @@ namespace Task_10
       {
         if (value >= 1)
           this.maxParallelTasks = value;
+        else
+          throw new ArgumentException(value.ToString());
       }
     }
 
@@ -40,6 +42,8 @@ namespace Task_10
       {
         if (value >= 1)
           this.minCountValuesInTask = value;
+        else
+          throw new ArgumentException(value.ToString());
       }
     }
 
@@ -68,7 +72,7 @@ namespace Task_10
     /// <param name="collection">Коллекция.</param>
     /// <param name="comparator">Условие для отбора элементов.</param>
     /// <param name="resultList">Результирующая коллекция.</param>
-    public void Search<T>(IEnumerable<T> collection, Predicate<T> comparator, ConcurrentBag<T> resultList)
+    private void Search<T>(IEnumerable<T> collection, Predicate<T> comparator, ConcurrentBag<T> resultList)
     {
       for (int i = 0; i < collection.Count(); i++)
       {
@@ -92,8 +96,8 @@ namespace Task_10
       int taskSize = collection.Count() / this.tasks.Length; // Количество элементов в одной задаче
       for (int i = 0; i < this.tasks.Length; i++)
       {
-        var mediateColecction = collection.Skip(taskSize * i).Take(taskSize);
-        this.tasks[i] = Task.Factory.StartNew(() => this.Search(mediateColecction, comparator, result));
+        var mediateCollecction = collection.Skip(taskSize * i).Take(taskSize);
+        this.tasks[i] = Task.Factory.StartNew(() => this.Search(mediateCollecction, comparator, result));
       }
 
       Task.WaitAll(this.tasks);
