@@ -16,9 +16,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task_7", "Task_7\Task_7.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task_8", "Task_8\Task_8.csproj", "{F2CBDF36-2821-447F-8A4E-3EC5961B08AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_9", "Task_9\Task_9.csproj", "{13BBFD2D-78FA-41FA-B918-7BEE16D61903}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_10", "Task_10\Task_10.csproj", "{79DAB3FA-16ED-40A6-8828-83BBB9C0E9AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task_9", "Task_9\Task_9.csproj", "{13BBFD2D-78FA-41FA-B918-7BEE16D61903}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task_10", "Task_10\Task_10.csproj", "{79DAB3FA-16ED-40A6-8828-83BBB9C0E9AB}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_13", "Task_13\Task_13.csproj", "{312AB2CE-23BF-47CD-ADFA-29C59C73108F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalizedApp", "LocalizedApp\LocalizedApp.csproj", "{7A468D78-A86E-48F7-A952-0B73FB8AE14B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +70,10 @@ Global
 		{312AB2CE-23BF-47CD-ADFA-29C59C73108F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{312AB2CE-23BF-47CD-ADFA-29C59C73108F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{312AB2CE-23BF-47CD-ADFA-29C59C73108F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A468D78-A86E-48F7-A952-0B73FB8AE14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A468D78-A86E-48F7-A952-0B73FB8AE14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A468D78-A86E-48F7-A952-0B73FB8AE14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A468D78-A86E-48F7-A952-0B73FB8AE14B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
