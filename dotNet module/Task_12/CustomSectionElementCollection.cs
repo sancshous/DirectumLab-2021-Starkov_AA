@@ -11,7 +11,7 @@ namespace Task_12
 
     protected override object GetElementKey(ConfigurationElement element)
     {
-      return ((CustomSectionElement)(element)).SubSetting;
+      return ((CustomSectionElement)element).SubSetting;
     }
   }
 }

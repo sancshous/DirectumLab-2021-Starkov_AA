@@ -9,14 +9,14 @@ namespace Task_12
     /// <summary>
     /// Возвращает имена всех read-write свойств объекта и строковые представления значений свойств.
     /// </summary>
-    /// <param name="object1">Object.</param>
-    public static void ShowAllReadWriteProperties(object object1)
+    /// <param name="object">Object.</param>
+    public static void ShowAllReadWriteProperties(object @object)
     {
-      var myType = object1.GetType();
-      foreach (PropertyInfo property in myType.GetProperties())
+      var type = @object.GetType();
+      foreach (PropertyInfo property in type.GetProperties())
       {
         Console.WriteLine($"Свойство: {property.PropertyType} {property.Name}");
-        Console.WriteLine($"Гетеры : {property.GetGetMethod()} . Его значение: {property.GetValue(object1)}");
+        Console.WriteLine($"Гетеры : {property.GetGetMethod()} . Его значение: {property.GetValue(@object)}");
         Console.WriteLine($"Сетеры: {property.GetSetMethod()}\n");
       }
     }
@@ -26,9 +26,9 @@ namespace Task_12
     /// </summary>
     /// <param name="assemblyName">Имя сборки.</param>
     /// <param name="className">Имя класса.</param>
-    public static void ShowValuesReadProperties(string assemblyName, string className)
+    public static void ShowAllReadWriteProperties(string assemblyPath, string className)
     {
-      var myAssembly = Assembly.LoadFrom(assemblyName);
+      var myAssembly = Assembly.LoadFrom(assemblyPath);
       var myClass = myAssembly.GetType(className);
       object obj = Activator.CreateInstance(myClass);
 
@@ -38,11 +38,11 @@ namespace Task_12
     /// <summary>
     /// Показывает имена всех read-write свойств объекта, исключая свойства помеченные атрибутом Obsolete, принимая на вход имя сборки и имя класса.
     /// </summary>
-    /// <param name="assemblyName">Имя сборки.</param>
+    /// <param name="assemblyPath">Имя сборки.</param>
     /// <param name="className">Имя класса.</param>
-    public static void ShowNewestProperties(string assemblyName, string className)
+    public static void ShowNewestProperties(string assemblyPath, string className)
     {
-      var myAssembly = Assembly.LoadFrom(assemblyName);
+      var myAssembly = Assembly.LoadFrom(assemblyPath);
       var myClass = myAssembly.GetType(className);
       object obj = Activator.CreateInstance(myClass);
 

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestAssembly
 {
-    public class TestClass
+  public class TestClass
     {
     public int age;
     public string firstName;
@@ -19,9 +15,9 @@ namespace TestAssembly
 
     public TestClass()
     {
-      this.Age = 18;
-      this.FirstName = "Pasha";
-      this.LastName = "Petrov";
+      this.Age = 42;
+      this.FirstName = "Ivan";
+      this.LastName = "Ivanov";
     }
   }
 }
