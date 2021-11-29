@@ -24,7 +24,7 @@ namespace Task_12
     /// <summary>
     /// Показывает имена всех read-write свойств объекта и строковые представления значений свойств, принимая на вход имя сборки и имя класса.
     /// </summary>
-    /// <param name="assemblyName">Имя сборки.</param>
+    /// <param name="assemblyPath">Имя сборки.</param>
     /// <param name="className">Имя класса.</param>
     public static void ShowAllReadWriteProperties(string assemblyPath, string className)
     {
