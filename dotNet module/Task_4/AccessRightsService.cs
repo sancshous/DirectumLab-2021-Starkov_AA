@@ -59,12 +59,13 @@ namespace Task_4
     /// Показать разрешенные права.
     /// </summary>
     /// <param name="accessRights">Разрешенные права.</param>
-    public static void Show(AccessRights accessRights)
+    /// <returns>Возвращает строку содержащую список прав.</returns>
+    public static string GetAccessRightsInfo(AccessRights accessRights)
     {
       if (accessRights.HasFlag(AccessRights.AccessDenied))
-        Console.WriteLine("Доступ запрещен.");
+        return "Доступ запрещен.";
       else
-        Console.WriteLine("У вас есть права: " + accessRights);
+        return "У вас есть права: " + accessRights;
     }
   }
 }
