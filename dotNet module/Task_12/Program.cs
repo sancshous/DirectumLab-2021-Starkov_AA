@@ -12,19 +12,19 @@ namespace Task_12
       // Задание 1.
       Console.WriteLine("Задание 1");
       var testClass = new TestClass();
-      AssemblyTools.ShowAllReadWriteProperties(testClass);
+      Console.WriteLine(AssemblyTools.ShowAllReadWriteProperties(testClass)); 
       Console.ReadKey();
 
       // Задание 2.
       Console.WriteLine("Задание 2");
       var assemblyPath = "TestAssembly.dll";
       var className = "TestAssembly.TestClass";
-      AssemblyTools.ShowAllReadWriteProperties(assemblyPath, className);
+      Console.WriteLine(AssemblyTools.ShowAllReadWriteProperties(assemblyPath, className));
       Console.ReadKey();
 
       // Задание 3.
       Console.WriteLine("Задание 3");
-      AssemblyTools.ShowNewestProperties(assemblyPath, className);
+      Console.WriteLine(AssemblyTools.ShowNewestProperties(assemblyPath, className));
       Console.ReadKey();
 
       // Задание 4.
@@ -47,7 +47,7 @@ namespace Task_12
       // Задание 5.
       Console.WriteLine("Задание 5");
       assemblyPath = Path.GetFullPath(@".\TestAssembly_1.dll");
-      AssemblyTools.ShowAllReadWriteProperties(assemblyPath, className);
+      Console.WriteLine(AssemblyTools.ShowAllReadWriteProperties(assemblyPath, className));
       Console.ReadKey();
     }
   }
