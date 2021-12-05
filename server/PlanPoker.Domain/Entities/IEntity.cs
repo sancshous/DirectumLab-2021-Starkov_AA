@@ -1,9 +1,15 @@
-﻿using System;
+using System;
 
 namespace PlanPoker.Domain.Entities
 {
+  /// <summary>
+  /// Сущность.
+  /// </summary>
   public interface IEntity
   {
-    Guid Id { get; }
+    /// <summary>
+    /// Id сущности.
+    /// </summary>
+    Guid Id { get; set; }
   }
 }

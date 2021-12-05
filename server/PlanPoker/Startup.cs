@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PlanPoker.Domain.Contexts;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Repositories;
 using PlanPoker.Domain.Services;
@@ -30,8 +32,11 @@ namespace PlanPoker
       });
 
       services
-        .AddSingleton<IRepository<ExampleEntity>, ExampleRepository>()
-        .AddTransient<ExampleService>();
+        .AddSingleton<IRepository<User>, UserRepository>()
+        .AddTransient<UserService>();
+      services.AddDbContext<CardContext>(opt => opt.UseInMemoryDatabase(databaseName: "Cards"));
+
+      services.AddMvc();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

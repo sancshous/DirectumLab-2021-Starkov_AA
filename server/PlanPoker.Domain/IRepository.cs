@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using PlanPoker.Domain.Entities;
 
@@ -6,12 +6,12 @@ namespace PlanPoker.Domain.Repositories
 {
   public interface IRepository<T> where T : IEntity
   {
-    T Save(T entity);
+    public void Save(T element);
 
-    T Get(Guid id);
+    public T Get(Guid id);
 
-    IQueryable<T> GetAll();
+    public IQueryable<T> GetAll();
 
-    T Delete(Guid id);
+    public void Delete(Guid id);
   }
 }

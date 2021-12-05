@@ -1,20 +1,22 @@
-﻿using System;
+using System;
+using System.Linq;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Repositories;
 
 namespace PlanPoker.Domain.Services
 {
-  public class ExampleService
+  public class UserService
   {
-    private readonly IRepository<ExampleEntity> exampleRepository;
+    private readonly IRepository<User> userRepository;
 
-    public ExampleService(IRepository<ExampleEntity> exampleRepository)
+    public UserService(IRepository<User> exampleRepository)
     {
-      this.exampleRepository = exampleRepository;
+      this.userRepository = exampleRepository;
     }
 
     public int TestMethod(int num)
     {
+      //this.userRepository.GetAll().Where
       return num;
     }
 
