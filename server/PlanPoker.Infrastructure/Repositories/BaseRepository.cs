@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using PlanPoker.Domain.Contexts;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Repositories;
+using PlanPoker.Infrastructure.Contexts;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
@@ -21,9 +21,15 @@ namespace PlanPoker.Infrastructure.Repositories
       this.Db.SaveChanges();
     }
 
-    public T Get(Guid id) => this.Db.Elements.Find(id);
+    public T Get(Guid id)
+    {
+      return this.Db.Elements.Find(id);
+    }
 
-    public IQueryable<T> GetAll() => this.Db.Elements;
+    public IQueryable<T> GetAll()
+    {
+      return this.Db.Elements;
+    }
 
     public void Delete(Guid id)
     {

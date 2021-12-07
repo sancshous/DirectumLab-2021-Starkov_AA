@@ -1,28 +1,34 @@
 using System;
 using System.Linq;
 using PlanPoker.Domain.Entities;
-using PlanPoker.Domain.Repositories;
 
 namespace PlanPoker.Domain.Services
 {
   public class UserService
   {
-    private readonly IRepository<User> userRepository;
+    private readonly UserRepository repository;
 
-    public UserService(IRepository<User> exampleRepository)
+    public UserService(UserRepository repository)
     {
-      this.userRepository = exampleRepository;
+      this.repository = repository;
     }
 
-    public int TestMethod(int num)
+    public User Create(string name)
     {
-      //this.userRepository.GetAll().Where
-      return num;
+      var token = Guid.NewGuid().ToString();
+      var id = Guid.NewGuid();
+      this.repository.Create(id, name);
+      return this.repository.Get(id);
     }
 
-    public int ThrowException(int id)
+    public User Get(Guid id)
     {
-      throw new Exception($"Exception throwed {id}");
+      return this.repository.Get(id);
+    } 
+
+    public IQueryable<User> GetPlayers()
+    {
+      return this.repository.GetAll();
     }
   }
 }

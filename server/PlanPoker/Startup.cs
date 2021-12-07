@@ -5,11 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PlanPoker.Domain.Entities;
-using PlanPoker.Domain.Repositories;
-using PlanPoker.Domain.Services;
 using PlanPoker.Infrastructure.Contexts;
 using PlanPoker.Infrastructure.Repositories;
+using PlanPoker.Services;
 
 namespace PlanPoker
 {
@@ -32,11 +30,12 @@ namespace PlanPoker
       });
 
       services
-        .AddSingleton<IRepository<User>, UserRepository>()
-        .AddTransient<UserService>();
-      services.AddDbContext<CardContext>(opt => opt.UseInMemoryDatabase(databaseName: "Cards"));
+        .AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("Users"))
 
-      services.AddMvc();
+        .AddTransient<UserRepository>()
+        .AddTransient<UserService>()
+
+        .AddEntityFrameworkInMemoryDatabase();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
