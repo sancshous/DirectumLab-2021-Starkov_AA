@@ -9,13 +9,8 @@ namespace PlanPoker.Domain.Entities
   /// <summary>
   /// Оценка.
   /// </summary>
-  public class Vote : IEntity
+  public class Vote : Entity
   {
-    /// <summary>
-    /// Id оценки.
-    /// </summary>
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Id карты.
     /// </summary>

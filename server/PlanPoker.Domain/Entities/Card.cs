@@ -5,13 +5,8 @@ namespace PlanPoker.Domain.Entities
   /// <summary>
   /// Карта колоды(Числа Фиббоначи).
   /// </summary>
-  public class Card : IEntity
+  public class Card : Entity
   {
-    /// <summary>
-    /// Id карты.
-    /// </summary>
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Значение карты.
     /// </summary>
@@ -20,18 +15,18 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Нечисловое значение карты. Например: "?".
     /// </summary>
-    public string NotNumeric { get; set; }
+    public string Title { get; set; }
 
     /// <summary>
     /// Конструктор.
     /// </summary>
     /// <param name="id">Id карты.</param>
     /// <param name="value">Значение карты.</param>
-    public Card(Guid id, int? @value, string notNumeric)
+    public Card(Guid id, int? @value, string title)
     {
       this.Id = id;
       this.Value = @value;
-      this.NotNumeric = notNumeric;
+      this.Title = title;
     }
   }
 }

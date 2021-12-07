@@ -5,13 +5,8 @@ namespace PlanPoker.Domain.Entities
   /// <summary>
   /// Участник планирования.
   /// </summary>
-  public class User : IEntity
+  public class User : Entity
   {
-    /// <summary>
-    /// Id участника.
-    /// </summary>
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Имя участника.
     /// </summary>

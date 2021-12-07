@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PlanPoker.Domain.Contexts;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Repositories;
 using PlanPoker.Domain.Services;
+using PlanPoker.Infrastructure.Contexts;
 using PlanPoker.Infrastructure.Repositories;
 
 namespace PlanPoker

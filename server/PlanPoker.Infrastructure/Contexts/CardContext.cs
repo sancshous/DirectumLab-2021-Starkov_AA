@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using PlanPoker.Domain.Entities;
 
-namespace PlanPoker.Domain.Contexts
+namespace PlanPoker.Infrastructure.Contexts
 {
   public class CardContext : ApiContext<Card>
   {
