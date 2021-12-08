@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace PlanPoker.Domain.Contexts
+namespace PlanPoker.Infrastructure.Contexts
 {
   public class ApiContext<T> : DbContext where T : class
   {

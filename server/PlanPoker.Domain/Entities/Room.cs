@@ -9,13 +9,8 @@ namespace PlanPoker.Domain.Entities
   /// <summary>
   /// Комната планирования.
   /// </summary>
-  public class Room : IEntity
+  public class Room : Entity
   {
-    /// <summary>
-    /// Id комнаты.
-    /// </summary>
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Название комнаты.
     /// </summary>

@@ -9,13 +9,8 @@ namespace PlanPoker.Domain.Entities
   /// <summary>
   /// Обсуждение.
   /// </summary>
-  public class Discussion : IEntity
+  public class Discussion : Entity
   {
-    /// <summary>
-    /// Id обсуждения.
-    /// </summary>
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Id комнаты.
     /// </summary>

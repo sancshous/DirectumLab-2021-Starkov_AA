@@ -1,5 +1,5 @@
-using PlanPoker.Domain.Contexts;
 using PlanPoker.Domain.Entities;
+using PlanPoker.Infrastructure.Contexts;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
