@@ -1,4 +1,7 @@
+using System;
+using PlanPoker.Domain;
 using PlanPoker.Domain.Entities;
+using PlanPoker.Infrastructure.Contexts;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
@@ -7,5 +10,8 @@ namespace PlanPoker.Infrastructure.Repositories
   /// </summary>
   public class UserRepository : BaseRepository<User>
   {
+    public UserRepository(UserContext context) : base(context)
+    {
+    }
   }
 }

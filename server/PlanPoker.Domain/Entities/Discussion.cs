@@ -9,13 +9,8 @@ namespace PlanPoker.Domain.Entities
   /// <summary>
   /// Обсуждение.
   /// </summary>
-  public class Discussion : IEntity
+  public class Discussion : Entity
   {
-    /// <summary>
-    /// Id обсуждения.
-    /// </summary>
-    public Guid Id { get; set; }
-
     /// <summary>
     /// Id комнаты.
     /// </summary>
@@ -47,9 +42,8 @@ namespace PlanPoker.Domain.Entities
     /// <param name="id">Id обсуждения.</param>
     /// <param name="roomId">Id комнаты.</param>
     /// <param name="title">Тема обсуждения.</param>
-    public Discussion(Guid id, Guid roomId, string title)
+    public Discussion(Guid id, Guid roomId, string title) : base(id)
     {
-      this.Id = id;
       this.RoomId = roomId;
       this.Title = title;
       this.Start = DateTime.Now;

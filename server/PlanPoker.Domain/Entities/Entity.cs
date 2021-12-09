@@ -2,14 +2,16 @@ using System;
 
 namespace PlanPoker.Domain.Entities
 {
-  /// <summary>
-  /// Сущность.
-  /// </summary>
-  public interface IEntity
+  public abstract class Entity : IEntity
   {
     /// <summary>
     /// Id сущности.
     /// </summary>
-    Guid Id { get; }
+    public Guid Id { get; }
+
+    public Entity(Guid id)
+    {
+      this.Id = id;
+    }
   }
 }

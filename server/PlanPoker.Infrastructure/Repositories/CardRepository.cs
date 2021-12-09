@@ -1,5 +1,5 @@
-using PlanPoker.Domain.Contexts;
 using PlanPoker.Domain.Entities;
+using PlanPoker.Infrastructure.Contexts;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
@@ -7,6 +7,7 @@ namespace PlanPoker.Infrastructure.Repositories
   {
     public CardRepository(CardContext context) : base(context)
     {
+      this.Db.SaveChanges();
     }
   }
 }
