@@ -23,9 +23,8 @@ namespace PlanPoker.Domain.Entities
     /// <param name="id">Id участника.</param>
     /// <param name="name">Имя участника.</param>
     /// <param name="token">Токен участника.</param>
-    public User(Guid id, string name, string token)
+    public User(Guid id, string name, string token) : base(id)
     {
-      this.Id = id;
       this.Name = name;
       this.Token = token;
     }

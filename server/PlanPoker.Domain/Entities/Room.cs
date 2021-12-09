@@ -32,9 +32,8 @@ namespace PlanPoker.Domain.Entities
     /// <param name="id">Id комнаты.</param>
     /// <param name="title">Название комнаты.</param>
     /// <param name="ownerId">Создатель комнаты.</param>
-    public Room(Guid id, string title, Guid ownerId)
+    public Room(Guid id, string title, Guid ownerId) : base(id)
     {
-      this.Id = id;
       this.Title = title;
       this.OwnerId = ownerId;
       this.Users = new List<Guid>();

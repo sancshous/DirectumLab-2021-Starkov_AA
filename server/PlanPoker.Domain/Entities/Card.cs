@@ -23,9 +23,8 @@ namespace PlanPoker.Domain.Entities
     /// <param name="id">Id карты.</param>
     /// <param name="value">Значение карты.</param>
     /// <param name="title">Нечисловове значение карты.</param>
-    public Card(Guid id, int? @value, string title)
+    public Card(Guid id, int? @value, string title) : base(id)
     {
-      this.Id = id;
       this.Value = @value;
       this.Title = title;
     }

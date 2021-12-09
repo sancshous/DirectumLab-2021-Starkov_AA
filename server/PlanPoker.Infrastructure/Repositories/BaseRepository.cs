@@ -17,9 +17,13 @@ namespace PlanPoker.Infrastructure.Repositories
       this.Db = context;
     }
 
-    public void Save(T element)
+    public void Create(T element)
     {
       this.Db.Elements.Add(element);
+    }
+
+    public void Save()
+    {
       this.Db.SaveChanges();
     }
 

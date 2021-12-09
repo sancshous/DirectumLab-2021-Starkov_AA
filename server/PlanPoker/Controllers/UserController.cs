@@ -26,14 +26,7 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public string GetToken(string id)
-    {
-      var guid = Guid.Parse(id.Replace(" ", string.Empty));
-      return this.service.GetToken(guid);
-    }
-
-    [HttpGet]
-    public IEnumerable<UserDTO> GetUsers()
+    public IEnumerable<UserDTO> GetUsers() // для теста, потом удалю
     {
       var users = this.service.GetUsers();
       return UserDTOBuilder.BuildList(users);

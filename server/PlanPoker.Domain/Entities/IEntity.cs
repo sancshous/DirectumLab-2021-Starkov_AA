@@ -10,6 +10,6 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Id сущности.
     /// </summary>
-    Guid Id { get; set; }
+    Guid Id { get; }
   }
 }

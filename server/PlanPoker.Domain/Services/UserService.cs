@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
 using PlanPoker.Domain.Entities;
+using PlanPoker.Domain.Repositories;
 
 namespace PlanPoker.Domain.Services
 {
   public class UserService
   {
-    private readonly IUserRepository repository;
+    private readonly IRepository<User> repository;
 
-    public UserService(IUserRepository repository)
+    public UserService(IRepository<User> repository)
     {
       this.repository = repository;
     }
@@ -16,8 +17,15 @@ namespace PlanPoker.Domain.Services
     public User Create(string name)
     {
       var id = Guid.NewGuid();
-      this.repository.Create(id, name, id.ToString());
-      return this.repository.Get(id);
+      var user = new User(id, name, id.ToString());
+      this.repository.Create(user);
+      this.repository.Save();
+      return user;
+    }
+
+    public void DeleteUser(Guid userId)
+    {
+      this.repository.Delete(userId);
     }
 
     public string GetToken(Guid id)
