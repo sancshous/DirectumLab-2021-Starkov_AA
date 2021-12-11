@@ -6,11 +6,9 @@ using PlanPoker.Infrastructure.Contexts;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
-  public class BaseRepository<T> : IRepository<T>, IDisposable where T : class, IEntity
+  public class BaseRepository<T> : IRepository<T> where T : class, IEntity
   {
     public ApiContext<T> Db { get; set; }
-
-    private bool disposed = false;
 
     public BaseRepository(ApiContext<T> context)
     {
@@ -19,6 +17,8 @@ namespace PlanPoker.Infrastructure.Repositories
 
     public void Create(T element)
     {
+      if (this.Db.Elements.Any(o => o.Id == element.Id))
+        this.Db.Elements.Remove(element);
       this.Db.Elements.Add(element);
     }
 
@@ -42,23 +42,6 @@ namespace PlanPoker.Infrastructure.Repositories
       T element = this.Db.Elements.Find(id);
       this.Db.Elements.Remove(element);
       this.Db.SaveChanges();
-    }
-
-    public virtual void Dispose(bool disposing)
-    {
-      if (!this.disposed)
-      {
-        if (disposing)
-          this.Db.Dispose();
-      }
-
-      this.disposed = true;
-    }
-
-    public void Dispose()
-    {
-      this.Dispose(true);
-      GC.SuppressFinalize(this);
     }
   }
 }

@@ -7,7 +7,7 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Id сущности.
     /// </summary>
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
 
     public Entity(Guid id)
     {
