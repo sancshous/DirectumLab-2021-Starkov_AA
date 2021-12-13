@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PlanPoker.Domain.Services;
 using PlanPoker.DTO;
@@ -22,10 +23,9 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public RoomDTO Create(string name, string ownerId)
+    public RoomDTO Create(string name, Guid ownerId)
     {
-      var ownerIdGuid = Guid.Parse(ownerId.Replace(" ", string.Empty));
-      var room = this.roomService.Create(name, ownerIdGuid);
+      var room = this.roomService.Create(name, ownerId);
       return RoomDTOBuilder.Build(room, this.userService);
     }
 
@@ -36,26 +36,22 @@ namespace PlanPoker.Controllers
     }
 
     [HttpPost]
-    public void AddUser(string roomId, string userId)
+    public void AddUser(Guid roomId, Guid userId)
     {
-      var roomGuid = Guid.Parse(roomId.Replace(" ", string.Empty));
-      var userGuid = Guid.Parse(userId.Replace(" ", string.Empty));
-      this.roomService.AddUser(roomGuid, userGuid);
+      this.roomService.AddUser(roomId, userId);
     }
 
     [HttpPost]
-    public void RemoveUser(string roomId, string userId)
+    public void RemoveUser(Guid roomId, Guid userId)
     {
-      var roomGuid = Guid.Parse(roomId.Replace(" ", string.Empty));
-      var userGuid = Guid.Parse(userId.Replace(" ", string.Empty));
-      this.roomService.RemoveUser(roomGuid, userGuid);
+      this.roomService.RemoveUser(roomId, userId);
     }
 
     [HttpGet]
-    public void GetUsers(string roomId)
+    public IEnumerable<UserDTO> GetUsers(Guid roomId)
     {
-      var roomGuid = Guid.Parse(roomId.Replace(" ", string.Empty));
-      this.roomService.GetUsers(roomGuid);
+      var users = this.roomService.GetUsers(roomId).Select(id => this.userService.GetUser(id));
+      return UserDTOBuilder.BuildList(users);
     }
 
     [HttpGet]

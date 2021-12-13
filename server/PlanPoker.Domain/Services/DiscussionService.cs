@@ -19,7 +19,7 @@ namespace PlanPoker.Domain.Services
     {
       var id = Guid.NewGuid();
       var discussion = new Discussion(id, roomId, title);
-      this.repository.Create(discussion);
+      this.repository.Add(discussion);
       this.repository.Save();
       return discussion;
     }
@@ -44,9 +44,9 @@ namespace PlanPoker.Domain.Services
       return this.repository.Get(id);
     }
 
-    public IQueryable<Discussion> GetDiscussions()
+    public IQueryable<Discussion> GetDiscussions(Guid roomId)
     {
-      return this.repository.GetAll();
+      return this.repository.GetAll().Where(discussion => discussion.RoomId == roomId);
     }
   }
 }

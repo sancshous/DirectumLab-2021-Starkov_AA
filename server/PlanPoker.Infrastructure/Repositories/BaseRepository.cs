@@ -15,10 +15,8 @@ namespace PlanPoker.Infrastructure.Repositories
       this.Db = context;
     }
 
-    public void Create(T element)
+    public void Add(T element)
     {
-      if (this.Db.Elements.Any(o => o.Id == element.Id))
-        this.Db.Elements.Remove(element);
       this.Db.Elements.Add(element);
     }
 
@@ -41,6 +39,13 @@ namespace PlanPoker.Infrastructure.Repositories
     {
       T element = this.Db.Elements.Find(id);
       this.Db.Elements.Remove(element);
+      this.Db.SaveChanges();
+    }
+
+    public void Delete(T element)
+    {
+      if (this.Db.Elements.Any(o => o.Id == element.Id))
+        this.Db.Elements.Remove(element);
       this.Db.SaveChanges();
     }
   }

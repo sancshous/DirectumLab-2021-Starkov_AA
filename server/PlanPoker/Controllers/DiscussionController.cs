@@ -26,41 +26,38 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public DiscussionDTO Create(string roomId, string title = "")
+    public DiscussionDTO Create(Guid roomId, string title = "")
     {
-      var roomGuid = Guid.Parse(roomId.Replace(" ", string.Empty));
-      var discussion = this.discussionService.Create(roomGuid, title);
+      var discussion = this.discussionService.Create(roomId, title);
       return DiscussionDTOBuilder.Build(discussion, this.voteService, this.cardService);
     }
 
     [HttpPost]
-    public void Close(string discussionId)
+    public void Close(Guid discussionId)
     {
-      var discussionGuid = Guid.Parse(discussionId.Replace(" ", string.Empty));
-      this.discussionService.Close(discussionGuid);
-    }
-
-    [HttpPost]
-    public void AddVote(string discussionId, string voteId)
-    {
-      var discussionGuid = Guid.Parse(discussionId.Replace(" ", string.Empty));
-      var voteGuid = Guid.Parse(voteId.Replace(" ", string.Empty));
-      this.discussionService.AddVote(discussionGuid, voteGuid);
+      this.discussionService.Close(discussionId);
     }
 
     [HttpGet]
-    public IEnumerable<VoteDTO> GetAllVotes(string discussionId)
+    public VoteDTO AddVote(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
     {
-      var discussionGuid = Guid.Parse(discussionId.Replace(" ", string.Empty));
-      var discussion = this.discussionService.GetDiscussion(discussionGuid);
+      var vote = this.voteService.Create(cardId, roomId, userId, discussionId);
+      this.discussionService.AddVote(discussionId, vote.Id);
+      return VoteDTOBuilder.Build(vote, this.cardService);
+    }
+
+    [HttpGet]
+    public IEnumerable<VoteDTO> GetAllVotes(Guid discussionId)
+    {
+      var discussion = this.discussionService.GetDiscussion(discussionId);
       var votes = discussion.Votes.Select(id => this.voteService.GetVote(id));
       return VoteDTOBuilder.BuildList(votes, this.cardService);
     }
 
     [HttpGet]
-    public IEnumerable<DiscussionDTO> GetDiscussionList()
+    public IEnumerable<DiscussionDTO> GetDiscussionList(Guid roomId)
     {
-      var discussions = this.discussionService.GetDiscussions();
+      var discussions = this.discussionService.GetDiscussions(roomId);
       return DiscussionDTOBuilder.BuildList(discussions, this.voteService, this.cardService);
     }
   }

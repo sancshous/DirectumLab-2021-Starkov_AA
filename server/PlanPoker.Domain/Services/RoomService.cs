@@ -19,10 +19,10 @@ namespace PlanPoker.Domain.Services
     {
       var id = Guid.NewGuid();
       var room = new Room(id, title, ownerId);
-      this.repository.Create(room);
+      this.repository.Add(room);
       this.AddUser(id, ownerId);
       this.repository.Save();
-      return this.repository.Get(id);
+      return room;
     }
 
     public void Delete(Guid roomId)
@@ -45,7 +45,12 @@ namespace PlanPoker.Domain.Services
       return this.repository.Get(roomId).Users;
     }
 
-    public IQueryable<Room> GetRooms()
+    public Room GetRoom(Guid id)
+    {
+      return this.repository.Get(id);
+    }
+
+    public IEnumerable<Room> GetRooms()
     {
       return this.repository.GetAll();
     }

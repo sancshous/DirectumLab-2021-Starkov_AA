@@ -18,7 +18,7 @@ namespace PlanPoker.Domain.Services
     {
       var id = Guid.NewGuid();
       var user = new User(id, name, id.ToString());
-      this.repository.Create(user);
+      this.repository.Add(user);
       this.repository.Save();
       return user;
     }
@@ -30,10 +30,10 @@ namespace PlanPoker.Domain.Services
 
     public string GetToken(Guid id)
     {
-      return this.Get(id).Token;
+      return this.GetUser(id).Token;
     }
 
-    public User Get(Guid id)
+    public User GetUser(Guid id)
     {
       return this.repository.Get(id);
     }

@@ -16,21 +16,24 @@ namespace PlanPoker.Domain.Services
 
     public Vote Create(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
     {
-      var id = Guid.NewGuid();
-      var vote = new Vote(id, cardId, roomId, userId, discussionId);
-      this.repository.Create(vote);
-      this.repository.Save();
-      return vote;
-    }
-
-    public void ChangeVote(Guid voteId, Guid cardId)
-    {
-      var discussionId = this.repository.Get(voteId).DiscussionId;
-      var userId = this.repository.Get(voteId).UserId;
-      var roomId = this.repository.Get(voteId).RoomId;
-      var vote = new Vote(voteId, cardId, roomId, userId, discussionId);
-      this.repository.Create(vote);
-      this.repository.Save();
+      var votes = this.GetVotes(discussionId).ToList();
+      if (votes.Any(vote => vote.UserId == userId) && votes.Any(vote => vote.CardId != cardId))
+      {
+        this.repository.Delete(votes.Find(vote => vote.UserId == userId));
+        var id = Guid.NewGuid();
+        var vote = new Vote(id, cardId, roomId, userId, discussionId);
+        this.repository.Add(vote);
+        this.repository.Save();
+        return vote;
+      }
+      else
+      {
+        var id = Guid.NewGuid();
+        var vote = new Vote(id, cardId, roomId, userId, discussionId);
+        this.repository.Add(vote);
+        this.repository.Save();
+        return vote;
+      }
     }
 
     public Vote GetVote(Guid id)
@@ -38,9 +41,9 @@ namespace PlanPoker.Domain.Services
       return this.repository.Get(id);
     }
 
-    public IQueryable<Vote> GetVotes()
+    public IQueryable<Vote> GetVotes(Guid discussionId)
     {
-      return this.repository.GetAll();
+      return this.repository.GetAll().Where(vote => vote.DiscussionId == discussionId);
     }
   }
 }
