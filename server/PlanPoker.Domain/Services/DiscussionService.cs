@@ -29,12 +29,12 @@ namespace PlanPoker.Domain.Services
       this.repository.Get(discussionId).End = DateTime.Now;
     }
 
-    public void AddVote(Guid discussionId, Guid voteId)
+    public void AddVote(Guid discussionId, Vote vote)
     {
-      this.repository.Get(discussionId).Votes.Add(voteId);
+      this.repository.Get(discussionId).Votes.Add(vote);
     }
 
-    public ICollection<Guid> GetVotes(Guid discussionId)
+    public ICollection<Vote> GetVotes(Guid discussionId)
     {
       return this.repository.Get(discussionId).Votes;
     }

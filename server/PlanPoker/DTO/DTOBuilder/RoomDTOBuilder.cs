@@ -9,7 +9,7 @@ namespace PlanPoker.DTO.DTOBuilder
   {
     public static RoomDTO Build(Room room, UserService userService)
     {
-      var users = UserDTOBuilder.BuildList(room.Users.Select(item => userService.GetUser(item)));
+      var users = UserDTOBuilder.BuildList(room.Users);
       return new RoomDTO()
       {
         Id = room.Id,

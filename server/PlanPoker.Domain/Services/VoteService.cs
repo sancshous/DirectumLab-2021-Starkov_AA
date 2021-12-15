@@ -17,7 +17,7 @@ namespace PlanPoker.Domain.Services
     public Vote Create(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
     {
       var votes = this.GetVotes(discussionId).ToList();
-      if (votes.Any(vote => vote.UserId == userId) && votes.Any(vote => vote.CardId != cardId))
+      if (votes.Any(vote => vote.UserId == userId))
       {
         this.repository.Delete(votes.Find(vote => vote.UserId == userId));
         var id = Guid.NewGuid();

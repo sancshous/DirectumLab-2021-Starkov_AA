@@ -10,9 +10,12 @@ namespace PlanPoker.Domain.Services
   {
     private readonly IRepository<Room> repository;
 
-    public RoomService(IRepository<Room> repository)
+    private readonly IRepository<User> userRepository;
+
+    public RoomService(IRepository<Room> repository, IRepository<User> userRepository)
     {
       this.repository = repository;
+      this.userRepository = userRepository;
     }
 
     public Room Create(string title, Guid ownerId)
@@ -30,17 +33,23 @@ namespace PlanPoker.Domain.Services
       this.repository.Delete(roomId);
     }
 
+    public User GetUser(Guid id)
+    {
+      return this.userRepository.Get(id);
+    }
+
     public void AddUser(Guid roomId, Guid userId)
     {
-      this.repository.Get(roomId).Users.Add(userId);
+      var user = this.GetUser(userId);
+      this.repository.Get(roomId).Users.Add(user);
     }
 
-    public void RemoveUser(Guid roomId, Guid userId)
+    public void RemoveUser(Guid roomId, User user)
     {
-      this.repository.Get(roomId).Users.Remove(userId);
+      this.repository.Get(roomId).Users.Remove(user);
     }
 
-    public ICollection<Guid> GetUsers(Guid roomId)
+    public ICollection<User> GetUsers(Guid roomId)
     {
       return this.repository.Get(roomId).Users;
     }

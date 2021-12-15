@@ -42,7 +42,7 @@ namespace PlanPoker.Controllers
     public VoteDTO AddVote(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
     {
       var vote = this.voteService.Create(cardId, roomId, userId, discussionId);
-      this.discussionService.AddVote(discussionId, vote.Id);
+      this.discussionService.AddVote(discussionId, vote);
       return VoteDTOBuilder.Build(vote, this.cardService);
     }
 
@@ -50,7 +50,7 @@ namespace PlanPoker.Controllers
     public IEnumerable<VoteDTO> GetAllVotes(Guid discussionId)
     {
       var discussion = this.discussionService.GetDiscussion(discussionId);
-      var votes = discussion.Votes.Select(id => this.voteService.GetVote(id));
+      var votes = discussion.Votes;
       return VoteDTOBuilder.BuildList(votes, this.cardService);
     }
 

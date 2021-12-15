@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Services;
 using PlanPoker.DTO;
 using PlanPoker.DTO.DTOBuilder;
@@ -42,15 +43,15 @@ namespace PlanPoker.Controllers
     }
 
     [HttpPost]
-    public void RemoveUser(Guid roomId, Guid userId)
+    public void RemoveUser(Guid roomId, User user)
     {
-      this.roomService.RemoveUser(roomId, userId);
+      this.roomService.RemoveUser(roomId, user);
     }
 
     [HttpGet]
     public IEnumerable<UserDTO> GetUsers(Guid roomId)
     {
-      var users = this.roomService.GetUsers(roomId).Select(id => this.userService.GetUser(id));
+      var users = this.roomService.GetUsers(roomId);
       return UserDTOBuilder.BuildList(users);
     }
 

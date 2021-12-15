@@ -31,7 +31,7 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Id голосований из обсуждения.
     /// </summary>
-    public ICollection<Guid> Votes { get; }
+    public ICollection<Vote> Votes { get; }
 
     /// <summary>
     /// Конструктор.
@@ -45,7 +45,7 @@ namespace PlanPoker.Domain.Entities
       this.Title = title;
       this.Start = DateTime.Now;
       // Время конца?
-      this.Votes = new List<Guid>();
+      this.Votes = new List<Vote>();
     }
   }
 }
