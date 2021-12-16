@@ -15,19 +15,23 @@ namespace PlanPoker.Controllers
   {
     private readonly RoomService roomService;
 
-    private readonly UserService userService;
+    private readonly DiscussionService discussionService;
 
-    public RoomController(RoomService roomService, UserService userService)
+    private readonly CardService cardService;
+
+    public RoomController(RoomService roomService, DiscussionService discussionService, CardService cardService)
     {
       this.roomService = roomService;
-      this.userService = userService;
+      this.discussionService = discussionService;
+      this.cardService = cardService;
     }
 
     [HttpGet]
     public RoomDTO Create(string name, Guid ownerId)
     {
       var room = this.roomService.Create(name, ownerId);
-      return RoomDTOBuilder.Build(room, this.userService);
+      var discussions = this.discussionService.GetDiscussions(room.Id);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService);
     }
 
     [HttpPost]
@@ -43,9 +47,9 @@ namespace PlanPoker.Controllers
     }
 
     [HttpPost]
-    public void RemoveUser(Guid roomId, User user)
+    public void RemoveUser(Guid roomId, Guid userId)
     {
-      this.roomService.RemoveUser(roomId, user);
+      this.roomService.RemoveUser(roomId, userId);
     }
 
     [HttpGet]
@@ -56,10 +60,11 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<RoomDTO> GetRooms()
+    public IEnumerable<RoomDTO> GetRooms(Guid roomId) // здесь roomId нужен чтоб получить все обсуждения одной комнаты
     {
       var rooms = this.roomService.GetRooms();
-      return RoomDTOBuilder.BuildList(rooms, this.userService);
+      var discussions = this.discussionService.GetDiscussions(roomId);
+      return RoomDTOBuilder.BuildList(rooms, discussions, this.cardService);
     }
   }
 }

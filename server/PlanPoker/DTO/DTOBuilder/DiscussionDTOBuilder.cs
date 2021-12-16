@@ -7,23 +7,24 @@ namespace PlanPoker.DTO.DTOBuilder
 {
   public static class DiscussionDTOBuilder
   {
-    public static DiscussionDTO Build(Discussion discussion, VoteService voteService, CardService cardService)
+    public static DiscussionDTO Build(Discussion discussion, CardService cardService)
     {
       var votes = VoteDTOBuilder.BuildList(discussion.Votes, cardService);
       return new DiscussionDTO()
       {
         Id = discussion.Id,
-        RoomID = discussion.RoomId,
         Title = discussion.Title,
+        RoomID = discussion.RoomId,
         Start = discussion.Start,
         End = discussion.End,
-        Votes = votes
+        Votes = votes,
+        AverageVote = discussion.AverageVote
       };
     }
 
-    public static IEnumerable<DiscussionDTO> BuildList(IEnumerable<Discussion> discussions, VoteService voteService, CardService cardService)
+    public static IEnumerable<DiscussionDTO> BuildList(IEnumerable<Discussion> discussions, CardService cardService)
     {
-      return discussions.Select(discussion => Build(discussion, voteService, cardService));
+      return discussions.Select(discussion => Build(discussion, cardService));
     }
   }
 }

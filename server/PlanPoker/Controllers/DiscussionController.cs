@@ -29,7 +29,7 @@ namespace PlanPoker.Controllers
     public DiscussionDTO Create(Guid roomId, string title = "")
     {
       var discussion = this.discussionService.Create(roomId, title);
-      return DiscussionDTOBuilder.Build(discussion, this.voteService, this.cardService);
+      return DiscussionDTOBuilder.Build(discussion, this.cardService);
     }
 
     [HttpPost]
@@ -47,18 +47,10 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<VoteDTO> GetAllVotes(Guid discussionId)
-    {
-      var discussion = this.discussionService.GetDiscussion(discussionId);
-      var votes = discussion.Votes;
-      return VoteDTOBuilder.BuildList(votes, this.cardService);
-    }
-
-    [HttpGet]
     public IEnumerable<DiscussionDTO> GetDiscussionList(Guid roomId)
     {
       var discussions = this.discussionService.GetDiscussions(roomId);
-      return DiscussionDTOBuilder.BuildList(discussions, this.voteService, this.cardService);
+      return DiscussionDTOBuilder.BuildList(discussions, this.cardService);
     }
   }
 }

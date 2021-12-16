@@ -16,5 +16,7 @@ namespace PlanPoker.DTO
     public DateTime? End { get; set; }
 
     public IEnumerable<VoteDTO> Votes { get; set; }
+
+    public double? AverageVote { get; set; }
   }
 }

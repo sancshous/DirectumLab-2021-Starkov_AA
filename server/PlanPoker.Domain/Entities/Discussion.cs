@@ -33,6 +33,8 @@ namespace PlanPoker.Domain.Entities
     /// </summary>
     public ICollection<Vote> Votes { get; }
 
+    public double? AverageVote { get; set; }
+
     /// <summary>
     /// Конструктор.
     /// </summary>
@@ -46,6 +48,7 @@ namespace PlanPoker.Domain.Entities
       this.Start = DateTime.Now;
       // Время конца?
       this.Votes = new List<Vote>();
+      this.AverageVote = 0;
     }
   }
 }

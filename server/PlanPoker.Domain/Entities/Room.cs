@@ -23,6 +23,8 @@ namespace PlanPoker.Domain.Entities
     /// </summary>
     public Guid OwnerId { get; set; }
 
+    public ICollection<Discussion> Discussions { get; set; }
+
     /// <summary>
     /// Конструктор.
     /// </summary>
@@ -34,6 +36,7 @@ namespace PlanPoker.Domain.Entities
       this.Title = title;
       this.OwnerId = ownerId;
       this.Users = new List<User>();
+      this.Discussions = new List<Discussion>();
     }
   }
 }

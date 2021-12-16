@@ -12,5 +12,7 @@ namespace PlanPoker.DTO
     public Guid OwnerId { get; set; }
 
     public IEnumerable<UserDTO> Users { get; set; }
+
+    public IEnumerable<DiscussionDTO> Discussions { get; set; }
   }
 }

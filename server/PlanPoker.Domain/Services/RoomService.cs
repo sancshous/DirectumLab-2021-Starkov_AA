@@ -1,20 +1,19 @@
-using PlanPoker.Domain.Entities;
-using PlanPoker.Domain.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using PlanPoker.Domain.Entities;
+using PlanPoker.Domain.Repositories;
 
 namespace PlanPoker.Domain.Services
 {
   public class RoomService
   {
-    private readonly IRepository<Room> repository;
+    private readonly IRepository<Room> roomRepository;
 
     private readonly IRepository<User> userRepository;
 
     public RoomService(IRepository<Room> repository, IRepository<User> userRepository)
     {
-      this.repository = repository;
+      this.roomRepository = repository;
       this.userRepository = userRepository;
     }
 
@@ -22,15 +21,15 @@ namespace PlanPoker.Domain.Services
     {
       var id = Guid.NewGuid();
       var room = new Room(id, title, ownerId);
-      this.repository.Add(room);
+      this.roomRepository.Add(room);
       this.AddUser(id, ownerId);
-      this.repository.Save();
       return room;
     }
 
     public void Delete(Guid roomId)
     {
-      this.repository.Delete(roomId);
+      this.roomRepository.Delete(roomId);
+      this.roomRepository.Save();
     }
 
     public User GetUser(Guid id)
@@ -41,27 +40,30 @@ namespace PlanPoker.Domain.Services
     public void AddUser(Guid roomId, Guid userId)
     {
       var user = this.GetUser(userId);
-      this.repository.Get(roomId).Users.Add(user);
+      this.roomRepository.Get(roomId).Users.Add(user);
+      this.roomRepository.Save();
     }
 
-    public void RemoveUser(Guid roomId, User user)
+    public void RemoveUser(Guid roomId, Guid userId)
     {
-      this.repository.Get(roomId).Users.Remove(user);
+      var user = this.GetUser(userId);
+      this.roomRepository.Get(roomId).Users.Remove(user);
+      this.roomRepository.Save();
     }
 
     public ICollection<User> GetUsers(Guid roomId)
     {
-      return this.repository.Get(roomId).Users;
+      return this.roomRepository.Get(roomId).Users;
     }
 
     public Room GetRoom(Guid id)
     {
-      return this.repository.Get(id);
+      return this.roomRepository.Get(id);
     }
 
     public IEnumerable<Room> GetRooms()
     {
-      return this.repository.GetAll();
+      return this.roomRepository.GetAll();
     }
   }
 }

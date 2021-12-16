@@ -10,9 +10,12 @@ namespace PlanPoker.Domain.Services
   {
     private readonly IRepository<Discussion> repository;
 
-    public DiscussionService(IRepository<Discussion> repository)
+    private readonly IRepository<Card> cardRepository;
+
+    public DiscussionService(IRepository<Discussion> repository, IRepository<Card> cardRepository)
     {
       this.repository = repository;
+      this.cardRepository = cardRepository;
     }
 
     public Discussion Create(Guid roomId, string title)
@@ -27,11 +30,24 @@ namespace PlanPoker.Domain.Services
     public void Close(Guid discussionId)
     {
       this.repository.Get(discussionId).End = DateTime.Now;
+      this.repository.Save();
+    }
+
+    public double? CalculateAverageVote(Guid discussionId)
+    {
+      var averageVote = this.repository.Get(discussionId).AverageVote;
+      var votes = this.GetVotes(discussionId);
+      foreach (var item in votes)
+      {
+        averageVote += this.cardRepository.Get(item.CardId).Value;
+      }
+      return averageVote;
     }
 
     public void AddVote(Guid discussionId, Vote vote)
     {
       this.repository.Get(discussionId).Votes.Add(vote);
+      this.repository.Save();
     }
 
     public ICollection<Vote> GetVotes(Guid discussionId)

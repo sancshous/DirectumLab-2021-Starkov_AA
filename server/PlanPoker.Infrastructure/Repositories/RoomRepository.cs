@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Infrastructure.Contexts;
+using System.Linq;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
@@ -8,8 +9,11 @@ namespace PlanPoker.Infrastructure.Repositories
   {
     public RoomRepository(RoomContext context) : base(context)
     {
-      context.Elements.Include(room => room.Users);
-      this.Save();
+    }
+
+    public override IQueryable<Room> GetAll()
+    {
+      return this.Context.Elements.Include(room => room.Users);
     }
   }
 }
