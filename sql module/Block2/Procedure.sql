@@ -1,9 +1,9 @@
 use Block2;
 
 go
-create procedure OrdersByCity
-  @city nvarchar(20)
+create procedure dbo.OrdersByCity
+  @City nvarchar(20)
 as
-select * from Orders
+select * from Orders join Sellers on (Orders.SellerId = Sellers.Id)
 where
-  SellerId in (select Id from Sellers where Id = SellerId and City = @city)
+  City = @City

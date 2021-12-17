@@ -1,7 +1,7 @@
 use Block2
 
 go
-create trigger OrdersDelete
+create trigger dbo.OrdersDelete
 on Orders
 after delete
 as
@@ -15,7 +15,7 @@ select
 from deleted
 
 go
-create trigger OrdersInsert
+create trigger dbo.OrdersInsert
 on Orders
 after insert
 as
@@ -29,7 +29,7 @@ select
 from inserted
 
 go
-create trigger OrdersUpdate
+create trigger dbo.OrdersUpdate
 on Orders
 after update
 as
@@ -43,18 +43,23 @@ select
 from inserted
 
 go
-create trigger OrdersCityInsert
+create trigger dbo.OrdersCityInsert
 on Orders
 after insert
 as
-delete Orders
-where
-  Id in (select Id from inserted)
-  and exists
-  (
-	select * from Customers, Sellers
-	where 
-	  Customers.Id = CustomerId
-	  and Sellers.Id = SellerId
-	  and Customers.City <> Sellers.City
-  );
+begin try
+  delete Orders
+  where
+    Id in (select Id from inserted)
+    and exists
+    (
+	  select * from Customers, Sellers
+	  where 
+	    Customers.Id = CustomerId
+	    and Sellers.Id = SellerId
+	    and Customers.City <> Sellers.City
+    );
+end try
+begin catch
+  Throw 11034, 'Failed to delete line.', 1;
+end catch

@@ -3,7 +3,7 @@
 go
 use Block2
 
-create table Customers
+create table dbo.Customers
 (
 	Id int identity primary key not null,
 	LastName nvarchar(20) not null,
@@ -12,7 +12,7 @@ create table Customers
 	City nvarchar(20) not null
 );
 
-create table Sellers
+create table dbo.Sellers
 (
 	Id int identity primary key not null,
 	LastName nvarchar(20) not null,
@@ -22,12 +22,12 @@ create table Sellers
 	CommissionPercent numeric(3, 0) not null
 );
 
-create table Orders
+create table dbo.Orders
 (
 	Id int identity primary key not null,
 	Summary nvarchar(1000) not null,
 
-	Amount numeric(18, 9) not null
+	Amount money not null
 		constraint CK_Order_Amount check(Amount > 0),
 
 	OrderDateTime datetime not null,
@@ -35,7 +35,7 @@ create table Orders
 	SellerId int not null references Sellers(Id)
 );
 
-create table OrdersHistory
+create table dbo.OrdersHistory
 (
 	Id int identity primary key not null,
 	OperationType nvarchar(50) not null,

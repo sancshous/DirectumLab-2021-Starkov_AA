@@ -1,12 +1,12 @@
 use Block2;
 
-insert into Sellers (LastName, FirstName, ThirdName, City, CommissionPercent)
+insert into dbo.Sellers (LastName, FirstName, ThirdName, City, CommissionPercent)
 values
 ('Petrov', 'Petr', 'Petrovich', 'Moscow', 10),
 ('Mamedov', 'Alexey', 'Sergeevich', 'Izhevsk', 8),
 ('Antonov', 'Anton', 'Antonovich', 'Piter', 5)
 
-insert into Customers (LastName, FirstName, ThirdName, City)
+insert into dbo.Customers (LastName, FirstName, ThirdName, City)
 values
 ('Starkov', 'Alexandr', 'Andreevich', 'Piter'),
 ('Ivanov', 'Ivan', 'Alekseevich', 'Izhevsk'),
@@ -14,7 +14,7 @@ values
 ('Lvov', 'Lev', 'Lvovich', 'Izhevsk'),
 ('Petrov', 'Petr', 'Petrovich', 'Moscow')
 
-insert into Orders (Summary, Amount, OrderDateTime, CustomerId, SellerId)
+insert into dbo.Orders (Summary, Amount, OrderDateTime, CustomerId, SellerId)
 values
 ('Summary#1', 2000, '2021-01-01T12:00:00', 1, 1),
 ('Summary#2', 1000, '2021-01-22T12:00:00', 3, 3),
