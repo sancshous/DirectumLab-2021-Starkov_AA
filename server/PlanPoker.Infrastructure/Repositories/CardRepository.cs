@@ -7,7 +7,6 @@ namespace PlanPoker.Infrastructure.Repositories
   {
     public CardRepository(CardContext context) : base(context)
     {
-      Save();
     }
   }
 }

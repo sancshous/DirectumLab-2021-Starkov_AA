@@ -21,6 +21,7 @@ namespace PlanPoker.Infrastructure.Contexts
       this.Elements.Add(new Card(Guid.NewGuid(), 55, "fifty five"));
       this.Elements.Add(new Card(Guid.NewGuid(), 89, "eighty nine"));
       this.Elements.Add(new Card(Guid.NewGuid(), null, "question"));
+      this.SaveChanges();
     }
   }
 }

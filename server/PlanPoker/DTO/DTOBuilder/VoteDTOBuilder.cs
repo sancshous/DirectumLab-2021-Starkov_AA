@@ -22,7 +22,7 @@ namespace PlanPoker.DTO.DTOBuilder
 
     public static IEnumerable<VoteDTO> BuildList(IEnumerable<Vote> votes, CardService cardService)
     {
-      return votes.Select(vote => Build(vote, cardService));
+      return votes.Select(vote => Build(vote, cardService)).ToList();
     }
   }
 }

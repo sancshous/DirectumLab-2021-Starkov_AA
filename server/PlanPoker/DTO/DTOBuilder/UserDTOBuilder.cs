@@ -17,7 +17,7 @@ namespace PlanPoker.DTO.DTOBuilder
 
     public static IEnumerable<UserDTO> BuildList(IEnumerable<User> users)
     {
-      return users.Select(user => Build(user));
+      return users.Select(user => Build(user)).ToList();
     }
   }
 }
