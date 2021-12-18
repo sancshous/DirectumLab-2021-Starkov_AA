@@ -8,40 +8,45 @@ namespace PlanPoker.Infrastructure.Repositories
 {
   public class BaseRepository<T> : IRepository<T>, IDisposable where T : class, IEntity
   {
-    public ApiContext<T> Db { get; set; }
+    protected ApiContext<T> Context { get; set; }
 
     private bool disposed = false;
 
     public BaseRepository(ApiContext<T> context)
     {
-      this.Db = context;
+      this.Context = context;
     }
 
-    public void Create(T element)
+    public virtual void Add(T element)
     {
-      this.Db.Elements.Add(element);
+      this.Context.Elements.Add(element);
     }
 
-    public void Save()
+    public virtual void Save()
     {
-      this.Db.SaveChanges();
+      this.Context.SaveChanges();
     }
 
-    public T Get(Guid id)
+    public virtual T Get(Guid id)
     {
-      return this.Db.Elements.Find(id);
+      return this.Context.Elements.Find(id);
     }
 
-    public IQueryable<T> GetAll()
+    public virtual IQueryable<T> GetAll()
     {
-      return this.Db.Elements;
+      return this.Context.Elements;
     }
 
-    public void Delete(Guid id)
+    public virtual void Delete(Guid id)
     {
-      T element = this.Db.Elements.Find(id);
-      this.Db.Elements.Remove(element);
-      this.Db.SaveChanges();
+      T element = this.Context.Elements.Find(id);
+      this.Context.Elements.Remove(element);
+    }
+
+    public virtual void Delete(T element)
+    {
+      if (this.Context.Elements.Any(o => o.Id == element.Id))
+        this.Context.Elements.Remove(element);
     }
 
     public virtual void Dispose(bool disposing)
@@ -49,7 +54,7 @@ namespace PlanPoker.Infrastructure.Repositories
       if (!this.disposed)
       {
         if (disposing)
-          this.Db.Dispose();
+          this.Context.Dispose();
       }
 
       this.disposed = true;

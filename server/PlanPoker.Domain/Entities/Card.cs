@@ -10,7 +10,7 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Значение карты.
     /// </summary>
-    public int? Value { get; set; }
+    public double? Value { get; set; }
 
     /// <summary>
     /// Нечисловое значение карты. Например: "?".
@@ -23,7 +23,7 @@ namespace PlanPoker.Domain.Entities
     /// <param name="id">Id карты.</param>
     /// <param name="value">Значение карты.</param>
     /// <param name="title">Нечисловове значение карты.</param>
-    public Card(Guid id, int? @value, string title) : base(id)
+    public Card(Guid id, double? @value, string title) : base(id)
     {
       this.Value = @value;
       this.Title = title;

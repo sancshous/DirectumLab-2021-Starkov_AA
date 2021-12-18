@@ -3,9 +3,9 @@ using PlanPoker.Infrastructure.Contexts;
 
 namespace PlanPoker.Infrastructure.Repositories
 {
-  public class CardRepository : BaseRepository<Card>
+  public class VoteRepository : BaseRepository<Vote>
   {
-    public CardRepository(CardContext context) : base(context)
+    public VoteRepository(VoteContext context) : base(context)
     {
     }
   }

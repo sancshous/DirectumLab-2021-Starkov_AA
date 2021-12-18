@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlanPoker.Domain.Entities
 {
@@ -34,7 +31,9 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Id голосований из обсуждения.
     /// </summary>
-    public ICollection<Guid> Votes { get; }
+    public ICollection<Vote> Votes { get; }
+
+    public double? AverageVote { get; set; }
 
     /// <summary>
     /// Конструктор.
@@ -48,7 +47,8 @@ namespace PlanPoker.Domain.Entities
       this.Title = title;
       this.Start = DateTime.Now;
       // Время конца?
-      this.Votes = new List<Guid>();
+      this.Votes = new List<Vote>();
+      this.AverageVote = 0;
     }
   }
 }

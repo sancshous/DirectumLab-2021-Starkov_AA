@@ -31,6 +31,8 @@ namespace PlanPoker
         options.Filters.Add<ExceptionFilter>();
       });
 
+      services.AddSwaggerGen();
+
       services
         .AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase("Users"))
         .AddTransient<IRepository<User>, UserRepository>()
@@ -44,6 +46,14 @@ namespace PlanPoker
         .AddTransient<IRepository<Room>, RoomRepository>()
         .AddTransient<RoomService>()
 
+        .AddDbContext<VoteContext>(opt => opt.UseInMemoryDatabase("Votes"))
+        .AddTransient<IRepository<Vote>, VoteRepository>()
+        .AddTransient<VoteService>()
+
+        .AddDbContext<DiscussionContext>(opt => opt.UseInMemoryDatabase("Discussions"))
+        .AddTransient<IRepository<Discussion>, DiscussionRepository>()
+        .AddTransient<DiscussionService>()
+
         .AddEntityFrameworkInMemoryDatabase();
     }
 
@@ -51,6 +61,8 @@ namespace PlanPoker
     {
       if (env.IsDevelopment())
       {
+        app.UseSwagger();
+        app.UseSwaggerUI();
         app.UseDeveloperExceptionPage();
       }
 

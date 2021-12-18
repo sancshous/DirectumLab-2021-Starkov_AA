@@ -6,7 +6,7 @@ namespace PlanPoker.Domain.Repositories
 {
   public interface IRepository<T> where T : IEntity
   {
-    public void Create(T element);
+    public void Add(T element);
 
     public void Save();
 
@@ -15,5 +15,7 @@ namespace PlanPoker.Domain.Repositories
     public IQueryable<T> GetAll();
 
     public void Delete(Guid id);
+
+    public void Delete(T element);
   }
 }

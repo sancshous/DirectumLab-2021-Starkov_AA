@@ -8,19 +8,20 @@ namespace PlanPoker.Infrastructure.Contexts
   {
     public CardContext(DbContextOptions<CardContext> options) : base(options)
     {
-      this.Elements.Add(new Card(new Guid(), 0, "zero"));
-      this.Elements.Add(new Card(new Guid(), 1, "first"));
-      this.Elements.Add(new Card(new Guid(), 1, "first"));
-      this.Elements.Add(new Card(new Guid(), 2, "second"));
-      this.Elements.Add(new Card(new Guid(), 3, "third"));
-      this.Elements.Add(new Card(new Guid(), 5, "four"));
-      this.Elements.Add(new Card(new Guid(), 8, "eight"));
-      this.Elements.Add(new Card(new Guid(), 13, "thirteen"));
-      this.Elements.Add(new Card(new Guid(), 21, "twenty one"));
-      this.Elements.Add(new Card(new Guid(), 34, "thirty four"));
-      this.Elements.Add(new Card(new Guid(), 55, "fifty five"));
-      this.Elements.Add(new Card(new Guid(), 89, "eighty nine"));
-      this.Elements.Add(new Card(new Guid(), null, "question"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 0, "zero"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 1, "first"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 1, "first"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 2, "second"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 3, "third"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 5, "five"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 8, "eight"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 13, "thirteen"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 21, "twenty one"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 34, "thirty four"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 55, "fifty five"));
+      this.Elements.Add(new Card(Guid.NewGuid(), 89, "eighty nine"));
+      this.Elements.Add(new Card(Guid.NewGuid(), null, "question"));
+      this.SaveChanges();
     }
   }
 }

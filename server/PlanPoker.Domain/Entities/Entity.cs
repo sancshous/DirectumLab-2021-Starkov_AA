@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlanPoker.Domain.Entities
 {
@@ -7,7 +8,8 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Id сущности.
     /// </summary>
-    public Guid Id { get; }
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public Guid Id { get; private set; }
 
     public Entity(Guid id)
     {

@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlanPoker.Domain.Entities
 {
@@ -19,12 +16,14 @@ namespace PlanPoker.Domain.Entities
     /// <summary>
     /// Список участников.
     /// </summary>
-    public ICollection<Guid> Users { get; }
+    public virtual ICollection<User> Users { get; private set; }
 
     /// <summary>
     /// Создатель комнаты(он же и ведущий, т.е. начинает обсуждение).
     /// </summary>
     public Guid OwnerId { get; set; }
+
+    public ICollection<Discussion> Discussions { get; set; }
 
     /// <summary>
     /// Конструктор.
@@ -36,7 +35,8 @@ namespace PlanPoker.Domain.Entities
     {
       this.Title = title;
       this.OwnerId = ownerId;
-      this.Users = new List<Guid>();
+      this.Users = new List<User>();
+      this.Discussions = new List<Discussion>();
     }
   }
 }
