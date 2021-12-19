@@ -7,10 +7,10 @@ namespace PlanPoker.DTO.DTOBuilder
 {
   public static class RoomDTOBuilder
   {
-    public static RoomDTO Build(Room room, IEnumerable<Discussion> discussions, CardService cardService)
+    public static RoomDTO Build(Room room, IEnumerable<Discussion> discussions, CardService cardService, DiscussionService discussionService)
     {
       var users = UserDTOBuilder.BuildList(room.Users);
-      var discussionsInRoom = DiscussionDTOBuilder.BuildList(discussions, cardService).Where(discussion => discussion.RoomID == room.Id);
+      var discussionsInRoom = DiscussionDTOBuilder.BuildList(discussions, cardService, discussionService).Where(discussion => discussion.RoomID == room.Id);
       return new RoomDTO()
       {
         Id = room.Id,
@@ -21,9 +21,9 @@ namespace PlanPoker.DTO.DTOBuilder
       };
     }
 
-    public static IEnumerable<RoomDTO> BuildList(IEnumerable<Room> rooms, IEnumerable<Discussion> discussions, CardService cardService)
+    public static IEnumerable<RoomDTO> BuildList(IEnumerable<Room> rooms, IEnumerable<Discussion> discussions, CardService cardService, DiscussionService discussionService)
     {
-      return rooms.Select(room => Build(room, discussions, cardService)).ToList();
+      return rooms.Select(room => Build(room, discussions, cardService, discussionService)).ToList();
     }
   }
 }

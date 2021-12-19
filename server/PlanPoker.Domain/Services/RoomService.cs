@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Repositories;
 
@@ -56,9 +57,9 @@ namespace PlanPoker.Domain.Services
       return this.roomRepository.Get(roomId).Users;
     }
 
-    public Room GetRoom(Guid id)
-    {
-      return this.roomRepository.Get(id);
+    public Room GetRoom(Guid roomId)
+    { 
+      return this.roomRepository.Get(roomId);
     }
 
     public IEnumerable<Room> GetRooms()

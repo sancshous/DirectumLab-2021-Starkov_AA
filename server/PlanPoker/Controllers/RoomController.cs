@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using Microsoft.AspNetCore.Mvc;
 using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Services;
@@ -31,7 +32,7 @@ namespace PlanPoker.Controllers
     {
       var room = this.roomService.Create(name, ownerId);
       var discussions = this.discussionService.GetDiscussions(room.Id);
-      return RoomDTOBuilder.Build(room, discussions, this.cardService);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService, this.discussionService);
     }
 
     [HttpPost]
@@ -60,11 +61,19 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
+    public RoomDTO GetRoomInfo(Guid roomId)
+    {
+      var room = this.roomService.GetRoom(roomId);
+      var discussions = this.discussionService.GetDiscussions(roomId);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService, this.discussionService);
+    }
+
+    [HttpGet]
     public IEnumerable<RoomDTO> GetRooms(Guid roomId) // здесь roomId нужен чтоб получить все обсуждения одной комнаты
     {
       var rooms = this.roomService.GetRooms();
       var discussions = this.discussionService.GetDiscussions(roomId);
-      return RoomDTOBuilder.BuildList(rooms, discussions, this.cardService);
+      return RoomDTOBuilder.BuildList(rooms, discussions, this.cardService, this.discussionService);
     }
   }
 }

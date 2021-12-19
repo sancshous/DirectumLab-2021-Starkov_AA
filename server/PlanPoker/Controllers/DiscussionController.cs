@@ -29,7 +29,7 @@ namespace PlanPoker.Controllers
     public DiscussionDTO Create(Guid roomId, string title = "")
     {
       var discussion = this.discussionService.Create(roomId, title);
-      return DiscussionDTOBuilder.Build(discussion, this.cardService);
+      return DiscussionDTOBuilder.Build(discussion, this.cardService, this.discussionService);
     }
 
     [HttpPost]
@@ -50,7 +50,7 @@ namespace PlanPoker.Controllers
     public IEnumerable<DiscussionDTO> GetDiscussionList(Guid roomId)
     {
       var discussions = this.discussionService.GetDiscussions(roomId);
-      return DiscussionDTOBuilder.BuildList(discussions, this.cardService);
+      return DiscussionDTOBuilder.BuildList(discussions, this.cardService, this.discussionService);
     }
   }
 }
