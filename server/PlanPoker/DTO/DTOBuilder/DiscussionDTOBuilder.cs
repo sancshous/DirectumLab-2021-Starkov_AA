@@ -7,7 +7,7 @@ namespace PlanPoker.DTO.DTOBuilder
 {
   public static class DiscussionDTOBuilder
   {
-    public static DiscussionDTO Build(Discussion discussion, CardService cardService)
+    public static DiscussionDTO Build(Discussion discussion, CardService cardService, DiscussionService discussionService)
     {
       var votes = VoteDTOBuilder.BuildList(discussion.Votes, cardService);
       return new DiscussionDTO()
@@ -18,13 +18,13 @@ namespace PlanPoker.DTO.DTOBuilder
         Start = discussion.Start,
         End = discussion.End,
         Votes = votes,
-        AverageVote = discussion.AverageVote
+        AverageVote = discussionService.CalculateAverageVote(discussion.Id)
       };
     }
 
-    public static IEnumerable<DiscussionDTO> BuildList(IEnumerable<Discussion> discussions, CardService cardService)
+    public static IEnumerable<DiscussionDTO> BuildList(IEnumerable<Discussion> discussions, CardService cardService, DiscussionService discussionService)
     {
-      return discussions.Select(discussion => Build(discussion, cardService)).ToList();
+      return discussions.Select(discussion => Build(discussion, cardService, discussionService)).ToList();
     }
   }
 }

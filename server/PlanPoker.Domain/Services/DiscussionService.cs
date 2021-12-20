@@ -35,13 +35,11 @@ namespace PlanPoker.Domain.Services
 
     public double? CalculateAverageVote(Guid discussionId)
     {
-      var averageVote = this.repository.Get(discussionId).AverageVote;
       var votes = this.GetVotes(discussionId);
-      foreach (var item in votes)
-      {
-        averageVote += this.cardRepository.Get(item.CardId).Value;
-      }
-      return averageVote;
+      var values = votes.Select(v => this.cardRepository.Get(v.CardId)).ToArray();
+      if (!values.Any())
+        return 0;
+      return values.Where(v => v.Value.HasValue).Average(v => v.Value.Value);
     }
 
     public void AddVote(Guid discussionId, Vote vote)

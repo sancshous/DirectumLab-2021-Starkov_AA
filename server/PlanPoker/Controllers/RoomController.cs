@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Services;
 using PlanPoker.DTO;
 using PlanPoker.DTO.DTOBuilder;
@@ -31,7 +30,7 @@ namespace PlanPoker.Controllers
     {
       var room = this.roomService.Create(name, ownerId);
       var discussions = this.discussionService.GetDiscussions(room.Id);
-      return RoomDTOBuilder.Build(room, discussions, this.cardService);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService, this.discussionService);
     }
 
     [HttpPost]
@@ -53,18 +52,18 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<UserDTO> GetUsers(Guid roomId)
+    public RoomDTO GetRoomInfo(Guid roomId)
     {
-      var users = this.roomService.GetUsers(roomId);
-      return UserDTOBuilder.BuildList(users);
+      var room = this.roomService.GetRooms().First(room => room.Id == roomId);
+      var discussions = this.discussionService.GetDiscussions(roomId);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService, this.discussionService);
     }
 
     [HttpGet]
-    public IEnumerable<RoomDTO> GetRooms(Guid roomId) // здесь roomId нужен чтоб получить все обсуждения одной комнаты
+    public IEnumerable<RoomDTO> GetRooms()
     {
       var rooms = this.roomService.GetRooms();
-      var discussions = this.discussionService.GetDiscussions(roomId);
-      return RoomDTOBuilder.BuildList(rooms, discussions, this.cardService);
+      return RoomDTOBuilder.BuildListRoom(rooms);
     }
   }
 }
