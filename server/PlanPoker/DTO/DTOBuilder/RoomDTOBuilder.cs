@@ -25,5 +25,22 @@ namespace PlanPoker.DTO.DTOBuilder
     {
       return rooms.Select(room => Build(room, discussions, cardService, discussionService)).ToList();
     }
+
+    public static IEnumerable<RoomDTO> BuildListRoom(IEnumerable<Room> rooms)
+    {
+      RoomDTO BuildRoom(Room room)
+      {
+        var users = UserDTOBuilder.BuildList(room.Users);
+        return new RoomDTO()
+        {
+          Id = room.Id,
+          Title = room.Title,
+          OwnerId = room.OwnerId,
+          Users = users,
+          Discussions = null
+        };
+      }
+      return rooms.Select(room => BuildRoom(room)).ToList();
+    }
   }
 }
