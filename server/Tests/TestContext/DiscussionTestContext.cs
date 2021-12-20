@@ -14,7 +14,7 @@ namespace Tests.TestContext
 
       this.Context = new DiscussionContext(builder.Options);
 
-      this.Context.Elements.Add(TestData.GetTestDiscussion(TestData.GetTestRoom(TestData.GetTestUser())));
+      this.Context.Elements.Add(TestData.GetTestDiscussion());
 
       this.Context.SaveChanges();
     }
