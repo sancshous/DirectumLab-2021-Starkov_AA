@@ -35,17 +35,11 @@ namespace PlanPoker.Domain.Services
 
     public double? CalculateAverageVote(Guid discussionId)
     {
-      double? sumVotes = 0;
       var votes = this.GetVotes(discussionId);
-      int count = 0;
-      foreach (var item in votes)
-      {
-        sumVotes += this.cardRepository.Get(item.CardId).Value;
-        count++;
-      }
-      // var averageVote = sumVotes / count; // ошибка: .NET number values such as positive and negative infinity cannot be written as valid JSON.
-      var averageVote = sumVotes;
-      return averageVote;
+      var values = votes.Select(v => this.cardRepository.Get(v.CardId)).ToArray();
+      if (!values.Any())
+        return 0;
+      return values.Where(v => v.Value.HasValue).Average(v => v.Value.Value);
     }
 
     public void AddVote(Guid discussionId, Vote vote)
