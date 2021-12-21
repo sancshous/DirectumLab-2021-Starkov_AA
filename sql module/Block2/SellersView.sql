@@ -11,8 +11,8 @@ select
   S.CommissionPercent,
   (sum(O.Amount) * S.CommissionPercent / 100)
 from 
-  Sellers as S 
-  join Orders as O on S.Id = O.SellerId
+  dbo.Sellers as S 
+  join dbo.Orders as O on S.Id = O.SellerId
 group by
   S.Id, 
   S.LastName,

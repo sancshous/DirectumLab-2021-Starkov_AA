@@ -19,17 +19,15 @@ create table dbo.Sellers
 	FirstName nvarchar(20) not null,
 	ThirdName nvarchar(20) not null,
 	City nvarchar(20) not null,
-	CommissionPercent numeric(3, 0) not null
+	CommissionPercent decimal(10, 2) not null
 );
 
 create table dbo.Orders
 (
 	Id int identity primary key not null,
 	Summary nvarchar(1000) not null,
-
 	Amount money not null
 		constraint CK_Order_Amount check(Amount > 0),
-
 	OrderDateTime datetime not null,
 	CustomerId int not null references Customers(Id),
 	SellerId int not null references Sellers(Id)

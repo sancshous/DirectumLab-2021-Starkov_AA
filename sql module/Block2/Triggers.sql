@@ -2,10 +2,10 @@ use Block2
 
 go
 create trigger dbo.OrdersDelete
-on Orders
+on dbo.Orders
 after delete
 as
-insert into OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
+insert into dbo.OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
 select 
   'DELETE', 
   OrderDateTime,
@@ -16,10 +16,10 @@ from deleted
 
 go
 create trigger dbo.OrdersInsert
-on Orders
+on dbo.Orders
 after insert
 as
-insert into OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
+insert into dbo.OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
 select
   'INSERT',
   OrderDateTime,
@@ -30,10 +30,10 @@ from inserted
 
 go
 create trigger dbo.OrdersUpdate
-on Orders
+on dbo.Orders
 after update
 as
-insert into OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
+insert into dbo.OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
 select
   'UPDATE', 
   OrderDateTime, 
@@ -44,22 +44,20 @@ from inserted
 
 go
 create trigger dbo.OrdersCityInsert
-on Orders
+on dbo.Orders
 after insert
 as
-begin try
-  delete Orders
-  where
-    Id in (select Id from inserted)
-    and exists
-    (
-	  select * from Customers, Sellers
-	  where 
-	    Customers.Id = CustomerId
-	    and Sellers.Id = SellerId
-	    and Customers.City <> Sellers.City
-    );
-end try
-begin catch
-  Throw 11034, 'Failed to delete line.', 1;
-end catch
+begin
+if (select count(*) from dbo.Orders
+where
+  Id in (select Id from inserted)
+  and exists
+  (
+  select * from 
+    dbo.Customers
+    join dbo.Sellers on Customers.Id = Orders.CustomerId and Sellers.Id = Orders.SellerId
+  where 
+	  Customers.City <> Sellers.City
+  )) > 0
+	Throw 50001, 'Failed to delete line.', 1;
+end
