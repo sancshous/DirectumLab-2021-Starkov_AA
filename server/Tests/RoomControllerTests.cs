@@ -5,7 +5,6 @@ using PlanPoker.Domain.Entities;
 using PlanPoker.Domain.Repositories;
 using PlanPoker.Domain.Services;
 using PlanPoker.DTO;
-using PlanPoker.DTO.DTOBuilder;
 using PlanPoker.Infrastructure.Repositories;
 using System;
 using System.Linq;
@@ -27,33 +26,19 @@ namespace Tests
     {
       var userContext = new TestContext().UserContext;
       var roomContext = new TestContext().RoomContext;
-      var discussionContext = new TestContext().DiscusContext;
+      var discussionContext = new TestContext().DiscussionContext;
       var cardContext = new TestContext().CardContext;
       var voteContext = new TestContext().VoteContext;
 
-      var userMock = new Mock<IRepository<User>>();
-      userMock.Setup(repository => repository.Get(It.IsAny<Guid>())).Returns(new UserRepository(userContext).Get(TestData.GetTestUser().Id));
-      userMock.Setup(repository => repository.GetAll()).Returns(new UserRepository(userContext).GetAll());
-      this.userService = new UserService(userMock.Object);
-
-      var roomMock = new Mock<IRepository<Room>>();
-      roomMock.Setup(repository => repository.Get(It.IsAny<Guid>())).Returns(new RoomRepository(roomContext).Get(TestData.GetTestRoom().Id));
-      roomMock.Setup(repository => repository.GetAll()).Returns(new RoomRepository(roomContext).GetAll());
-      this.roomService = new RoomService(roomMock.Object, userMock.Object);
-
-      var cardMock = new Mock<IRepository<Card>>();
-      cardMock.Setup(repository => repository.Get(It.IsAny<Guid>())).Returns(new CardRepository(cardContext).Get(TestData.GetTestCard().Id));
-      this.cardService = new CardService(cardMock.Object);
+      this.userService = new UserService(new UserRepository(userContext));
+      this.roomService = new RoomService(new RoomRepository(roomContext), new UserRepository(userContext));
+      this.cardService = new CardService(new CardRepository(cardContext));
+      this.voteService = new VoteService(new VoteRepository(voteContext));
 
       var discusMock = new Mock<IRepository<Discussion>>();
       discusMock.Setup(repository => repository.GetAll()).Returns(new DiscussionRepository(discussionContext).GetAll());
       discusMock.Setup(repository => repository.Get(It.IsAny<Guid>())).Returns(new DiscussionRepository(discussionContext).Get(TestData.GetTestDiscussion().Id));
-      this.discussionService = new DiscussionService(discusMock.Object, cardMock.Object);
-
-      var voteMock = new Mock<IRepository<Vote>>();
-      voteMock.Setup(repository => repository.GetAll()).Returns(new VoteRepository(voteContext).GetAll());
-      this.voteService = new VoteService(voteMock.Object);
-
+      this.discussionService = new DiscussionService(discusMock.Object, new CardRepository(cardContext));
     }
 
     [Test]
@@ -65,6 +50,7 @@ namespace Tests
 
       this.roomService.AddUser(roomId, userId);
       var room = this.roomService.GetRoom(roomId);
+
       var discussions = this.discussionService.GetDiscussions(room.Id);
       this.discussionService.AddVote(discusId, TestData.GetTestVote());
 
@@ -91,7 +77,7 @@ namespace Tests
         Id = discussion.Id,
         Title = discussion.Title,
         RoomID = discussion.RoomId,
-        Start = discussion.Start,
+        Start = this.discussionService.Start(discussion.Id, "21.12.2021 18:30:25"),
         End = discussion.End,
         Votes = votes,
         AverageVote = this.discussionService.CalculateAverageVote(discussion.Id)

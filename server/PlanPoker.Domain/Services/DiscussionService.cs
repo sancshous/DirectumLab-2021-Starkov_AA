@@ -27,6 +27,22 @@ namespace PlanPoker.Domain.Services
       return discussion;
     }
 
+    public DateTime Start(Guid discussionId, string startString)
+    {
+      if (DateTime.TryParse(startString, out DateTime startDateTime))
+      {
+        this.discussionRepository.Get(discussionId).Start = startDateTime;
+        this.discussionRepository.Save();
+        return startDateTime;
+      }
+      else
+      {
+        this.discussionRepository.Get(discussionId).Start = null;
+        this.discussionRepository.Save();
+        return startDateTime;
+      }
+    }
+
     public void Close(Guid discussionId)
     {
       this.discussionRepository.Get(discussionId).End = DateTime.Now;

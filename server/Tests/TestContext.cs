@@ -9,7 +9,7 @@ namespace Tests
 
     public VoteContext VoteContext { get; set; }
 
-    public DiscussionContext DiscusContext { get; set; }
+    public DiscussionContext DiscussionContext { get; set; }
 
     public RoomContext RoomContext { get; set; }
 
@@ -43,11 +43,11 @@ namespace Tests
 
       var discussionBuilder = new DbContextOptionsBuilder<DiscussionContext>();
       discussionBuilder.UseInMemoryDatabase("DiscussionTests");
-      this.DiscusContext = new DiscussionContext(discussionBuilder.Options);
-      this.DiscusContext.Database.EnsureDeleted();
-      this.DiscusContext.Database.EnsureCreated();
-      this.DiscusContext.Elements.Add(TestData.GetTestDiscussion());
-      this.DiscusContext.SaveChanges();
+      this.DiscussionContext = new DiscussionContext(discussionBuilder.Options);
+      this.DiscussionContext.Database.EnsureDeleted();
+      this.DiscussionContext.Database.EnsureCreated();
+      this.DiscussionContext.Elements.Add(TestData.GetTestDiscussion());
+      this.DiscussionContext.SaveChanges();
 
       var voteBuilder = new DbContextOptionsBuilder<VoteContext>();
       voteBuilder.UseInMemoryDatabase("VoteTests");
