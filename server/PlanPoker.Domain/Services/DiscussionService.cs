@@ -22,25 +22,10 @@ namespace PlanPoker.Domain.Services
     {
       var id = Guid.NewGuid();
       var discussion = new Discussion(id, roomId, title);
+      discussion.Start = DateTime.Now;
       this.discussionRepository.Add(discussion);
       this.discussionRepository.Save();
       return discussion;
-    }
-
-    public DateTime Start(Guid discussionId, string startString)
-    {
-      if (DateTime.TryParse(startString, out DateTime startDateTime))
-      {
-        this.discussionRepository.Get(discussionId).Start = startDateTime;
-        this.discussionRepository.Save();
-        return startDateTime;
-      }
-      else
-      {
-        this.discussionRepository.Get(discussionId).Start = null;
-        this.discussionRepository.Save();
-        return startDateTime;
-      }
     }
 
     public void Close(Guid discussionId)

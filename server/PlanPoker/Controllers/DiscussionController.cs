@@ -33,12 +33,6 @@ namespace PlanPoker.Controllers
     }
 
     [HttpPost]
-    public void Start(Guid discussionId, string start)
-    {
-      this.discussionService.Start(discussionId, start);
-    }
-
-    [HttpPost]
     public void Close(Guid discussionId)
     {
       this.discussionService.Close(discussionId);

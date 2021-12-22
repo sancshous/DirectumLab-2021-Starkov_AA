@@ -34,11 +34,7 @@ namespace Tests
       this.roomService = new RoomService(new RoomRepository(roomContext), new UserRepository(userContext));
       this.cardService = new CardService(new CardRepository(cardContext));
       this.voteService = new VoteService(new VoteRepository(voteContext));
-
-      var discusMock = new Mock<IRepository<Discussion>>();
-      discusMock.Setup(repository => repository.GetAll()).Returns(new DiscussionRepository(discussionContext).GetAll());
-      discusMock.Setup(repository => repository.Get(It.IsAny<Guid>())).Returns(new DiscussionRepository(discussionContext).Get(TestData.GetTestDiscussion().Id));
-      this.discussionService = new DiscussionService(discusMock.Object, new CardRepository(cardContext));
+      this.discussionService = new DiscussionService(new DiscussionRepository(discussionContext), new CardRepository(cardContext));
     }
 
     [Test]
@@ -77,7 +73,7 @@ namespace Tests
         Id = discussion.Id,
         Title = discussion.Title,
         RoomID = discussion.RoomId,
-        Start = this.discussionService.Start(discussion.Id, "21.12.2021 18:30:25"),
+        Start = discussion.Start,
         End = discussion.End,
         Votes = votes,
         AverageVote = this.discussionService.CalculateAverageVote(discussion.Id)
