@@ -13,7 +13,7 @@ namespace PlanPoker.Infrastructure.Repositories
 
     public override IQueryable<Discussion> GetAll()
     {
-      return this.Context.Elements.Include(room => room.Votes);
+      return this.Context.Elements.Include(discus => discus.Votes);
     }
   }
 }

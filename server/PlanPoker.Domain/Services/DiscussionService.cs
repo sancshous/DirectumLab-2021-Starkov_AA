@@ -8,13 +8,13 @@ namespace PlanPoker.Domain.Services
 {
   public class DiscussionService
   {
-    private readonly IRepository<Discussion> repository;
+    private readonly IRepository<Discussion> discussionRepository;
 
     private readonly IRepository<Card> cardRepository;
 
-    public DiscussionService(IRepository<Discussion> repository, IRepository<Card> cardRepository)
+    public DiscussionService(IRepository<Discussion> discussionRepository, IRepository<Card> cardRepository)
     {
-      this.repository = repository;
+      this.discussionRepository = discussionRepository;
       this.cardRepository = cardRepository;
     }
 
@@ -22,15 +22,16 @@ namespace PlanPoker.Domain.Services
     {
       var id = Guid.NewGuid();
       var discussion = new Discussion(id, roomId, title);
-      this.repository.Add(discussion);
-      this.repository.Save();
+      discussion.Start = DateTime.Now;
+      this.discussionRepository.Add(discussion);
+      this.discussionRepository.Save();
       return discussion;
     }
 
     public void Close(Guid discussionId)
     {
-      this.repository.Get(discussionId).End = DateTime.Now;
-      this.repository.Save();
+      this.discussionRepository.Get(discussionId).End = DateTime.Now;
+      this.discussionRepository.Save();
     }
 
     public double? CalculateAverageVote(Guid discussionId)
@@ -44,23 +45,23 @@ namespace PlanPoker.Domain.Services
 
     public void AddVote(Guid discussionId, Vote vote)
     {
-      this.repository.Get(discussionId).Votes.Add(vote);
-      this.repository.Save();
+      this.discussionRepository.Get(discussionId).Votes.Add(vote);
+      this.discussionRepository.Save();
     }
 
     public ICollection<Vote> GetVotes(Guid discussionId)
     {
-      return this.repository.Get(discussionId).Votes;
+      return this.discussionRepository.Get(discussionId).Votes;
     }
 
     public Discussion GetDiscussion(Guid id)
     {
-      return this.repository.Get(id);
+      return this.discussionRepository.Get(id);
     }
 
     public IQueryable<Discussion> GetDiscussions(Guid roomId)
     {
-      return this.repository.GetAll().Where(discussion => discussion.RoomId == roomId);
+      return this.discussionRepository.GetAll().Where(discussion => discussion.RoomId == roomId);
     }
   }
 }

@@ -45,8 +45,6 @@ namespace PlanPoker.Domain.Entities
     {
       this.RoomId = roomId;
       this.Title = title;
-      this.Start = DateTime.Now;
-      // Время конца?
       this.Votes = new List<Vote>();
       this.AverageVote = 0;
     }
