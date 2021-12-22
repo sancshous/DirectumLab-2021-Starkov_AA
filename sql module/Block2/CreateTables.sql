@@ -35,11 +35,10 @@ create table dbo.Orders
 
 create table dbo.OrdersHistory
 (
-	Id int identity primary key not null,
+	OrderId int not null,
 	OperationType nvarchar(50) not null,
 	OperationDateTime datetime not null default getdate(),
 	OrderDateTime datetime not null,
-	OrderId int not null,
 	CustomerId int not null,
 	SellerId int not null
 );

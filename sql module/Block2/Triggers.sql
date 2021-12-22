@@ -5,7 +5,7 @@ create trigger dbo.OrdersDelete
 on dbo.Orders
 after delete
 as
-insert into dbo.OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
+insert into dbo.OrdersHistory (OrderId, OperationType, OrderDateTime, CustomerId, SellerId)
 select 
   'DELETE', 
   OrderDateTime,
@@ -19,7 +19,7 @@ create trigger dbo.OrdersInsert
 on dbo.Orders
 after insert
 as
-insert into dbo.OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
+insert into dbo.OrdersHistory (OrderId, OperationType, OrderDateTime, CustomerId, SellerId)
 select
   'INSERT',
   OrderDateTime,
@@ -33,7 +33,7 @@ create trigger dbo.OrdersUpdate
 on dbo.Orders
 after update
 as
-insert into dbo.OrdersHistory (OperationType, OrderDateTime, OrderId, CustomerId, SellerId)
+insert into dbo.OrdersHistory (OrderId, OperationType, OrderDateTime, CustomerId, SellerId)
 select
   'UPDATE', 
   OrderDateTime, 
