@@ -7,9 +7,9 @@ after delete
 as
 insert into dbo.OrdersHistory (OrderId, OperationType, OrderDateTime, CustomerId, SellerId)
 select 
+  Id,
   'DELETE', 
   OrderDateTime,
-  Id,
   CustomerId, 
   SellerId
 from deleted
@@ -21,9 +21,9 @@ after insert
 as
 insert into dbo.OrdersHistory (OrderId, OperationType, OrderDateTime, CustomerId, SellerId)
 select
+  Id,
   'INSERT',
   OrderDateTime,
-  Id,
   CustomerId, 
   SellerId
 from inserted
@@ -35,9 +35,9 @@ after update
 as
 insert into dbo.OrdersHistory (OrderId, OperationType, OrderDateTime, CustomerId, SellerId)
 select
+  Id,
   'UPDATE', 
   OrderDateTime, 
-  Id,
   CustomerId, 
   SellerId
 from inserted
@@ -48,16 +48,14 @@ on dbo.Orders
 after insert
 as
 begin
-if (select count(*) from dbo.Orders
-where
-  Id in (select Id from inserted)
-  and exists
+if(select count(*) from inserted
+  where exists
   (
   select * from 
     dbo.Customers
-    join dbo.Sellers on Customers.Id = Orders.CustomerId and Sellers.Id = Orders.SellerId
+    join dbo.Sellers on Customers.Id = inserted.CustomerId and Sellers.Id = inserted.SellerId
   where 
 	  Customers.City <> Sellers.City
   )) > 0
-	Throw 50001, 'Failed to delete line.', 1;
+    Throw 50001, 'Failed to delete line.', 1;
 end

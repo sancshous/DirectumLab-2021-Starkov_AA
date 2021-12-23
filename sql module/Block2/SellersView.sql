@@ -9,7 +9,7 @@ select
   S.FirstName,
   S.ThirdName,
   S.CommissionPercent,
-  (sum(O.Amount) * S.CommissionPercent / 100)
+  (sum(O.Amount) * S.CommissionPercent / 100) as TotalSum
 from 
   dbo.Sellers as S 
   left join dbo.Orders as O on S.Id = O.SellerId
