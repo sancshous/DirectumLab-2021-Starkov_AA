@@ -5,9 +5,9 @@ go
 select top 25 p.[Name] 
 from SalesLT.Product p
   join SalesLT.SalesOrderDetail sod on p.ProductID = sod.ProductID
+where 
+  sod.ProductID = p.ProductID
 group by p.ProductID, p.[Name]
 order by
-  (select sum(sod.LineTotal)
-  from SalesLT.SalesOrderDetail sod
-    where 
-      sod.ProductID = p.ProductID) 
+  sum(sod.LineTotal)
+

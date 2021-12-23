@@ -8,23 +8,14 @@ select
   count(*) as amount, 
   sum(TotalDue) as [sum] 
 from
-  (select *, '0-99' as [range]
-  from SalesLT.SalesOrderHeader 
-    where 
-      TotalDue between 0 and 99
-  union
-  select *, '100-999' as [range] 
-  from SalesLT.SalesOrderHeader 
-    where 
-      TotalDue between 100 and 999
-  union
-  select *, '1000-9999' as [range] 
-  from SalesLT.SalesOrderHeader 
-    where 
-      TotalDue between 1000 and 9999
-  union
-  select *, '10000+' as [range] 
-  from SalesLT.SalesOrderHeader 
-    where 
-      TotalDue > 10000) tbl
-group by [range] 
+  (select *, [range] =
+    case
+      when TotalDue between 0 and 99 then '0-99' 
+      when TotalDue between 100 and 999 then '100-999' 
+      when TotalDue between 1000 and 9999 then '1000-9999' 
+      when TotalDue > 10000 then '10000+' 
+    end
+   from SalesLT.SalesOrderHeader
+  ) tbl
+group by [range]
+
