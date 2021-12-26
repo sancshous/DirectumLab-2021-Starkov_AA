@@ -4,11 +4,11 @@ use AdventureWorksLT2016;
 --    Для каждого диапазона отобразить количество заказов и общую стоимость.
 go
 select 
-  [range], 
-  count(*) as amount, 
-  sum(TotalDue) as [sum] 
+  [Range], 
+  count(*) as Amount, 
+  sum(TotalDue) as [Sum] 
 from
-  (select *, [range] =
+  (select TotalDue, [Range] =
     case
       when TotalDue between 0 and 99 then '0-99' 
       when TotalDue between 100 and 999 then '100-999' 
@@ -17,5 +17,5 @@ from
     end
    from SalesLT.SalesOrderHeader
   ) tbl
-group by [range]
+group by [Range]
 
