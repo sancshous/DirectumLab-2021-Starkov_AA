@@ -2,7 +2,7 @@ use AdventureWorksLT2016;
 
 --4.	Какие компании заказывали продукт (ProductModel) «Racing Socks»?
 go
-select distinct c.CompanyName company
+select distinct c.CompanyName Company
 from SalesLT.Customer c
 	join SalesLT.SalesOrderHeader soh on c.CustomerID = soh.CustomerID
 	join SalesLT.SalesOrderDetail sod on sod.SalesOrderID = soh.SalesOrderID
@@ -10,4 +10,3 @@ from SalesLT.Customer c
 	join SalesLT.ProductModel pm on pm.ProductModelID = p.ProductModelID
 where	
 	pm.[Name] = 'Racing Socks'
-group by c.CompanyName 

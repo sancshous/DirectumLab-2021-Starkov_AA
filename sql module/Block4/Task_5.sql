@@ -7,7 +7,7 @@ from SalesLT.Product p
   join SalesLT.SalesOrderDetail sod on p.ProductID = sod.ProductID
 where 
   sod.ProductID = p.ProductID
-group by p.ProductID, p.[Name], sod.OrderQty * sod.UnitPrice
+group by p.[Name], sod.OrderQty * sod.UnitPrice
 order by
   sum(sod.OrderQty * sod.UnitPrice) desc
 
