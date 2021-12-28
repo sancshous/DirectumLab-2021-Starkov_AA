@@ -48,14 +48,11 @@ on dbo.Orders
 after insert
 as
 begin
-if(select count(*) from inserted
-  where exists
-  (
-  select * from 
-    dbo.Customers
-    join dbo.Sellers on Customers.Id = inserted.CustomerId and Sellers.Id = inserted.SellerId
+if(exists(select * from inserted
+  join dbo.Customers on Customers.Id = inserted.CustomerId
+  join dbo.Sellers on Sellers.Id = inserted.SellerId
   where 
 	  Customers.City <> Sellers.City
-  )) > 0
-    Throw 50001, 'Failed to delete line.', 1;
+  ))
+  Throw 50001, 'Customers and sellers must be from the same city.', 1;
 end
