@@ -11,19 +11,27 @@
     <h1>PlanPoker</h1>
   </a>
 
-  <div>
-    <p>test</p>
-    <a href="#"><img src="" alt="user"></a>
+  <details>
+    <summary>
+      <span>test</span>
+      <img src="" alt="user">
+    </summary>
     <div>
       <a href="#">Sign Out</a>
     </div>
-  </div>
+  </details>
 </header>
 
 <main>
   <h2>Story</h2>
   <div>
-    <p>Диаграмма(css)</p>
+    <div>
+      <p>Диаграмма(css)</p>
+      <p>2 Playes</p>
+      <p>voted</p>
+      <p>Avg: 4</p>
+    </div>
+
     <ul>
       <li>
         <span>3</span>
@@ -40,18 +48,18 @@
     <h2>Story voting completed</h2>
     <button type="submit">Finish Voting</button>
     <h3>Player(2/2)</h3>
-    <table>
-      <tr>
-        <td><img src="" alt="player"></td>
-        <td>test</td>
-        <td><span>3</span></td>
-      </tr>
-      <tr>
-        <td><img src="" alt="player"></td>
-        <td>test2</td>
-        <td><span>5</span></td>
-      </tr>
-    </table>
+    <ul>
+      <li>
+        <img src="" alt="player">
+        <span>test</span>
+        <span>3</span>
+      </li>
+      <li>
+        <img src="" alt="player">
+        <span>test2</span>
+        <span>5</span>
+      </li>
+    </ul>
     <label>Invite a teammate
       <input type="text" readonly value="https://www.planitpoker.com/board">
     </label>
@@ -60,25 +68,23 @@
   <div>
     <header>
       <p>Completed Stories <span>3</span></p>
-      <button>
-        <img src="" alt="download">
-      </button>
+      <button type="submit">Download</button>
     </header>
     <table>
       <tr>
         <td>Story</td>
         <td>14</td>
-        <td><img src="" alt="delete"></td>
+        <td><button type="submit">Delete</button></td>
       </tr>
       <tr>
         <td>Story</td>
         <td>14</td>
-        <td><img src="" alt="delete"></td>
+        <td><button type="submit">Delete</button></td>
       </tr>
       <tr>
         <td>Story</td>
         <td>14</td>
-        <td><img src="" alt="delete"></td>
+        <td><button type="submit">Delete</button></td>
       </tr>
     </table>
   </div>
@@ -99,6 +105,7 @@
         <td>8</td>
       </tr>
     </table>
+    <button>Close</button>
   </div>
 </main>
 
