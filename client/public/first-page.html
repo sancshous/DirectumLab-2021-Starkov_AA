@@ -3,29 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Create page</title>
+  <link href="style.css" rel="stylesheet">
 </head>
 <body>
 <header>
-  <a href="#">
-    <img src="favicon.ico" alt="logo">
-    <h1>PlanPoker</h1>
-  </a>
+  <div class="header">
+    <a class="icon" href="#">
+      <div class="left-semicircle"></div>
+      <div class="right-semicircle">
+        <div class="toprt-sector"></div>
+        <div class="bottomrt-sector"></div>
+      </div>
+    </a>
+    <a href="#"><h1>PlanPoker</h1></a>
+  </div>
 </header>
 
 <main>
-  <form>
+  <form class="form">
     <h2>Let's Start!</h2>
     <p>Create the room:</p>
 
-    <label>User name
-      <input type="text" name="user-name" placeholder="Enter your name" required>
+    <label class="user-name">User name
+      <input class="input-user-name" type="text" name="user-name" placeholder="Enter your name" required>
     </label>
 
-    <label>Room name
-      <input type="text" name="room-name" placeholder="Enter room name" required>
+    <label class="room-name">Room name
+      <input class="input-room-name" type="text" name="room-name" placeholder="Enter room name" required>
     </label>
 
-    <button type="submit">Enter</button>
+    <button class="btn-enter" type="submit">Enter</button>
   </form>
 </main>
 
