@@ -3,28 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Invite page</title>
+  <link href="style.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
-<header>
-  <a href="#">
-    <img src="favicon.ico" alt="logo">
-    <h1>PlanPoker</h1>
-  </a>
+<body class="body">
+<header class="header">
+  <div class="container header__content">
+    <a class="logo" href="#">
+      <img class="logo__icon" src="./icons/logo.svg" alt="logo">
+      <h1 class="logo__text">PlanPoker</h1>
+    </a>
+  </div>
 </header>
 
-<main>
-  <form>
-    <h2>Let's Start!</h2>
-    <p>Join the room:</p>
-    <label>User name
-      <input type="text" name="user-name" placeholder="Enter your name" required>
-    </label>
-    <button type="submit">Enter</button>
-  </form>
+<main class="main">
+  <div class="container main__content">
+    <form class="form form_invite">
+      <h2 class="form__title">Let's Start!</h2>
+      <p class="form__text">Join the room:</p>
+      <label class="form__label">User name
+        <input class="form__input" type="text" name="user-name" placeholder="Enter your name" required>
+      </label>
+      <button class="btn form__btn" type="submit">Enter</button>
+    </form>
+  </div>
 </main>
 
-<footer>
-  <p>Copyright 2021  <a href="#">PlanPoker</a></p>
+<footer class="footer">
+  <p>Copyright 2021  <a class="footer__text" href="#">PlanPoker</a></p>
 </footer>
 </body>
 </html>

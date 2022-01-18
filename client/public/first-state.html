@@ -3,52 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <title>Create new story</title>
+  <link href="style.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
-<header>
-  <a href="#">
-    <img src="favicon.ico" alt="logo">
-    <h1>PlanPoker</h1>
-  </a>
+<body class="body">
+<header class="header">
+  <div class="container header__content">
+    <a class="logo" href="#">
+      <img class="logo__icon" src="./icons/logo.svg" alt="logo">
+      <h1 class="logo__text">PlanPoker</h1>
+    </a>
 
-  <details>
-    <summary>
-      <span>test</span>
-      <img src="" alt="user">
-    </summary>
-    <div>
-      <a href="#">Sign Out</a>
-    </div>
-  </details>
+    <details class="user">
+      <summary class="user__summary">
+        <span class="user__name">test</span>
+        <img class="user__icon" src="./icons/user.svg" alt="user">
+      </summary>
+      <div class="user__details">
+        <a class="user__details__text" href="#">Sign Out</a>
+      </div>
+    </details>
+  </div>
 </header>
 
-<main>
-  <div>
-    <span>Create new story</span>
-  </div>
-  <div>
-    <h2>Story voting completed</h2>
-    <input type="text" placeholder="I" required>
-    <button type="submit">Go</button>
-    <h3>Player(2/2)</h3>
-    <ul>
-      <li>
-        <img src="" alt="player">
-        <span>test</span>
-      </li>
-      <li>
-        <img src="" alt="player">
-        <span>test2</span>
-      </li>
-    </ul>
-    <label>Invite a teammate
-      <input type="text" readonly value="https://www.planitpoker.com/board">
-    </label>
+<main class="main">
+  <div class="container main__content">
+    <div class="story_container">
+      <span>Create new story</span>
+    </div>
+    <div class="players">
+      <p class="players__header">Story voting completed</p>
+      <div class="players__body">
+        <div class="players__placeholder">
+          <input class="players__input players__storyname" type="text" placeholder="I" required>
+          <button class="btn players__btn_next" type="submit">Go</button>
+        </div>
+        <h2 class="players__title">Players(2/2)</h2>
+        <ul class="players__group">
+          <li class="player">
+            <div class="player__container">
+              <img class="player__icon" src="./icons/user.svg" alt="player">
+              <span class="player__text">test</span>
+            </div>
+          </li>
+          <li class="player">
+            <div class="player__container">
+              <img class="player__icon" src="./icons/user.svg" alt="player">
+              <span class="player__text">test2</span>
+            </div>
+          </li>
+        </ul>
+        <label class="players__label">Invite a teammate
+          <input class="players__input" type="text" readonly value="https://www.planitpoker.com/board">
+        </label>
+      </div>
+    </div>
   </div>
 </main>
 
-<footer>
-  <p>Copyright 2021  <a href="#">PlanPoker</a></p>
+<footer class="footer">
+  <p>Copyright 2021  <a class="footer__text" href="#">PlanPoker</a></p>
 </footer>
 </body>
 </html>

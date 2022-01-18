@@ -3,82 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <title>Story</title>
+  <link href="style.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
-<header>
-  <a href="#">
-    <img src="favicon.ico" alt="logo">
-    <h1>PlanPoker</h1>
-  </a>
+<body class="body">
+<header class="header">
+  <div class="container header__content">
+    <a class="logo" href="#">
+      <img class="logo__icon" src="./icons/logo.svg" alt="logo">
+      <h1 class="logo__text">PlanPoker</h1>
+    </a>
 
-  <details>
-    <summary>
-      <span>test</span>
-      <img src="" alt="user">
-    </summary>
-    <div>
-      <a href="#">Sign Out</a>
-    </div>
-  </details>
+    <details class="user">
+      <summary class="user__summary">
+        <span class="user__name">test</span>
+        <img class="user__icon" src="./icons/user.svg" alt="user">
+      </summary>
+      <div class="user__details">
+        <a class="user__details__text" href="#">Sign Out</a>
+      </div>
+    </details>
+  </div>
 </header>
 
-<main>
-  <h2>Story</h2>
-  <ul>
-    <li><button>0</button></li>
-    <li><button>0.5</button></li>
-    <li><button>1</button></li>
-    <li><button>3</button></li>
-    <li><button>5</button></li>
-  </ul>
+<main class="main">
+  <div class="container main__content story">
+    <p class="Story">Story</p>
+    <div class="content">
+      <ul class="card_group">
+        <li><button class="card">0</button></li>
+        <li><button class="card">0.5</button></li>
+        <li><button class="card">1</button></li>
+        <li><button class="card">2</button></li>
+        <li><button class="card">3</button></li>
+        <li><button class="card">5</button></li>
+        <li><button class="card">8</button></li>
+        <li><button class="card">13</button></li>
+        <li><button class="card">20</button></li>
+        <li><button class="card">40</button></li>
+        <li><button class="card">100</button></li>
+        <li><button class="card">?</button></li>
+        <li><button class="card">
+          <svg width="43" height="44" viewBox="0 0 43 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M35.5936 5.5H7.74343V23.8333C7.74343 27.885 10.8592 31.1667 14.706 31.1667H25.1498C28.9966 31.1667 32.1123 27.885 32.1123 23.8333V18.3333H35.5936C37.5257 18.3333 39.0749 16.7017 39.0749 14.6667V9.16667C39.0749 7.13167 37.5257 5.5 35.5936 5.5ZM35.5936 14.6667H32.1123V9.16667H35.5936V14.6667ZM35.5936 38.5H4.26216V34.8333H35.5936V38.5Z" fill="#131B23"/>
+          </svg>
+        </button></li>
+      </ul>
+      <div class="players">
+        <p class="players__header">Story voting completed</p>
+        <div class="players__body">
+          <button class="players__btn" type="submit">Finish Voting</button>
+          <h2 class="players__title">Players(2/2)</h2>
+          <ul class="players__group">
+            <li class="player">
+              <div class="player__container">
+                <img class="player__icon" src="./icons/user.svg" alt="player">
+                <span class="player__text">test</span>
+              </div>
+              <img class="player__voted" src="./icons/voted.svg" alt="voted">
+            </li>
+            <li class="player">
+              <div class="player__container">
+                <img class="player__icon" src="./icons/user.svg" alt="player">
+                <span class="player__text">test 2</span>
+              </div>
+            </li>
+          </ul>
+          <label class="players__label">Invite a teammate
+            <input class="players__input" type="text" readonly value="https://www.planitpoker.com/board">
+          </label>
+        </div>
+      </div>
+    </div>
 
-  <div>
-    <h2>Story voting completed</h2>
-    <button type="submit">Finish Voting</button>
-    <h3>Player(2/2)</h3>
-    <ul>
-      <li>
-        <img src="" alt="player">
-        <span>test</span>
-        <img src="" alt="voted">
-      </li>
-      <li>
-        <img src="" alt="player">
-        <span>test2</span>
-      </li>
-    </ul>
-    <label>Invite a teammate
-      <input type="text" readonly value="https://www.planitpoker.com/board">
-    </label>
-  </div>
-
-  <div>
-    <header>
-      <p>Completed Stories <span>3</span></p>
-      <button type="submit">Download</button>
-    </header>
-    <table>
-      <tr>
-        <td>Story</td>
-        <td>14</td>
-        <td><button type="submit">Delete</button></td>
-      </tr>
-      <tr>
-        <td>Story</td>
-        <td>14</td>
-        <td><button type="submit">Delete</button></td>
-      </tr>
-      <tr>
-        <td>Story</td>
-        <td>14</td>
-        <td><button type="submit">Delete</button></td>
-      </tr>
-    </table>
+    <div class="history">
+      <header class="history__header">
+        <div class="history__header__container">Completed Stories
+          <div class="history__mark">3</div>
+        </div>
+        <button class="btn history__btn_download" type="submit"><img src="./icons/download.svg"></button>
+      </header>
+      <table class="history__body">
+        <tr class="history__story">
+          <td>Story</td>
+          <td class="history__story__text">14</td>
+          <td><button class="history__story__btn" type="submit"><img src="./icons/delete.svg"></button></td>
+        </tr>
+        <tr class="history__story">
+          <td>Story</td>
+          <td class="history__story__text">14</td>
+          <td><button class="history__story__btn" type="submit"><img src="./icons/delete.svg"></button></td>
+        </tr>
+        <tr class="history__story">
+          <td>Story</td>
+          <td class="history__story__text">14</td>
+          <td><button class="history__story__btn" type="submit"><img src="./icons/delete.svg"></button></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </main>
 
-<footer>
-  <p>Copyright 2021  <a href="#">PlanPoker</a></p>
+<footer class="footer">
+  <p>Copyright 2021  <a class="footer__text" href="#">PlanPoker</a></p>
 </footer>
 </body>
 </html>
