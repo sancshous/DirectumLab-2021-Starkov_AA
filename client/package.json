@@ -62,6 +62,6 @@
       "npm run prettier:fix",
       "npm run eslint:fix"
     ],
-    "*.css": "npm run stylelint --fix"
+    "*.css": "npm run stylelint:fix"
   }
 }

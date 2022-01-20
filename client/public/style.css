@@ -74,13 +74,13 @@
   display: flex;
   padding-top: 76px;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   width: 500px;
-  height: 415px;
   color: #808284;
   padding: 55px 86px;
   padding-bottom: 63px;
@@ -483,11 +483,6 @@
   height: 39px;
   margin-right: 26px;
   border-radius: 0px 4px 4px 0px;
-}
-
-/*invite page*/
-.form_invite {
-  height: 337px;
 }
 
 /*result page*/
