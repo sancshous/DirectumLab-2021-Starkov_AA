@@ -3,114 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <title>Result</title>
+  <link href="style.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
-<body>
-<header>
-  <a href="#">
-    <img src="favicon.ico" alt="logo">
-    <h1>PlanPoker</h1>
-  </a>
+<body class="body">
+<header class="header">
+  <div class="container header__content">
+    <a class="logo" href="#">
+      <img class="logo__icon" src="./icons/logo.svg" alt="logo">
+      <h1 class="logo__text">PlanPoker</h1>
+    </a>
 
-  <details>
-    <summary>
-      <span>test</span>
-      <img src="" alt="user">
-    </summary>
-    <div>
-      <a href="#">Sign Out</a>
-    </div>
-  </details>
+    <details class="user">
+      <summary class="user__summary">
+        <span class="user__name">test</span>
+        <img class="user__icon" src="./icons/user.svg" alt="user">
+      </summary>
+      <div class="user__details">
+        <a class="user__details-text" href="#">Sign Out</a>
+      </div>
+    </details>
+  </div>
 </header>
 
-<main>
-  <h2>Story</h2>
-  <div>
-    <div>
-      <p>Диаграмма(css)</p>
-      <p>2 Playes</p>
-      <p>voted</p>
-      <p>Avg: 4</p>
+<main class="main">
+  <div class="container main__content story">
+    <div class="content">
+      <p class="Story">Story</p>
+      <div class="vote-result">
+        <div class="ring">
+          <svg width="328px" height="328px" viewBox="0 0 42 42" class="donut">
+            <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+            <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#DC493A" stroke-width="1.5"></circle>
+            <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#f4a460" stroke-width="1.5" stroke-dasharray="50 50" stroke-dashoffset="25"></circle>
+          </svg>
+          <div class="result">
+            <p class="result__text">2 Playes</p>
+            <p class="result__text-small">voted</p>
+            <p class="result__text">Avg: 4</p>
+          </div>
+        </div>
+        <ul class="stat-group">
+          <li class="stat">
+            <div class="stat__title">
+              <svg class="circle" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.09086" cy="5" rx="4.72727" ry="5" fill="#DC493A"/>
+              </svg>
+              <p class="stat__title-text">3</p>
+            </div>
+            <p class="stat__text">50% (1 player)</p>
+          </li>
+          <li class="stat">
+            <div class="stat__title">
+              <svg class="circle" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="5.09086" cy="5" rx="4.72727" ry="5" fill="#f4a460"/>
+              </svg>
+              <p class="stat__title-text">5</p>
+            </div>
+            <p class="stat__text">50% (1 player)</p>
+          </li>
+        </ul>
+      </div>
+      <div class="history">
+        <header class="history__header">
+          <div class="history__header-container">Completed Stories
+            <div class="history__mark">3</div>
+          </div>
+          <button class="btn history__btn-download" type="submit"><img src="./icons/download.svg"></button>
+        </header>
+        <table class="history__body">
+          <tr class="history__story">
+            <td>Story</td>
+            <td class="history__story-value">14</td>
+            <td><button class="history__story-btnDelete" type="submit"><img src="./icons/delete.svg"></button></td>
+          </tr>
+          <tr class="history__story">
+            <td>Story</td>
+            <td class="history__story-value">14</td>
+            <td><button class="history__story-btnDelete" type="submit"><img src="./icons/delete.svg"></button></td>
+          </tr>
+          <tr class="history__story">
+            <td>Story</td>
+            <td class="history__story-value">14</td>
+            <td><button class="history__story-btnDelete" type="submit"><img src="./icons/delete.svg"></button></td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal">
+        <div class="modal__content">
+          <p class="modal-header">Story Details</p>
+          <h2 class="modal-Players">Players:</h2>
+          <table class="modal__players-group">
+            <tr class="modal__player">
+              <td><img class="modal__player-icon" src="./icons/user.svg" alt="player"></td>
+              <td class="modal__player-name">test</td>
+              <td class="modal__player-value">3</td>
+            </tr>
+            <tr class="modal__player">
+              <td><img class="modal__player-icon" src="./icons/user.svg" alt="player"></td>
+              <td class="modal__player-name">test 2</td>
+              <td class="modal__player-value">8</td>
+            </tr>
+          </table>
+          <button class="modal__btn-close">Close</button>
+        </div>
+      </div>
     </div>
-
-    <ul>
-      <li>
-        <span>3</span>
-        <p>50% (1 player)</p>
-      </li>
-      <li>
-        <span>5</span>
-        <p>50% (1 player)</p>
-      </li>
-    </ul>
-  </div>
-
-  <div>
-    <h2>Story voting completed</h2>
-    <button type="submit">Finish Voting</button>
-    <h3>Player(2/2)</h3>
-    <ul>
-      <li>
-        <img src="" alt="player">
-        <span>test</span>
-        <span>3</span>
-      </li>
-      <li>
-        <img src="" alt="player">
-        <span>test2</span>
-        <span>5</span>
-      </li>
-    </ul>
-    <label>Invite a teammate
-      <input type="text" readonly value="https://www.planitpoker.com/board">
-    </label>
-  </div>
-
-  <div>
-    <header>
-      <p>Completed Stories <span>3</span></p>
-      <button type="submit">Download</button>
-    </header>
-    <table>
-      <tr>
-        <td>Story</td>
-        <td>14</td>
-        <td><button type="submit">Delete</button></td>
-      </tr>
-      <tr>
-        <td>Story</td>
-        <td>14</td>
-        <td><button type="submit">Delete</button></td>
-      </tr>
-      <tr>
-        <td>Story</td>
-        <td>14</td>
-        <td><button type="submit">Delete</button></td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- Модальное окно -->
-  <div>
-    <h2>Story Details</h2>
-    <h3>Players</h3>
-    <table>
-      <tr>
-        <td><img src="" alt="player"></td>
-        <td>test</td>
-        <td>3</td>
-      </tr>
-      <tr>
-        <td><img src="" alt="player"></td>
-        <td>test</td>
-        <td>8</td>
-      </tr>
-    </table>
-    <button>Close</button>
+    <div class="players">
+        <p class="players__header">Story voting completed</p>
+        <div class="players__body">
+          <div class="players__placeholder">
+            <input class="players__input players__storyname" type="text" placeholder="I" required>
+            <button class="btn players__btn-next" type="submit">Go</button>
+          </div>
+          <h2 class="players__title">Players(2/2)</h2>
+          <ul class="players__group">
+            <li class="player">
+              <div class="player__container">
+                <img class="player__icon" src="./icons/user.svg" alt="player">
+                <span class="player__text">test</span>
+              </div>
+              <span class="player__vote">3</span>
+            </li>
+            <li class="player">
+              <div class="player__container">
+                <img class="player__icon" src="./icons/user.svg" alt="player">
+                <span class="player__text">test 2</span>
+              </div>
+              <span class="player__vote">5</span>
+            </li>
+          </ul>
+          <label class="players__label">Invite a teammate
+            <input class="players__input" type="text" readonly value="https://www.planitpoker.com/board">
+          </label>
+        </div>
+      </div>
   </div>
 </main>
 
-<footer>
-  <p>Copyright 2021  <a href="#">PlanPoker</a></p>
+<footer class="footer">
+  <p>Copyright 2021  <a class="footer__text" href="#">PlanPoker</a></p>
 </footer>
 </body>
 </html>
