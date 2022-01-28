@@ -1,0 +1,30 @@
+.player {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 27px;
+  border: 1px solid #F2F3F4;
+  margin: 0 -1px;
+  box-sizing: border-box;
+  height: 67px;
+}
+
+.player__container {
+  display: flex;
+  align-items: center;
+}
+
+.player__text {
+  font-size: 18px;
+  margin-left: 18px;
+}
+
+.player__icon {
+  margin: 13px 0;
+  width: 40px;
+  height: 40px;
+}
+
+.player__voted {
+  margin-right: 24px;
+}

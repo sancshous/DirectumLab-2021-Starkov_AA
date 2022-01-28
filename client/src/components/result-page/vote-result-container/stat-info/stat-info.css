@@ -1,0 +1,22 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36px;
+  margin-right: 67px;
+}
+
+.stat__title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stat__title-text {
+  margin: 0;
+  font-size: 20px;
+  margin-left: 10px;
+}
+
+.stat__text {
+  margin: 0;
+}

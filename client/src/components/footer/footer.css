@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 70px;
+  padding: 10px 0;
+  color: #808284;
+  background-color: white;
+}
+
+.footer__text {
+  text-decoration: none;
+  color: #13406D;
+}
