@@ -8,33 +8,29 @@ interface IProps {
 }
 
 const Form: React.FC<IProps> = (props) => {
-  if (props.loginPage === 'create')
-  {
-    return <form className="form">
-      {/* eslint-disable-next-line react/no-unescaped-entities */}
-      <h2 className="form__title">Let's Start!</h2>
-      <p className="form__text">Create the room:</p>
 
+  function renderCreateForm() {
+    return <div>
+      <p className="form__text">Create the room:</p>
       <Input label={'User name'} placeholder={'Enter your name'} />
       <Input label={'Room name'} placeholder={'Enter room name'} />
-
-      <Button className={'form__btn'} title={'Enter'} />
-    </form>
-      ;
+    </div>
   }
-  else
-  {
-    return <form className="form">
-      {/* eslint-disable-next-line react/no-unescaped-entities */}
-      <h2 className="form__title">Let's Start!</h2>
+
+  function renderInviteForm() {
+    return <div>
       <p className="form__text">Join the room:</p>
-
       <Input label={'User name'} placeholder={'Enter your name'} />
-
-      <Button className={'form__btn'} title={'Enter'} />
-    </form>
-      ;
+    </div>
   }
+
+  return <form className="form">
+    {/* eslint-disable-next-line react/no-unescaped-entities */}
+    <h2 className="form__title">Let's Start!</h2>
+    {props.loginPage === 'create' ? renderCreateForm() : renderInviteForm()}
+    <Button className={'form__btn'} title={'Enter'} />
+  </form>
+    ;
 }
 
 export default Form;

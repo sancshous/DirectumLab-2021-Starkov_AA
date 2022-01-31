@@ -5,7 +5,8 @@ import "./story.css";
 
 interface IProps {
   title: string,
-  value: string
+  value: string,
+  onClick: () => void
 }
 
 const Story: React.FC<IProps> = (props) => {

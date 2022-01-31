@@ -13,7 +13,7 @@ const ResultPage: React.FC = () => {
         <div className="content">
           <p className="Story">Story</p>
           <VoteResultContainer />
-          <History />
+          <History defaultState={false} />
         </div>
         <Players className={''} input={'go'} />
       </div>

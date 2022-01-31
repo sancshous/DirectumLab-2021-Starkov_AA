@@ -13,7 +13,7 @@ const PageMap: { [key: string]: React.ReactElement } = {
 };
 
 const App: React.FunctionComponent = () => {
-  const [page] = React.useState( 1);
+  const [page] = React.useState( 3);
   return PageMap[page];
 };
 

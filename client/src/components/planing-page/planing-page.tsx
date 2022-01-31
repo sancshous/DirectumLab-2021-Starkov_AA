@@ -8,14 +8,14 @@ import Modal from "../modal/modal";
 
 const PlaningPage: React.FC = () => {
   return <div className={'body'}>
-    {/*<Modal isOpened={true} />*/}
+    {<Modal className={'visually-hidden'} />}
     <Header user={{name: 'Dima'}} />
     <main className="main">
       <div className="container main__content story">
         <div className="content">
           <p className="Story">Story</p>
           <CardGroup card={''} />
-          <History />
+          <History defaultState={false} />
         </div>
         <Players className={''} input={'finish'} />
       </div>
