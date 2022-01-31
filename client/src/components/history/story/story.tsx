@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const Story: React.FC<IProps> = (props) => {
-  return <tr className="history__story">
+  return <tr onClick={props.onClick} className="history__story">
     <td>{props.title}</td>
     <td className="history__story-value">{props.value}</td>
     <td>

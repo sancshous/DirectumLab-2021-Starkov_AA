@@ -4,11 +4,9 @@ import Footer from "../footer/footer";
 import History from "../history/history";
 import Players from "../players/players";
 import CardGroup from "./card-group/card-group";
-import Modal from "../modal/modal";
 
 const PlaningPage: React.FC = () => {
   return <div className={'body'}>
-    {<Modal className={'visually-hidden'} />}
     <Header user={{name: 'Dima'}} />
     <main className="main">
       <div className="container main__content story">
