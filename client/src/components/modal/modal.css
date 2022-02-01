@@ -1,0 +1,70 @@
+.modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  background: rgba(0,0,0, .2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  width: 676px;
+  border-radius: 4px 4px 0px 0px;
+  background-color: white;
+}
+
+.modal-header {
+  display: flex;
+  background-color: #13406D;
+  height: 100%;
+  margin: 0;
+  font-size: 18px;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+  border-radius: 4px 4px 0px 0px;
+}
+
+.modal-Players {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  margin: 25px 25px;
+}
+
+.modal__players-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__btn-close {
+  width: 238px;
+  padding: 15px 0;
+  margin-top: 108px;
+  margin-bottom: 20px;
+  margin-right: 25px;
+  margin-left: auto;
+  border: 1px solid #13406D;
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.modal__btn-close:hover {
+  border: 1px solid #123D68;
+  color: #123D68;
+}
+
+.modal__btn-close:active {
+  border: 1px solid #0F3458;
+  color: #0F3458;
+}

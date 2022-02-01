@@ -1,21 +1,20 @@
 import * as React from 'react';
-import logo from '../../images/logo.svg';
 import './app.css';
+import FirstState from "../first-state/first-state";
+import PlaningPage from "../planing-page/planing-page";
+import LoginPage from "../login-page/login-page";
+import ResultPage from "../result-page/result-page";
 
-function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const PageMap: { [key: string]: React.ReactElement } = {
+  '1': <LoginPage form={'form-create'} />,
+  '2': <FirstState />,
+  '3': <PlaningPage />,
+  '4': <ResultPage />
+};
+
+const App: React.FunctionComponent = () => {
+  const [page] = React.useState( 3);
+  return PageMap[page];
+};
 
 export default App;

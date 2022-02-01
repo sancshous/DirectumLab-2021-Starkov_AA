@@ -1,0 +1,25 @@
+.history {
+  display: flex;
+  flex-direction: column;
+  width: 676px;
+  min-height: 261px;
+  margin: 33px 0;
+}
+
+.history__body {
+  list-style: none;
+  display: flex;
+  overflow: hidden auto;
+  max-height: 300px;
+  flex-direction: column;
+  background-color: white;
+}
+
+.history__body::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.history__body {
+  -ms-overflow-style: none;
+}

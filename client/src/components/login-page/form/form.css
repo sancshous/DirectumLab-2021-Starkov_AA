@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  color: #808284;
+  padding: 55px 86px;
+  padding-bottom: 63px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 0 3px #d5d9de;
+}
+
+.form__title {
+  margin: 0 auto;
+  color: black;
+  margin-bottom: 12px;
+  font-size: 30px;
+}
+
+.form__text {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.form__btn {
+  margin-top: 24px;
+}

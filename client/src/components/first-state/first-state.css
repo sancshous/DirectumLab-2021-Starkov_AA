@@ -1,0 +1,25 @@
+.players.story {
+  margin-top: 0;
+}
+
+.players__placeholder {
+  display: flex;
+  align-items: center;
+  margin-left: 22px;
+}
+
+.players__storyname {
+  height: 39px;
+  flex-grow: 1;
+  margin: 0;
+  border: 1px solid #D5D9DE;
+  box-sizing: border-box;
+  border-radius: 4px 0px 0px 4px;
+}
+
+.players__btn-next {
+  width: 68px;
+  height: 39px;
+  margin-right: 26px;
+  border-radius: 0px 4px 4px 0px;
+}

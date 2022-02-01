@@ -1,0 +1,11 @@
+.card_group {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  min-width: 676px;
+  min-height: 548px;
+  list-style: none;
+  margin-left: -12px;
+  justify-content: center;
+}
