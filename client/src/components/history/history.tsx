@@ -33,16 +33,21 @@ class History extends React.Component<IProps, IState> {
     this.state = {
       showModal: props.defaultState
     }
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  public handleClick() {
-    this.setState({
-      showModal: true
+  handleClick = () => {
+    this.setState((prevState: IState) => {
+      return {
+        showModal: !prevState.showModal
+      }
     });
   }
 
   render() {
+    const {showModal} = this.state;
     return <div className="history">
+      {showModal && <Modal className={null} /> }
       <HistoryHeader mark={stories.length} />
       <table className="history__body">
         {

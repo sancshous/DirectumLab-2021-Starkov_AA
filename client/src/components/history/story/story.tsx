@@ -10,13 +10,15 @@ interface IProps {
 }
 
 const Story: React.FC<IProps> = (props) => {
-  return <tr className="history__story">
-    <td>{props.title}</td>
-    <td className="history__story-value">{props.value}</td>
-    <td>
-      <Button className={'history__story-btnDelete'} title={<img src={remove} />} />
-    </td>
-  </tr>
+  return <div onClick={props.onClick}>
+    <tr className="history__story">
+      <td>{props.title}</td>
+      <td className="history__story-value">{props.value}</td>
+      <td>
+        <Button onClick={undefined} className={'history__story-btnDelete'} title={<img src={remove} />} />
+      </td>
+    </tr>
+  </div>
     ;
 }
 

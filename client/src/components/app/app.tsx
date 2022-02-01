@@ -1,20 +1,20 @@
 import * as React from 'react';
+import CreatePage from "../login-page/create-page";
+import InvitePage from "../login-page/invite-page";
+import NoMatchPage from "../no-match-page/no-match-page";
+import RoomPage from "../room-page/room-page";
+import {Switch, Route} from 'react-router-dom';
+import {RoutePath} from "../../routes";
 import './app.css';
-import FirstState from "../first-state/first-state";
-import PlaningPage from "../planing-page/planing-page";
-import LoginPage from "../login-page/login-page";
-import ResultPage from "../result-page/result-page";
 
-const PageMap: { [key: string]: React.ReactElement } = {
-  '1': <LoginPage form={'form-create'} />,
-  '2': <FirstState />,
-  '3': <PlaningPage />,
-  '4': <ResultPage />
-};
 
 const App: React.FunctionComponent = () => {
-  const [page] = React.useState( 3);
-  return PageMap[page];
+  return <Switch>
+    <Route path={RoutePath.INDEX} exact={true} component={CreatePage} />
+    <Route path={`${RoutePath.ROOM}/:roomId`} exact={true} component={RoomPage} />
+    <Route path={`${RoutePath.INVITE}/:roomId`} exact={true} component={InvitePage} />
+    <Route component={NoMatchPage} />
+  </Switch>
 };
 
 export default App;

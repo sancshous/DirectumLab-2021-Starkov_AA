@@ -1,9 +1,13 @@
 import * as React from "react";
 import './players-input.css';
 
-const PlayersInput: React.FC = () => {
+interface IProps {
+  onSubmit: () => void;
+}
+
+const PlayersInput: React.FC<IProps> = (props) => {
   return <label className="players__label">Invite a teammate
-    <input className="players__input" type="text" readOnly={true} value="https://www.planitpoker.com/board" />
+    <input onClick={props.onSubmit} className="players__input" type="text" readOnly={true} value={document.location.href} />
   </label>
     ;
 }

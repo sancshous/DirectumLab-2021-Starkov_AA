@@ -1,5 +1,7 @@
 import * as React from "react";
 import user from '../../images/user.svg';
+import {Link} from "react-router-dom";
+import {RoutePath} from "../../routes";
 import './user.css';
 
 interface IProps {
@@ -13,7 +15,7 @@ const User: React.FC<IProps> = (props) => {
       <img className="user__icon" src={user} alt="user" />
     </summary>
     <div className="user__details">
-      <a className="user__details-text" href="#">Sign Out</a>
+      <Link className="user__details-text" to={RoutePath.INDEX}>Sign Out</Link>
     </div>
   </details>
     ;
