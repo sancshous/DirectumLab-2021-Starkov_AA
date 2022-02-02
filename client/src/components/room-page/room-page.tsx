@@ -105,11 +105,11 @@ class RoomPage extends React.Component<RouteComponentProps<IMatchParams>, IState
     switch (roomState) {
       case RoomState.VOTING:
         template = this.renderDeck();
-        storyClass = ' story';
+        storyClass = 'story';
         break;
       case RoomState.VOTED:
         template = this.renderResult();
-        storyClass = ' story';
+        storyClass = 'story';
         break;
     }
 

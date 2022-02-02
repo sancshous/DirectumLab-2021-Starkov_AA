@@ -3,35 +3,14 @@ import ModalContent from "./modal-content";
 import "./modal.css";
 
 interface IProps {
-  className?: string | null
+  onClick: () => void
 }
 
-interface IState {
-  isOpened: boolean
-}
-
-class Modal extends React.Component<IProps, IState>{
-
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      isOpened: true
-    }
-  }
-
-  handleClick = () => {
-    this.setState({
-      isOpened: false
-    })
-  }
-
-  render() {
-    const {isOpened} = this.state;
-    return <div className={`modal__wrapper ${!isOpened && ' visually-hidden'}`}>
-      <ModalContent onSubmit={this.handleClick} />
-    </div>
-      ;
-  }
+const Modal: React.FC<IProps> = (props) => {
+  return <div className={`modal__wrapper`}>
+    <ModalContent onSubmit={props.onClick} />
+  </div>
+    ;
 }
 
 export default Modal;
