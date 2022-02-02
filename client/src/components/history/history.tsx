@@ -1,8 +1,8 @@
 import * as React from "react";
 import HistoryHeader from "./history-header/history-header";
 import Story from "./story/story";
-import "./history.css";
 import Modal from "../modal/modal";
+import "./history.css";
 
 interface IStories {
   id: number,
@@ -33,26 +33,32 @@ class History extends React.Component<IProps, IState> {
     this.state = {
       showModal: props.defaultState
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
+    this.handleClickClose = this.handleClickClose.bind(this);
   }
 
-  handleClick = () => {
-    this.setState((prevState: IState) => {
-      return {
-        showModal: !prevState.showModal
-      }
+  handleClickOpen = () => {
+    this.setState( {
+      showModal: true
     });
   }
+
+  handleClickClose = () => {
+    this.setState( {
+      showModal: false
+    });
+  }
+
 
   render() {
     const {showModal} = this.state;
     return <div className="history">
-      {showModal && <Modal className={null} /> }
+      {showModal && <Modal onClick={this.handleClickClose} /> }
       <HistoryHeader mark={stories.length} />
       <table className="history__body">
         {
           stories.map((story) => (
-            <Story onClick={this.handleClick} key={story.id} title={story.title} value={story.value} />
+            <Story onClick={this.handleClickOpen} key={story.id} title={story.title} value={story.value} />
           ))
         }
       </table>

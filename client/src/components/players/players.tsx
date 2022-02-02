@@ -3,11 +3,13 @@ import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import Button from "../button/button";
 import './players.css';
-import '../first-state/first-state.css';
 
 interface IProps {
   input: string,
-  className?: string
+  title: string,
+  className?: string,
+  onSubmitInput: () => void,
+  onSubmitGoFinish: () => void
 }
 
 interface IUsers {
@@ -26,23 +28,23 @@ const users: IUsers[] = [
 ]
 
 const Players: React.FC<IProps> = (props) => {
-  function RenderInput() {
+  function RenderInputButton() {
     switch (props.input) {
       case 'go':
         return <div className="players__placeholder">
           <input className="players__input players__storyname" type="text" placeholder="I" required={true} />
-          <Button className={'players__btn-next'} title={'Go'} />
+          <Button onClick={props.onSubmitGoFinish} className={'players__btn-next'} title={'Go'} />
         </div>
       case 'finish':
-        return <Button className={'players__btn'} title={'Finish Voiting'} />
+        return <Button onClick={props.onSubmitGoFinish} className={'players__btn'} title={'Finish Voiting'} />
     }
   }
 
   return <div className={`players ${props.className || ''}`}>
-    <p className="players__header">Story voting completed</p>
+    <p className="players__header">{props.title}</p>
     <div className="players__body">
       {
-        RenderInput()
+        RenderInputButton()
       }
       <h2 className="players__title">Players(2/{users.length})</h2>
       <ul className="players__group">
@@ -52,7 +54,7 @@ const Players: React.FC<IProps> = (props) => {
           ))
         }
       </ul>
-      <PlayersInput />
+      <PlayersInput onSubmit={props.onSubmitInput} />
     </div>
   </div>
     ;

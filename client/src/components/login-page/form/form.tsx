@@ -1,10 +1,11 @@
 import * as React from "react";
-import Button from "../../button/button";
 import Input from "../../input/input";
 import './form.css';
+import Button from "../../button/button";
 
 interface IProps {
-  loginPage: string;
+  loginPage: string,
+  onSubmit: () => void
 }
 
 const Form: React.FC<IProps> = (props) => {
@@ -28,7 +29,7 @@ const Form: React.FC<IProps> = (props) => {
     {/* eslint-disable-next-line react/no-unescaped-entities */}
     <h2 className="form__title">Let's Start!</h2>
     {props.loginPage === 'create' ? renderCreateForm() : renderInviteForm()}
-    <Button className={'form__btn'} title={'Enter'} />
+    <Button onClick={props.onSubmit} className={'form__btn'} title={'Enter'} />
   </form>
     ;
 }
