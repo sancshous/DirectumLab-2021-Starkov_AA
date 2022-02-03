@@ -6,11 +6,19 @@ interface IProps {
   placeholder: string;
 }
 
-const Input: React.FC<IProps> = (props) => {
-  return <label className="form__label">{props.label}
-    <input className="form__input" type="text" name="user-name" placeholder={props.placeholder} required={true} />
-  </label>
-  ;
-}
+// eslint-disable-next-line react/display-name
+const Input = React.forwardRef ((props: IProps, ref: React.ForwardedRef<HTMLInputElement>) => {
+  return (
+    <label className="form__label">{props.label}
+      <input
+        ref={ref}
+        className="form__input"
+        type="text"
+        name="user-name"
+        placeholder={props.placeholder}
+        required={true} />
+    </label>
+  );
+});
 
 export default Input;

@@ -5,24 +5,52 @@ import Header from "../header/header";
 import Form from "./form/form";
 import Footer from "../footer/footer";
 import {RoutePath} from "../../routes";
+import {createRoom} from "../../api/api";
 
-const CreatePage: React.FC<RouteComponentProps> = (props) => {
-  const handleClick = () => {
-    const roomId = Math.round(Math.random() * (100 - 1) + 1);
-    props.history.push(`${RoutePath.ROOM}/${roomId}`);
+class CreatePage extends React.Component<RouteComponentProps, any>  {
+
+  // eslint-disable-next-line react/sort-comp
+  private readonly userNameRef: React.RefObject<HTMLInputElement>;
+  private readonly roomNameRef: React.RefObject<HTMLInputElement>;
+
+  constructor(props: RouteComponentProps) {
+    super(props);
+    this.userNameRef = React.createRef();
+    this.roomNameRef = React.createRef();
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  return <div className={'body'}>
-    <Header user={null} />
-    <main className="main">
-      <div className="container main__content">
-        <Form onSubmit={handleClick} loginPage={'create'} />
-      </div>
-    </main>
+  componentDidMount() {
+    this.userNameRef.current && this.userNameRef.current.focus();
+  }
 
-    <Footer />
-  </div>
-    ;
+  handleSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
+    const {current: userName } = this.userNameRef;
+    const {current: roomName } = this.roomNameRef;
+    if(userName && roomName) {
+      const response = createRoom(userName.value, roomName.value);
+      this.props.history.push(`${RoutePath.ROOM}/${response.roomId}`);
+    }
+  }
+
+  render() {
+    return <div className={'body'}>
+      <Header user={null} />
+      <main className="main">
+        <div className="container main__content">
+          <Form
+            userRef={this.userNameRef}
+            roomRef={this.roomNameRef}
+            onSubmit={this.handleSubmit}
+            loginPage={'create'} />
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+      ;
+  }
 }
 
 export default withRouter(CreatePage);

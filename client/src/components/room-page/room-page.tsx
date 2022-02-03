@@ -9,51 +9,88 @@ import CardGroup from "./voting-page/card-group/card-group";
 import History from "../history/history";
 import VoteResultContainer from "./voted-page/vote-result-container/vote-result-container";
 import {RoutePath} from "../../routes";
-
-export enum RoomState {
-  NEW = 'new',
-  VOTING = 'voting',
-  VOTED = 'voted'
-}
+import {IRoom, IStory, IUser} from "../../store/types";
+import {createStory, loadRoom, vote} from "../../api/api";
 
 interface IState {
-  roomState: RoomState
+  forceUpdate: boolean
 }
 
 interface IMatchParams {
   roomId: string;
 }
 
-class RoomPage extends React.Component<RouteComponentProps<IMatchParams>, IState> {
+interface IProps extends RouteComponentProps<IMatchParams> {
+  user: IUser | null,
+  room: IRoom | null
+}
 
-  constructor(props: RouteComponentProps<IMatchParams>) {
+class RoomPage extends React.Component<IProps, IState> {
+
+  constructor(props: IProps) {
     super(props);
     this.state = {
-      roomState: RoomState.NEW
+      forceUpdate: true
     };
-    this.handleClickInput = this.handleClickInput.bind(this);
-    this.handleClickGO = this.handleClickGO.bind(this);
-    this.handleClickFinish = this.handleClickFinish.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleCreateClick = this.handleCreateClick.bind(this);
+    this.handleVote = this.handleVote.bind(this);
   }
 
-  private readonly handleClickInput = () => {
+  public componentDidMount() {
+    if(this.props.room == null) {
+      const room = loadRoom(this.props.match.params.roomId);
+      this.setState({
+        forceUpdate: true
+      });
+    }
+  }
+
+  private readonly handleClick = () => {
     this.props.history.push(`${RoutePath.INVITE}/${this.props.match.params.roomId}`);
   }
 
-  private readonly handleClickGO = () => {
-    // const storyId = Math.round(Math.random() * (100 - 1) + 1);
+  private readonly handleCreateClick = () => {
+    const story = createStory(this.props.match.params.roomId, 'TestStory');
     this.setState({
-      roomState: RoomState.VOTING
+      forceUpdate: true
     });
   }
 
-  private readonly handleClickFinish = () => {
-    this.setState({
-      roomState: RoomState.VOTED
-    });
+  private readonly handleVote = (value: string) => {
+    const {room} = this.props;
+    if(room != null) {
+      vote(room.id, room.stories[room.stories.length - 1].id, value);
+      this.setState({
+        forceUpdate: true
+      });
+    }
+  }
+
+  private getCurrentStory(): IStory | null {
+    return this.props.room?.stories[this.props.room?.stories.length - 1] || null;
   }
 
   public renderPlaceHolder(): React.ReactNode {
+    return <StoryPlaceHolder />
+  }
+
+  public renderDeck(room: IRoom): React.ReactNode {
+    return (
+      <CardGroup values={room.cards} vote={this.handleVote} />
+    );
+  }
+
+  public renderWorkArea(room: IRoom, story: IStory | null) {
+    if(story == null)
+      return this.renderPlaceHolder();
+    else if(story.average)
+      return <div>Result</div>;
+    else
+      return this.renderDeck(room);
+  }
+
+  /*public renderPlaceHolder(): React.ReactNode {
     return <>
       <StoryPlaceHolder />
       <Players
@@ -63,7 +100,7 @@ class RoomPage extends React.Component<RouteComponentProps<IMatchParams>, IState
         className={'story'}
         input={'go'} />
     </>
-  }
+  }*/
 
   public renderDeck(): React.ReactNode {
     return <>
@@ -81,7 +118,7 @@ class RoomPage extends React.Component<RouteComponentProps<IMatchParams>, IState
     </>
   }
 
-  public renderResult(): React.ReactNode {
+  /*public renderResult(): React.ReactNode {
     return <>
       <div className="content">
         <p className="Story">Story</p>
@@ -95,7 +132,7 @@ class RoomPage extends React.Component<RouteComponentProps<IMatchParams>, IState
         className={''}
         input={'go'} />
     </>
-  }
+  }*/
 
   render() {
     const {roomState} = this.state;
