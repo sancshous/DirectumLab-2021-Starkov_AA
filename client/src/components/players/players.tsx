@@ -2,30 +2,18 @@ import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import Button from "../button/button";
+import {IUser} from "../../store/types";
 import './players.css';
+
 
 interface IProps {
   input: string,
   title: string,
   className?: string,
+  users: Array<IUser>,
   onSubmitInput: () => void,
   onSubmitGoFinish: () => void
 }
-
-interface IUsers {
-  name: string,
-  status?: string | null
-}
-
-const users: IUsers[] = [
-  {name: 'Дмитрий', status: 'voting'},
-  {name: 'Павел', status: null},
-  {name: 'Мария', status: 'voted'},
-  {name: 'Сергей', status: 'voting'},
-  {name: 'Александра', status: null},
-  {name: 'Оля', status: 'voted'},
-  {name: 'Анастасия', status: 'voted'}
-]
 
 const Players: React.FC<IProps> = (props) => {
   function RenderInputButton() {
@@ -46,11 +34,11 @@ const Players: React.FC<IProps> = (props) => {
       {
         RenderInputButton()
       }
-      <h2 className="players__title">Players(2/{users.length})</h2>
+      <h2 className="players__title">Players(1/{props.users.length})</h2>
       <ul className="players__group">
         {
-          users.map((user) => (
-            <Player key={user.name} name={user.name} status={user.status} />
+          props.users.map((user) => (
+            <Player key={user.id} name={user.name} />
           ))
         }
       </ul>

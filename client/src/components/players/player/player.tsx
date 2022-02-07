@@ -27,9 +27,9 @@ const Player: React.FC<IProps> = (props) => {
       <img className="player__icon" src={user} alt="player" />
       <span className="player__text">{props.name}</span>
     </div>
-    {
+    {/*{
       RenderPlayerStatus()
-    }
+    }*/}
   </li>
     ;
 }

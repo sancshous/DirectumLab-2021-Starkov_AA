@@ -9,7 +9,8 @@ import {updateRoom} from "../../store/room/room-action-creators";
 const mapStateToProps = (state: IRootState) => {
   return{
     user: state.user,
-    room: state.room
+    room: state.room,
+    // cards: state.room?.cards || []
   };
 };
 

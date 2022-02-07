@@ -10,6 +10,7 @@ import VoteResultContainer from "./voted-page/vote-result-container/vote-result-
 import {RoutePath} from "../../routes";
 import {IRoom, IRootState, IUser} from "../../store/types";
 import {loadRoom} from "../../api/api";
+import {room} from "../../store/mockStore";
 
 export enum RoomState {
   NEW = 'new',
@@ -72,6 +73,7 @@ class RoomPageView extends React.Component<IProps, IState> {
     return <>
       <StoryPlaceHolder />
       <Players
+        users={room.users}
         title={'Новое голосование'}
         onSubmitGoFinish={this.handleClickGO}
         onSubmitInput={this.handleClickInput}
@@ -84,10 +86,11 @@ class RoomPageView extends React.Component<IProps, IState> {
     return <>
       <div className="content">
         <p className="Story">Story</p>
-        <CardGroup card={''} />
+        <CardGroup cards={room.cards} />
         <History defaultState={false} />
       </div>
       <Players
+        users={room.users}
         title={'Голосование началось'}
         onSubmitGoFinish={this.handleClickFinish}
         onSubmitInput={this.handleClickInput}
@@ -104,6 +107,7 @@ class RoomPageView extends React.Component<IProps, IState> {
         <History defaultState={false} />
       </div>
       <Players
+        users={room.users}
         title={'Голосование завершилось'}
         onSubmitGoFinish={this.handleClickGO}
         onSubmitInput={this.handleClickInput}
