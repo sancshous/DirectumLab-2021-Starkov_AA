@@ -1,19 +1,27 @@
 import * as React from "react";
-import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import Header from "../header/header";
 import Form from "./form/form";
 import Footer from "../footer/footer";
 import {RoutePath} from "../../routes";
 import {createRoom} from "../../api/api";
+import {IUser} from "../../store/types";
+import {compose, Dispatch} from "redux";
+import {updateUser} from "../../store/user/user-action-creators";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
-class CreatePage extends React.Component<RouteComponentProps, any>  {
+interface IProps extends RouteComponentProps{
+  updateUser: (user: IUser) => void
+}
+
+class CreatePage extends React.Component<IProps, any>  {
 
   // eslint-disable-next-line react/sort-comp
   private readonly userNameRef: React.RefObject<HTMLInputElement>;
   private readonly roomNameRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props: RouteComponentProps) {
+  constructor(props: IProps) {
     super(props);
     this.userNameRef = React.createRef();
     this.roomNameRef = React.createRef();
@@ -30,13 +38,14 @@ class CreatePage extends React.Component<RouteComponentProps, any>  {
     const {current: roomName } = this.roomNameRef;
     if(userName && roomName) {
       const response = createRoom(userName.value, roomName.value);
+      this.props.updateUser(response.user);
       this.props.history.push(`${RoutePath.ROOM}/${response.roomId}`);
     }
   }
 
   render() {
     return <div className={'body'}>
-      <Header user={null} />
+      <Header />
       <main className="main">
         <div className="container main__content">
           <Form
@@ -53,4 +62,12 @@ class CreatePage extends React.Component<RouteComponentProps, any>  {
   }
 }
 
-export default withRouter(CreatePage);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    updateUser: (user: IUser) => {
+      dispatch(updateUser(user));
+    }
+  }
+}
+
+export default compose<React.ComponentClass>(withRouter, connect(null, mapDispatchToProps))(CreatePage);

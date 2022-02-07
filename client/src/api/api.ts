@@ -45,7 +45,7 @@ export const vote = (roomId: string, storyId: string, value: string): IRoom | nu
   if(store.room?.id === roomId) {
     const currentStory = store.room.stories.find((s) => s.id === storyId);
     if (currentStory) {
-      room?.stories.push(currentStory.votes[storyId, value])
+      currentStory.votes[user.id] = value;
     }
   }
   return room;

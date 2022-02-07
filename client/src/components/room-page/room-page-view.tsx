@@ -1,5 +1,4 @@
 import * as React from "react";
-import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -9,88 +8,67 @@ import CardGroup from "./voting-page/card-group/card-group";
 import History from "../history/history";
 import VoteResultContainer from "./voted-page/vote-result-container/vote-result-container";
 import {RoutePath} from "../../routes";
-import {IRoom, IStory, IUser} from "../../store/types";
-import {createStory, loadRoom, vote} from "../../api/api";
+import {IRoom, IRootState, IUser} from "../../store/types";
+import {loadRoom} from "../../api/api";
+
+export enum RoomState {
+  NEW = 'new',
+  VOTING = 'voting',
+  VOTED = 'voted'
+}
 
 interface IState {
-  forceUpdate: boolean
+  roomState: RoomState
 }
 
 interface IMatchParams {
   roomId: string;
 }
 
-interface IProps extends RouteComponentProps<IMatchParams> {
-  user: IUser | null,
-  room: IRoom | null
+interface IProps extends RouteComponentProps<IMatchParams>{
+  user: IUser,
+  room: IRoom,
+  updateRoom: (room: IRoom) => void
 }
 
-class RoomPage extends React.Component<IProps, IState> {
+class RoomPageView extends React.Component<IProps, IState> {
 
   constructor(props: IProps) {
     super(props);
     this.state = {
-      forceUpdate: true
+      roomState: RoomState.NEW
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleCreateClick = this.handleCreateClick.bind(this);
-    this.handleVote = this.handleVote.bind(this);
+    this.handleClickInput = this.handleClickInput.bind(this);
+    this.handleClickGO = this.handleClickGO.bind(this);
+    this.handleClickFinish = this.handleClickFinish.bind(this);
   }
 
   public componentDidMount() {
     if(this.props.room == null) {
       const room = loadRoom(this.props.match.params.roomId);
-      this.setState({
-        forceUpdate: true
-      });
+      if (room)
+        this.props.updateRoom(room);
     }
   }
 
-  private readonly handleClick = () => {
+  private readonly handleClickInput = () => {
     this.props.history.push(`${RoutePath.INVITE}/${this.props.match.params.roomId}`);
   }
 
-  private readonly handleCreateClick = () => {
-    const story = createStory(this.props.match.params.roomId, 'TestStory');
+  private readonly handleClickGO = () => {
+    // const storyId = Math.round(Math.random() * (100 - 1) + 1);
     this.setState({
-      forceUpdate: true
+      roomState: RoomState.VOTING
     });
   }
 
-  private readonly handleVote = (value: string) => {
-    const {room} = this.props;
-    if(room != null) {
-      vote(room.id, room.stories[room.stories.length - 1].id, value);
-      this.setState({
-        forceUpdate: true
-      });
-    }
-  }
-
-  private getCurrentStory(): IStory | null {
-    return this.props.room?.stories[this.props.room?.stories.length - 1] || null;
+  private readonly handleClickFinish = () => {
+    this.setState({
+      roomState: RoomState.VOTED
+    });
   }
 
   public renderPlaceHolder(): React.ReactNode {
-    return <StoryPlaceHolder />
-  }
-
-  public renderDeck(room: IRoom): React.ReactNode {
-    return (
-      <CardGroup values={room.cards} vote={this.handleVote} />
-    );
-  }
-
-  public renderWorkArea(room: IRoom, story: IStory | null) {
-    if(story == null)
-      return this.renderPlaceHolder();
-    else if(story.average)
-      return <div>Result</div>;
-    else
-      return this.renderDeck(room);
-  }
-
-  /*public renderPlaceHolder(): React.ReactNode {
     return <>
       <StoryPlaceHolder />
       <Players
@@ -100,7 +78,7 @@ class RoomPage extends React.Component<IProps, IState> {
         className={'story'}
         input={'go'} />
     </>
-  }*/
+  }
 
   public renderDeck(): React.ReactNode {
     return <>
@@ -118,7 +96,7 @@ class RoomPage extends React.Component<IProps, IState> {
     </>
   }
 
-  /*public renderResult(): React.ReactNode {
+  public renderResult(): React.ReactNode {
     return <>
       <div className="content">
         <p className="Story">Story</p>
@@ -132,7 +110,7 @@ class RoomPage extends React.Component<IProps, IState> {
         className={''}
         input={'go'} />
     </>
-  }*/
+  }
 
   render() {
     const {roomState} = this.state;
@@ -151,7 +129,7 @@ class RoomPage extends React.Component<IProps, IState> {
     }
 
     return <div className={'body'}>
-      <Header user={{name: 'Dima'}} />
+      <Header />
       <main className="main">
         <div className={`container main__content ${storyClass}`}>
           {template}
@@ -164,4 +142,4 @@ class RoomPage extends React.Component<IProps, IState> {
   }
 }
 
-export default withRouter(RoomPage);
+export default RoomPageView

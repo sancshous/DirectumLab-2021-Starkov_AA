@@ -23,7 +23,7 @@ export interface IRoom {
   stories: Array<IStory>
 }
 
-export  interface IRoomState {
+export  interface IRootState {
   room: IRoom | null,
   user: IUser | null
 }

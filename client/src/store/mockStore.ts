@@ -1,6 +1,6 @@
-import {IRoom, IUser, IRoomState, IStory} from "./types";
+import {IRoom, IUser, IRootState, IStory} from "./types";
 
-export const store: IRoomState = {
+export const store: IRootState = {
   user: null,
   room: null
 };

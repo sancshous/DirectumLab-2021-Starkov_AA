@@ -5,7 +5,7 @@ import './no-match-page.css';
 
 const NoMatchPage: React.FC = () => {
   return <div className={'body'}>
-    <Header user={null} />
+    <Header />
     <main className="main">
       <div className="container main__content">
         <h2 className={'nomatchPage'}>Ooops!!</h2>

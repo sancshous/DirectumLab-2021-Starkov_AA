@@ -1,23 +1,30 @@
 import * as React from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import {withRouter} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import Form from "./form/form";
 import {RoutePath} from "../../routes";
 import {createRoom, join} from "../../api/api";
-import {match} from "assert";
+import {IUser} from "../../store/types";
+import {compose, Dispatch} from "redux";
+import {updateUser} from "../../store/user/user-action-creators";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 interface IMatchParams {
   roomId: string;
 }
 
-class InvitePage extends React.Component<RouteComponentProps<IMatchParams>, any> {
+interface IProps extends RouteComponentProps<IMatchParams>{
+  updateUser: (user: IUser) => void
+}
+
+class InvitePage extends React.Component<IProps, any> {
 
   // eslint-disable-next-line react/sort-comp
   private readonly userNameRef: React.RefObject<HTMLInputElement>;
 
-  constructor(props: RouteComponentProps<IMatchParams>) {
+  constructor(props: IProps) {
     super(props);
     this.userNameRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,14 +39,15 @@ class InvitePage extends React.Component<RouteComponentProps<IMatchParams>, any>
     const {current: userName } = this.userNameRef;
     const {match, history } = this.props;
     if(userName) {
-      const user = join(match.params.roomId, userName.value);
+      const response = join(match.params.roomId, userName.value);
+      this.props.updateUser(response);
       history.push(`${RoutePath.ROOM}/${match.params.roomId}`);
     }
   }
 
   render() {
     return <div className={'body'}>
-      <Header user={null} />
+      <Header />
       <main className="main">
         <div className="container main__content">
           <Form
@@ -54,5 +62,12 @@ class InvitePage extends React.Component<RouteComponentProps<IMatchParams>, any>
       ;
   }
 }
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    updateUser: (user: IUser) => {
+      dispatch(updateUser(user));
+    }
+  }
+}
 
-export default withRouter(InvitePage);
+export default compose<React.ComponentClass>(withRouter, connect(null, mapDispatchToProps))(InvitePage);
