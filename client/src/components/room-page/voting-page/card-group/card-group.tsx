@@ -2,36 +2,20 @@ import * as React from "react";
 import Card from "./card/card";
 import "./card-group.css";
 
-interface IState {
-  clicked: number | null
-}
-
 interface IProps {
-  cards: string[];
+  cards: string[],
+  selectedCard?: string | null,
+  vote: (value: string) => void
 }
 
-class CardGroup extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-    this.state = {
-      clicked: null
+const CardGroup: React.FC<IProps> = (props) => {
+  return <ul className="card_group">
+    {
+      props.cards.map((card) => (
+        <Card className={`${props.selectedCard === card && 'card_selected'}`} key={card} value={card} onClick={() => props.vote(card)} />
+      ))
     }
-  }
-
-  handleClick(id: number) {
-    this.setState({clicked: id});
-  };
-
-  render() {
-    return <ul className="card_group">
-      {
-        this.props.cards.map((num, index) => (
-          <Card className={this.state.clicked === index && "card_selected"} onClick={() => this.handleClick(index)} key={num} value={num} />
-        ))
-      }
-    </ul>
-      ;
-  }
+  </ul>;
 }
 
 export default CardGroup;

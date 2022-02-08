@@ -2,7 +2,7 @@ import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import Button from "../button/button";
-import {IUser} from "../../store/types";
+import {IStory, IUser} from "../../store/types";
 import './players.css';
 
 
@@ -11,8 +11,11 @@ interface IProps {
   title: string,
   className?: string,
   users: Array<IUser>,
+  story: IStory | null,
+  status: string,
   onSubmitInput: () => void,
-  onSubmitGoFinish: () => void
+  onSubmitGo: () => void,
+  onSubmitFinish: () => void
 }
 
 const Players: React.FC<IProps> = (props) => {
@@ -21,10 +24,10 @@ const Players: React.FC<IProps> = (props) => {
       case 'go':
         return <div className="players__placeholder">
           <input className="players__input players__storyname" type="text" placeholder="I" required={true} />
-          <Button onClick={props.onSubmitGoFinish} className={'players__btn-next'} title={'Go'} />
+          <Button onClick={props.onSubmitGo} className={'players__btn-next'} title={'Go'} />
         </div>
       case 'finish':
-        return <Button onClick={props.onSubmitGoFinish} className={'players__btn'} title={'Finish Voiting'} />
+        return <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />
     }
   }
 
@@ -38,7 +41,11 @@ const Players: React.FC<IProps> = (props) => {
       <ul className="players__group">
         {
           props.users.map((user) => (
-            <Player key={user.id} name={user.name} />
+            <Player
+              key={user.id}
+              name={user.name}
+              status={props.status}
+              voteValue={props.story?.votes[user.id]} />
           ))
         }
       </ul>

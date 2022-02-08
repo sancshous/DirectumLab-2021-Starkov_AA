@@ -13,7 +13,7 @@ export const user: IUser = {
 export const room: IRoom = {
   id: '',
   name: '',
-  cards: ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '?', '-100'],
+  cards: ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', '-10', '-100'],
   ownerId: '',
   users: [],
   stories: []

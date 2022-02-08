@@ -51,6 +51,17 @@ export const vote = (roomId: string, storyId: string, value: string): IRoom | nu
   return room;
 }
 
+export const calcAverage = (roomId: string, storyId: string): IRoom | null => {
+  if(store.room?.id === roomId) {
+    const currentStory = store.room.stories.find((s) => s.id === storyId);
+    if (currentStory) {
+      currentStory.average = store.room.users.map((user) => (
+        +(currentStory.votes[user.id]))).reduce((a, b) => (a + b))
+    }
+  }
+  return room;
+}
+
 export const join = (roomId: string, userName: string): IUser => {
   const newUser: IUser = {
     id: random(),

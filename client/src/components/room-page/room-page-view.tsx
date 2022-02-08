@@ -8,19 +8,8 @@ import CardGroup from "./voting-page/card-group/card-group";
 import History from "../history/history";
 import VoteResultContainer from "./voted-page/vote-result-container/vote-result-container";
 import {RoutePath} from "../../routes";
-import {IRoom, IRootState, IUser} from "../../store/types";
-import {loadRoom} from "../../api/api";
-import {room} from "../../store/mockStore";
-
-export enum RoomState {
-  NEW = 'new',
-  VOTING = 'voting',
-  VOTED = 'voted'
-}
-
-interface IState {
-  roomState: RoomState
-}
+import {IRoom, IRootState, IStory, IUser} from "../../store/types";
+import {calcAverage, createStory, loadRoom, vote} from "../../api/api";
 
 interface IMatchParams {
   roomId: string;
@@ -32,23 +21,46 @@ interface IProps extends RouteComponentProps<IMatchParams>{
   updateRoom: (room: IRoom) => void
 }
 
-class RoomPageView extends React.Component<IProps, IState> {
+class RoomPageView extends React.Component<IProps, any> {
 
   constructor(props: IProps) {
     super(props);
-    this.state = {
-      roomState: RoomState.NEW
-    };
     this.handleClickInput = this.handleClickInput.bind(this);
     this.handleClickGO = this.handleClickGO.bind(this);
     this.handleClickFinish = this.handleClickFinish.bind(this);
+    this.handleVote = this.handleVote.bind(this);
   }
 
   public componentDidMount() {
     if(this.props.room == null) {
       const room = loadRoom(this.props.match.params.roomId);
-      if (room)
-        this.props.updateRoom(room);
+      this.updateRoom(room)
+    }
+  }
+
+  private updateRoom(room: IRoom | null) {
+    if(room)
+      this.props.updateRoom(room);
+  }
+
+  private handleClickGO = () => {
+    const room = createStory(this.props.match.params.roomId, 'Bingo');
+    this.updateRoom(room);
+  }
+
+  private handleClickFinish = () => {
+    const {room} = this.props;
+    if(room != null) {
+      const updatedRoom = calcAverage(room.id, room.stories[room.stories.length - 1].id);
+      this.updateRoom(updatedRoom);
+    }
+  }
+
+  private handleVote = (value: string) => {
+    const {room} = this.props;
+    if(room != null) {
+      const updatedRoom = vote(room.id, room.stories[room.stories.length - 1].id, value);
+      this.updateRoom(updatedRoom);
     }
   }
 
@@ -56,46 +68,24 @@ class RoomPageView extends React.Component<IProps, IState> {
     this.props.history.push(`${RoutePath.INVITE}/${this.props.match.params.roomId}`);
   }
 
-  private readonly handleClickGO = () => {
-    // const storyId = Math.round(Math.random() * (100 - 1) + 1);
-    this.setState({
-      roomState: RoomState.VOTING
-    });
-  }
-
-  private readonly handleClickFinish = () => {
-    this.setState({
-      roomState: RoomState.VOTED
-    });
+  private getCurrentStory(): IStory | null {
+    return this.props.room?.stories[this.props.room?.stories.length - 1] || null;
   }
 
   public renderPlaceHolder(): React.ReactNode {
-    return <>
-      <StoryPlaceHolder />
-      <Players
-        users={room.users}
-        title={'Новое голосование'}
-        onSubmitGoFinish={this.handleClickGO}
-        onSubmitInput={this.handleClickInput}
-        className={'story'}
-        input={'go'} />
-    </>
+    return <StoryPlaceHolder />
   }
 
-  public renderDeck(): React.ReactNode {
+  public renderDeck(room: IRoom): React.ReactNode {
     return <>
       <div className="content">
         <p className="Story">Story</p>
-        <CardGroup cards={room.cards} />
+        <CardGroup
+          cards={room.cards}
+          vote={this.handleVote}
+          selectedCard={this.getCurrentStory()?.votes[this.props.user?.id || ''] || null} />
         <History defaultState={false} />
       </div>
-      <Players
-        users={room.users}
-        title={'Голосование началось'}
-        onSubmitGoFinish={this.handleClickFinish}
-        onSubmitInput={this.handleClickInput}
-        className={''}
-        input={'finish'} />
     </>
   }
 
@@ -106,43 +96,61 @@ class RoomPageView extends React.Component<IProps, IState> {
         <VoteResultContainer />
         <History defaultState={false} />
       </div>
-      <Players
-        users={room.users}
-        title={'Голосование завершилось'}
-        onSubmitGoFinish={this.handleClickGO}
-        onSubmitInput={this.handleClickInput}
-        className={''}
-        input={'go'} />
     </>
   }
 
+  public renderWorkArea(room: IRoom, story: IStory | null) {
+    if (story == null)
+      return this.renderPlaceHolder();
+    else if (story.average)
+      return this.renderResult();
+    else
+      return this.renderDeck(room);
+  }
+
+  public renderContent(room: IRoom) : React.ReactNode {
+    const currentStory = this.getCurrentStory();
+    let btn = '';
+    let status = '';
+    { currentStory == null || currentStory.average ? btn = 'go' : btn = 'finish'}
+    if(currentStory == null)
+      status = ''
+    else if(currentStory.average != null)
+      status = 'result'
+    else
+      status = 'voted'
+    return (
+      <>
+        {this.renderWorkArea(room, currentStory)}
+        <Players
+          input={btn}
+          title={'Story voting'}
+          users={room.users}
+          story={currentStory}
+          status={status}
+          onSubmitInput={this.handleClickInput}
+          onSubmitGo={this.handleClickGO}
+          onSubmitFinish={this.handleClickFinish} >
+        </Players>
+      </>
+    );
+  }
+
   render() {
-    const {roomState} = this.state;
-    let template = this.renderPlaceHolder();
-    let storyClass = '';
+    const {room} = this.props;
+    return (
+      <div className={'body'}>
+        <Header />
+        <main className="main">
+          <div className={'container main__content'}>
+            {/*<h2 className={'story__name'}>{this.getCurrentStory()?.name}</h2>*/}
+            {room ? this.renderContent(room) : null}
+          </div>
+        </main>
 
-    switch (roomState) {
-      case RoomState.VOTING:
-        template = this.renderDeck();
-        storyClass = 'story';
-        break;
-      case RoomState.VOTED:
-        template = this.renderResult();
-        storyClass = 'story';
-        break;
-    }
-
-    return <div className={'body'}>
-      <Header />
-      <main className="main">
-        <div className={`container main__content ${storyClass}`}>
-          {template}
-        </div>
-      </main>
-
-      <Footer />
-    </div>
-      ;
+        <Footer />
+      </div>
+    );
   }
 }
 

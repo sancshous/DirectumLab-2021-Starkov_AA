@@ -9,12 +9,28 @@ const coffeeIcon = <svg width="43" height="44" viewBox="0 0 43 44" fill="none" x
 
 interface IProps {
   value: string,
-  className?: any,
-  onClick: () => void
+  className?: string,
+  onClick: (value: string) => void
 }
 
 const Card: React.FC<IProps> = (props) => {
-  return <li><button className={`card ${props.className || ''}`} onClick={props.onClick}>{props.value === '-100' ? coffeeIcon : props.value}</button></li>;
+  function renderValueCard() {
+    switch (props.value) {
+      case '-10':
+        return '?';
+      case '-100':
+        return coffeeIcon
+      default:
+        return props.value
+    }
+  }
+  return <li>
+    <button
+      className={`card ${props.className || ''}`}
+      onClick={() => props.onClick(props.value)}>
+      {renderValueCard()}
+    </button>
+  </li>;
 }
 
 export default Card;
