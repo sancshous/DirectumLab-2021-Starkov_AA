@@ -14,20 +14,29 @@ interface IProps {
   story: IStory | null,
   status: string,
   onSubmitInput: () => void,
-  onSubmitGo: () => void,
-  onSubmitFinish: () => void
+  onSubmitGo: (value: string) => void,
+  onSubmitFinish: () => void,
 }
 
 const Players: React.FC<IProps> = (props) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleSubmit = () => {
+    if(inputRef.current) {
+      props.onSubmitGo(inputRef.current.value);
+    }
+  }
   function RenderInputButton() {
     switch (props.input) {
       case 'go':
         return <div className="players__placeholder">
-          <input className="players__input players__storyname" type="text" placeholder="I" required={true} />
-          <Button onClick={props.onSubmitGo} className={'players__btn-next'} title={'Go'} />
+          <input ref={inputRef} className="players__input players__storyname" type="text" placeholder="I" required={true} />
+          <Button onClick={handleSubmit} className={'players__btn-next'} title={'Go'} />
         </div>
       case 'finish':
-        return <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />
+        return <>
+          <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />
+        </>
     }
   }
 

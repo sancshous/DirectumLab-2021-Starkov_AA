@@ -1,5 +1,5 @@
-import {IRoom, IUser} from "../store/types";
-import {room, store, story, user} from "../store/mockStore";
+import {IRoom, IStory, IUser, UserId} from "../store/types";
+import { room, store, story, user} from "../store/mockStore";
 
 
 const random = (): string => {
@@ -31,14 +31,25 @@ export const loadRoom = (id: string): IRoom | null => {
 }
 
 export const createStory = (roomId: string, storyName: string): IRoom | null => {
-  story.id = random();
-  story.name = storyName;
-
+  const newStory: IStory = {
+    id: random(),
+    name: storyName,
+    average: null,
+    votes: {}
+  }
   const { room } = store;
   if(room?.id === roomId)
-    room?.stories.push(story);
+    room?.stories.push(newStory);
 
   return room;
+};
+
+export const addStoryIntoHistory = (roomId: string, story: IStory | null): IStory[] => {
+  if(store.room?.id === roomId) {
+    if(story)
+      store.historyTEST?.push(story);
+  }
+  return store.historyTEST;
 }
 
 export const vote = (roomId: string, storyId: string, value: string): IRoom | null => {

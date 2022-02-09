@@ -8,8 +8,8 @@ import CardGroup from "./voting-page/card-group/card-group";
 import History from "../history/history";
 import VoteResultContainer from "./voted-page/vote-result-container/vote-result-container";
 import {RoutePath} from "../../routes";
-import {IRoom, IRootState, IStory, IUser} from "../../store/types";
-import {calcAverage, createStory, loadRoom, vote} from "../../api/api";
+import {IRoom, IStory, IUser} from "../../store/types";
+import {addStoryIntoHistory, calcAverage, createStory, loadRoom, vote} from "../../api/api";
 
 interface IMatchParams {
   roomId: string;
@@ -18,7 +18,8 @@ interface IMatchParams {
 interface IProps extends RouteComponentProps<IMatchParams>{
   user: IUser,
   room: IRoom,
-  updateRoom: (room: IRoom) => void
+  updateRoom: (room: IRoom) => void,
+  addIntoHistory: (story: IStory[]) => void
 }
 
 class RoomPageView extends React.Component<IProps, any> {
@@ -53,6 +54,8 @@ class RoomPageView extends React.Component<IProps, any> {
     if(room != null) {
       const updatedRoom = calcAverage(room.id, room.stories[room.stories.length - 1].id);
       this.updateRoom(updatedRoom);
+      const story = addStoryIntoHistory(room.id, this.getCurrentStory());
+      this.props.addIntoHistory(story);
     }
   }
 
@@ -79,7 +82,7 @@ class RoomPageView extends React.Component<IProps, any> {
   public renderDeck(room: IRoom): React.ReactNode {
     return <>
       <div className="content">
-        <p className="Story">Story</p>
+        <p className={'Story'}>{this.getCurrentStory()?.name}</p>
         <CardGroup
           cards={room.cards}
           vote={this.handleVote}
@@ -92,7 +95,7 @@ class RoomPageView extends React.Component<IProps, any> {
   public renderResult(): React.ReactNode {
     return <>
       <div className="content">
-        <p className="Story">Story</p>
+        <p className={'Story'}>{this.getCurrentStory()?.name}</p>
         <VoteResultContainer />
         <History defaultState={false} />
       </div>
@@ -112,9 +115,12 @@ class RoomPageView extends React.Component<IProps, any> {
     const currentStory = this.getCurrentStory();
     let btn = '';
     let status = '';
+    let storyClassName = '';
     { currentStory == null || currentStory.average ? btn = 'go' : btn = 'finish'}
-    if(currentStory == null)
+    if(currentStory == null) {
       status = ''
+      storyClassName = 'story';
+    }
     else if(currentStory.average != null)
       status = 'result'
     else
@@ -125,6 +131,7 @@ class RoomPageView extends React.Component<IProps, any> {
         <Players
           input={btn}
           title={'Story voting'}
+          className={storyClassName}
           users={room.users}
           story={currentStory}
           status={status}
@@ -142,7 +149,7 @@ class RoomPageView extends React.Component<IProps, any> {
       <div className={'body'}>
         <Header />
         <main className="main">
-          <div className={'container main__content'}>
+          <div className={`container main__content ${room?.stories != null && 'story'}`}>
             {/*<h2 className={'story__name'}>{this.getCurrentStory()?.name}</h2>*/}
             {room ? this.renderContent(room) : null}
           </div>
