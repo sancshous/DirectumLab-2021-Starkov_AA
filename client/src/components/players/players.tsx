@@ -2,41 +2,41 @@ import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import Button from "../button/button";
+import {IStory, IUser} from "../../store/types";
 import './players.css';
+
 
 interface IProps {
   input: string,
   title: string,
   className?: string,
+  users: Array<IUser>,
+  story: IStory | null,
+  status: string,
   onSubmitInput: () => void,
-  onSubmitGoFinish: () => void
+  onSubmitGo: (value: string) => void,
+  onSubmitFinish: () => void,
 }
-
-interface IUsers {
-  name: string,
-  status?: string | null
-}
-
-const users: IUsers[] = [
-  {name: 'Дмитрий', status: 'voting'},
-  {name: 'Павел', status: null},
-  {name: 'Мария', status: 'voted'},
-  {name: 'Сергей', status: 'voting'},
-  {name: 'Александра', status: null},
-  {name: 'Оля', status: 'voted'},
-  {name: 'Анастасия', status: 'voted'}
-]
 
 const Players: React.FC<IProps> = (props) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleSubmit = () => {
+    if(inputRef.current) {
+      props.onSubmitGo(inputRef.current.value);
+    }
+  }
   function RenderInputButton() {
     switch (props.input) {
       case 'go':
         return <div className="players__placeholder">
-          <input className="players__input players__storyname" type="text" placeholder="I" required={true} />
-          <Button onClick={props.onSubmitGoFinish} className={'players__btn-next'} title={'Go'} />
+          <input ref={inputRef} className="players__input players__storyname" type="text" placeholder="I" required={true} />
+          <Button onClick={handleSubmit} className={'players__btn-next'} title={'Go'} />
         </div>
       case 'finish':
-        return <Button onClick={props.onSubmitGoFinish} className={'players__btn'} title={'Finish Voiting'} />
+        return <>
+          <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />
+        </>
     }
   }
 
@@ -46,11 +46,15 @@ const Players: React.FC<IProps> = (props) => {
       {
         RenderInputButton()
       }
-      <h2 className="players__title">Players(2/{users.length})</h2>
+      <h2 className="players__title">Players(1/{props.users.length})</h2>
       <ul className="players__group">
         {
-          users.map((user) => (
-            <Player key={user.name} name={user.name} status={user.status} />
+          props.users.map((user) => (
+            <Player
+              key={user.id}
+              name={user.name}
+              status={props.status}
+              voteValue={props.story?.votes[user.id]} />
           ))
         }
       </ul>

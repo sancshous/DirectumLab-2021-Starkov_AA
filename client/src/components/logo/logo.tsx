@@ -2,14 +2,30 @@ import * as React from "react";
 import icon from '../../images/logo.svg';
 import {Link} from "react-router-dom";
 import {RoutePath} from "../../routes";
+import {IUser} from "../../store/types";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {cleanActionCreator} from "../../store/reducer";
 import './logo.css';
 
-const Logo: React.FC = () => {
-  return <Link className="logo" to={RoutePath.INDEX}>
+interface IProps {
+  updateUser: (user?: IUser) => void;
+}
+
+const Logo: React.FC<IProps> = (props) => {
+  return <Link className="logo" to={RoutePath.INDEX} onClick={() => props.updateUser()}>
     <img className="logo__icon" src={icon} alt="logo" />
     <h1 className="logo__text">PlanPoker</h1>
   </Link>
   ;
 }
 
-export default Logo;
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    updateUser: (user?: IUser) => {
+      dispatch(cleanActionCreator());
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Logo);
