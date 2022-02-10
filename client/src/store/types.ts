@@ -26,5 +26,5 @@ export interface IRoom {
 export  interface IRootState {
   room: IRoom | null,
   user: IUser | null,
-  historyTEST: IStory[]
+  historyStory: IStory[]
 }

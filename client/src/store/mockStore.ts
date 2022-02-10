@@ -3,7 +3,7 @@ import {IRoom, IUser, IRootState, IStory} from "./types";
 export const store: IRootState = {
   user: null,
   room: null,
-  historyTEST: []
+  historyStory: []
 };
 
 export const user: IUser = {

@@ -11,7 +11,7 @@ const mapStateToProps = (state: IRootState) => {
   return{
     user: state.user,
     room: state.room,
-    history: state.historyTEST
+    history: state.historyStory
   };
 };
 

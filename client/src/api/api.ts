@@ -47,9 +47,9 @@ export const createStory = (roomId: string, storyName: string): IRoom | null => 
 export const addStoryIntoHistory = (roomId: string, story: IStory | null): IStory[] => {
   if(store.room?.id === roomId) {
     if(story)
-      store.historyTEST?.push(story);
+      store.historyStory?.push(story);
   }
-  return store.historyTEST;
+  return store.historyStory;
 }
 
 export const vote = (roomId: string, storyId: string, value: string): IRoom | null => {

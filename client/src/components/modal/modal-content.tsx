@@ -13,7 +13,7 @@ const ModalContent: React.FC<IProps> = (props) => {
     <h2 className="modal-Players">FirstStatePlayers:</h2>
     <table className="modal__players-group">
       {
-        store.historyTEST.map((story) => (
+        store.historyStory.map((story) => (
           <ModalPlayer
             key={story.votes[user.id]}
             name={store.user?.id == (Object.keys(story.votes) as Array<string>).find(key => story.votes[key]) && store.user?.name}
