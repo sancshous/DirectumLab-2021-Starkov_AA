@@ -9,7 +9,7 @@ import History from "../history/history";
 import VoteResultContainer from "./voted-page/vote-result-container/vote-result-container";
 import {RoutePath} from "../../routes";
 import {IRoom, IStory, IUser} from "../../store/types";
-import {addStoryIntoHistory, calcAverage, createStory, loadRoom, vote} from "../../api/api";
+import {addStoryIntoHistory, calcAverage, createStory, loadRoom, vote} from "../../api/api-old";
 
 interface IMatchParams {
   roomId: string;

@@ -26,5 +26,6 @@ export interface IRoom {
 export  interface IRootState {
   room: IRoom | null,
   user: IUser | null,
-  historyStory: IStory[]
+  historyStory: IStory[],
+  loading: boolean
 }
