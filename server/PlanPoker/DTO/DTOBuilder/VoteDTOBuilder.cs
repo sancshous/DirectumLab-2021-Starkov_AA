@@ -14,9 +14,8 @@ namespace PlanPoker.DTO.DTOBuilder
       {
         Id = vote.Id,
         Card = card,
-        RoomId = vote.RoomId,
         UserId = vote.UserId,
-        DiscussionId = vote.DiscussionId
+        //DiscussionId = vote.DiscussionId
       };
     }
 

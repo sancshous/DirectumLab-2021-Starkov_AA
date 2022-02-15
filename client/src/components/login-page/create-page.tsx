@@ -7,10 +7,10 @@ import {RoutePath} from "../../routes";
 import {compose, Dispatch} from "redux";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {createRoom} from '../../store/room/room-operations';
+import {createRoomOperation} from '../../store/room/room-operations';
 
 interface IProps extends RouteComponentProps{
-  createRoom: (userName: string, roomName: string) => Promise<string>
+  createRoom: (userName: string, roomName: string) => Promise<any>
 }
 
 class CreatePage extends React.Component<IProps, any>  {
@@ -62,7 +62,7 @@ class CreatePage extends React.Component<IProps, any>  {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     createRoom: async (userName: string, roomName: string) => {
-      return dispatch(await createRoom(userName, roomName));
+      return dispatch(await createRoomOperation(userName, roomName));
     }
   }
 }

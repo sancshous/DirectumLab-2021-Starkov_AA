@@ -41,10 +41,10 @@ class History extends React.Component<IProps, IState> {
     const {showModal} = this.state;
     return <div className="history">
       {showModal && <Modal onClick={this.handleClickClose} /> }
-      <HistoryHeader mark={store.historyStory.length} />
+      <HistoryHeader mark={store.room?.discussions.length} />
       <table className="history__body">
         {
-          store.historyStory.map((story) => (
+          store.room?.discussions.map((story) => (
             <Story onClick={this.handleClickOpen} key={story.id} title={story.name} average={story.average} />
           ))
         }

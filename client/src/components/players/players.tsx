@@ -2,7 +2,7 @@ import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import Button from "../button/button";
-import {IStory, IUser} from "../../store/types";
+import {IDiscussion, IUser} from "../../store/types";
 import './players.css';
 
 
@@ -11,7 +11,7 @@ interface IProps {
   title: string,
   className?: string,
   users: Array<IUser>,
-  story: IStory | null,
+  story: IDiscussion | null,
   status: string,
   onSubmitInput: () => void,
   onSubmitGo: (value: string) => void,

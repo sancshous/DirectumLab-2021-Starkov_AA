@@ -39,11 +39,18 @@ namespace PlanPoker.Controllers
     }
 
     [HttpGet]
-    public VoteDTO AddVote(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
+    public VoteDTO AddVote(Guid cardId, Guid userId, Guid discussionId)
     {
-      var vote = this.voteService.Create(cardId, roomId, userId, discussionId);
+      var vote = this.voteService.Create(cardId, userId, discussionId);
       this.discussionService.AddVote(discussionId, vote);
       return VoteDTOBuilder.Build(vote, this.cardService);
+    }
+
+    [HttpGet]
+    public DiscussionDTO GetDiscussionInfo(Guid discussionId)
+    {
+      var discussion = this.discussionService.GetDiscussion(discussionId);
+      return DiscussionDTOBuilder.Build(discussion, this.cardService, this.discussionService);
     }
 
     [HttpGet]

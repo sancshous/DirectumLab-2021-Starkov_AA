@@ -62,9 +62,8 @@ namespace Tests
       {
         Id = vote.Id,
         Card = this.cardService.GetCard(vote.CardId),
-        RoomId = vote.RoomId,
         UserId = vote.UserId,
-        DiscussionId = vote.DiscussionId
+        //DiscussionId = vote.DiscussionId
       }).ToList();
 
       var discussionsInRoom = discussions.Select(discussion =>
@@ -85,7 +84,7 @@ namespace Tests
         Title = room.Title,
         OwnerId = room.OwnerId,
         Users = users,
-        Discussions = discussionsInRoom
+        //Discussions = discussionsInRoom
       };
 
       var roomController = new RoomController(this.roomService, this.discussionService, this.cardService);

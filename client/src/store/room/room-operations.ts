@@ -1,16 +1,21 @@
 import {Dispatch} from "redux";
-import {IRootState} from "../types";
+import { IRoom, IRootState} from "../types";
 import {updateUser} from "../user/user-action-creators";
 import {toggleIndicator} from "../loading/reducer";
-import {createRoomRequest} from "../../api/poker-api";
+import {
+  createRoomRequest,
+  getRoomInfoRequest
+} from "../../api/poker-api";
+import {updateRoom} from "./room-action-creators";
 
-export const createRoom = (userName: string, roomName: string): any => {
+export const createRoomOperation = (userName: string, roomName: string): any => {
   return async (dispatch: Dispatch, getState: () => IRootState): Promise<string | void> => {
     dispatch(toggleIndicator(true));
     try {
       const response = await createRoomRequest(userName, roomName);
-      dispatch(updateUser(response.user));
-      return response.roomId;
+      dispatch(updateUser(response.users[0]));
+      dispatch(updateRoom(response));
+      return response?.id;
     }
     catch (e) {
       window.console.log(e);
@@ -18,5 +23,16 @@ export const createRoom = (userName: string, roomName: string): any => {
     finally {
       dispatch(toggleIndicator(false));
     }
+  }
+}
+
+export const updateRoomOperation = (roomId: string): any => {
+  return async (dispatch: Dispatch, getState: () => IRootState): Promise<IRoom | null> => {
+    const response = await getRoomInfoRequest(roomId);
+    if(response != null) {
+      dispatch(updateRoom(response));
+      return response;
+    }
+    return null;
   }
 }

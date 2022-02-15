@@ -22,9 +22,9 @@ namespace PlanPoker.DTO.DTOBuilder
       };
     }
 
-    public static IEnumerable<DiscussionDTO> BuildList(IEnumerable<Discussion> discussions, CardService cardService, DiscussionService discussionService)
+    public static DiscussionDTO[] BuildList(IEnumerable<Discussion> discussions, CardService cardService, DiscussionService discussionService)
     {
-      return discussions.Select(discussion => Build(discussion, cardService, discussionService)).ToList();
+      return discussions.Select(discussion => Build(discussion, cardService, discussionService)).ToArray();
     }
   }
 }

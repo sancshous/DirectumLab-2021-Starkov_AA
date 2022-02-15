@@ -8,8 +8,7 @@ import CardGroup from "./voting-page/card-group/card-group";
 import History from "../history/history";
 import VoteResultContainer from "./voted-page/vote-result-container/vote-result-container";
 import {RoutePath} from "../../routes";
-import {IRoom, IStory, IUser} from "../../store/types";
-import {addStoryIntoHistory, calcAverage, createStory, loadRoom, vote} from "../../api/api-old";
+import {IRoom, IDiscussion, IUser, ICard} from "../../store/types";
 
 interface IMatchParams {
   roomId: string;
@@ -18,14 +17,23 @@ interface IMatchParams {
 interface IProps extends RouteComponentProps<IMatchParams>{
   user: IUser,
   room: IRoom,
-  updateRoom: (room: IRoom) => void,
-  addIntoHistory: (story: IStory[]) => void
+  cards: ICard[],
+  //discussions: IDiscussion[],
+  updateRoom: (roomId: string) => Promise<any>,
+  createDiscussion: (roomId: string) => Promise<any>,
+  updateDiscussions: (roomId: string) => Promise<IDiscussion[]>,
+  getRoomInfo: (roomId: string) => Promise<any>
 }
 
 class RoomPageView extends React.Component<IProps, any> {
 
   constructor(props: IProps) {
     super(props);
+
+    /*this.state = {
+      timer: null
+    }*/
+
     this.handleClickInput = this.handleClickInput.bind(this);
     this.handleClickGO = this.handleClickGO.bind(this);
     this.handleClickFinish = this.handleClickFinish.bind(this);
@@ -33,37 +41,34 @@ class RoomPageView extends React.Component<IProps, any> {
   }
 
   public componentDidMount() {
-    if(this.props.room == null) {
-      const room = loadRoom(this.props.match.params.roomId);
-      this.updateRoom(room)
-    }
+    if(this.props.room == null)
+      this.updateRoom();
+
+   /* this.setState({
+      timer: setInterval(this.props.getRoomInfo, 1000, this.props.match.params.roomId)
+    })*/
   }
 
-  private updateRoom(room: IRoom | null) {
-    if(room)
-      this.props.updateRoom(room);
+  private updateRoom() {
+    this.props.updateRoom(this.props.match.params.roomId);
   }
 
   private handleClickGO = () => {
-    const room = createStory(this.props.match.params.roomId, 'Bingo');
-    this.updateRoom(room);
+    this.props.createDiscussion(this.props.match.params.roomId);
+    this.updateRoom();
   }
 
   private handleClickFinish = () => {
     const {room} = this.props;
     if(room != null) {
-      const updatedRoom = calcAverage(room.id, room.stories[room.stories.length - 1].id);
-      this.updateRoom(updatedRoom);
-      const story = addStoryIntoHistory(room.id, this.getCurrentStory());
-      this.props.addIntoHistory(story);
+      this.updateRoom();
     }
   }
 
   private handleVote = (value: string) => {
     const {room} = this.props;
     if(room != null) {
-      const updatedRoom = vote(room.id, room.stories[room.stories.length - 1].id, value);
-      this.updateRoom(updatedRoom);
+      this.updateRoom();
     }
   }
 
@@ -71,8 +76,12 @@ class RoomPageView extends React.Component<IProps, any> {
     this.props.history.push(`${RoutePath.INVITE}/${this.props.match.params.roomId}`);
   }
 
-  private getCurrentStory(): IStory | null {
-    return this.props.room?.stories[this.props.room?.stories.length - 1] || null;
+  private getCurrentDiscussion() {
+    if(this.props.room.discussions != null && this.props.room.discussions.length > 0 ) {
+      const currentDiscussion = (this.props.room.discussions)[this.props.room.discussions.length - 1];
+      return currentDiscussion;
+    }
+    return null;
   }
 
   public renderPlaceHolder(): React.ReactNode {
@@ -82,11 +91,11 @@ class RoomPageView extends React.Component<IProps, any> {
   public renderDeck(room: IRoom): React.ReactNode {
     return <>
       <div className="content">
-        <p className={'Story'}>{this.getCurrentStory()?.name}</p>
+        <p className={'Story'}>{this.getCurrentDiscussion()?.name}</p>
         <CardGroup
-          cards={room.cards}
+          cards={this.props.room.cards}
           vote={this.handleVote}
-          selectedCard={this.getCurrentStory()?.votes[this.props.user?.id || ''] || null} />
+          selectedCard={this.getCurrentDiscussion()?.votes[this.props.user?.id || ''] || null} />
         <History defaultState={false} />
       </div>
     </>
@@ -95,24 +104,24 @@ class RoomPageView extends React.Component<IProps, any> {
   public renderResult(): React.ReactNode {
     return <>
       <div className="content">
-        <p className={'Story'}>{this.getCurrentStory()?.name}</p>
+        <p className={'Story'}>{this.getCurrentDiscussion()?.name}</p>
         <VoteResultContainer />
         <History defaultState={false} />
       </div>
     </>
   }
 
-  public renderWorkArea(room: IRoom, story: IStory | null) {
-    if (story == null)
+  public renderWorkArea(room: IRoom, discussion: IDiscussion | null) {
+    if (discussion == null)
       return this.renderPlaceHolder();
-    else if (story.average)
+    else if (discussion.average)
       return this.renderResult();
     else
       return this.renderDeck(room);
   }
 
   public renderContent(room: IRoom) : React.ReactNode {
-    const currentStory = this.getCurrentStory();
+    const currentStory = this.getCurrentDiscussion();
     let btn = '';
     let status = '';
     let storyClassName = '';
@@ -149,8 +158,8 @@ class RoomPageView extends React.Component<IProps, any> {
       <div className={'body'}>
         <Header />
         <main className="main">
-          <div className={`container main__content ${room?.stories != null && 'story'}`}>
-            {/*<h2 className={'story__name'}>{this.getCurrentStory()?.name}</h2>*/}
+          <div className={`container main__content ${this.props.room.discussions != null && 'story'}`}>
+            {/*<h2 className={'story__name'}>{this.getCurrentDiscussion()?.name}</h2>*/}
             {room ? this.renderContent(room) : null}
           </div>
         </main>

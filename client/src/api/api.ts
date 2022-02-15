@@ -8,7 +8,8 @@ export class Api {
 
   private getHeaders() {
     return {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     };
   }
 
@@ -16,17 +17,16 @@ export class Api {
     const response = await fetch(`${this.baseUrl}/${url}`, {
       method: method,
       headers: {
-        'Access-Control-Allow-Origin': '*',
         ...this.getHeaders(),
         ...headers
       },
       credentials: 'include',
+      mode: 'cors',
       body:
         body &&
         JSON.stringify({
           ...body
         }),
-      mode: 'cors'
     });
 
     if (response.ok)

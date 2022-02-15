@@ -68,15 +68,17 @@ namespace PlanPoker
 
       app.UseRouting();
 
+      app.UseCors(builder => builder
+     .SetIsOriginAllowed(origin => true)
+     .AllowAnyHeader()
+     .AllowAnyMethod()
+     .AllowCredentials());
+
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllers();
       });
-      app.UseCors(x => x
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true) // allow any origin
-                    .AllowCredentials()); // allow credentials)
+    
     }
   }
 }

@@ -4,7 +4,6 @@ import Footer from "../footer/footer";
 import {RouteComponentProps} from "react-router";
 import Form from "./form/form";
 import {RoutePath} from "../../routes";
-import {createRoom, join} from "../../api/api-old";
 import {IUser} from "../../store/types";
 import {compose, Dispatch} from "redux";
 import {updateUser} from "../../store/user/user-action-creators";
@@ -38,11 +37,11 @@ class InvitePage extends React.Component<IProps, any> {
     evt.preventDefault();
     const {current: userName } = this.userNameRef;
     const {match, history } = this.props;
-    if(userName) {
+    /*if(userName) {
       const response = join(match.params.roomId, userName.value);
       this.props.updateUser(response);
       history.push(`${RoutePath.ROOM}/${match.params.roomId}`);
-    }
+    }*/
   }
 
   render() {

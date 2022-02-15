@@ -14,14 +14,14 @@ namespace PlanPoker.Domain.Services
       this.repository = repository;
     }
 
-    public Vote Create(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
+    public Vote Create(Guid cardId, Guid userId, Guid discussionId)
     {
       var votes = this.GetVotes(discussionId).ToList();
       if (votes.Any(vote => vote.UserId == userId))
       {
         this.repository.Delete(votes.Find(vote => vote.UserId == userId));
         var id = Guid.NewGuid();
-        var vote = new Vote(id, cardId, roomId, userId, discussionId);
+        var vote = new Vote(id, cardId, userId, discussionId);
         this.repository.Add(vote);
         this.repository.Save();
         return vote;
@@ -29,7 +29,7 @@ namespace PlanPoker.Domain.Services
       else
       {
         var id = Guid.NewGuid();
-        var vote = new Vote(id, cardId, roomId, userId, discussionId);
+        var vote = new Vote(id, cardId, userId, discussionId);
         this.repository.Add(vote);
         this.repository.Save();
         return vote;
