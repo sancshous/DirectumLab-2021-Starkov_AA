@@ -22,7 +22,7 @@ interface IProps extends RouteComponentProps<IMatchParams>{
   updateRoom: (roomId: string) => Promise<any>,
   createDiscussion: (roomId: string) => Promise<any>,
   loadCards: () => Promise<ICard[]>,
-  addVote: (cardId: string | undefined, userId: string, discussionId: string | undefined) => Promise<any>,
+  addVote: (cardId: string | null, userId: string, discussionId: string | undefined) => Promise<any>,
   updateDiscussions: (roomId: string) => Promise<IDiscussion[]>,
   getRoomInfo: (roomId: string) => Promise<any>
 }
@@ -69,9 +69,24 @@ class RoomPageView extends React.Component<IProps, any> {
     }
   }
 
-  private handleVote = () => {
+  private getCardIdByCardValue = (value: string): string | null => {
+    if(this.props.cards != null) {
+      const cardsObj = Object.entries(this.props.cards);
+      const array: ICard[] = [];
+      cardsObj.forEach(([key, value]) => {
+        array.push(value);
+      });
+
+      const card = array.find((card) => card.value.toString() === value );
+      if(card != null)
+        return card.id;
+    }
+    return null;
+  }
+
+  private handleVote = (value: string) => {
     const {id} = this.props.user;
-    this.props.addVote(this.getCurrentVote(id)?.card.id, id, this.getCurrentDiscussion()?.id);
+    this.props.addVote(this.getCardIdByCardValue(value), id, this.getCurrentDiscussion()?.id);
     this.updateRoom();
   }
 
@@ -92,6 +107,18 @@ class RoomPageView extends React.Component<IProps, any> {
     const currentVote = currentDiscussion?.votes.find((v) => v.userId === userId);
     if(currentVote != null)
       return currentVote;
+    return null;
+  }
+
+  public parseCards(): string[] | null {
+    if(this.props.cards != null) {
+      const cardsObj = Object.entries(this.props.cards);
+      const array: ICard[] = [];
+      cardsObj.forEach(([key, value]) => {
+        array.push(value);
+      });
+      return array.map((card) => card.value.toString());
+    }
     return null;
   }
 
@@ -129,18 +156,6 @@ class RoomPageView extends React.Component<IProps, any> {
       return this.renderResult();
     else
       return this.renderDeck(room);
-  }
-
-  public parseCards(): string[] | null {
-    if(this.props.cards != null) {
-      const cardsObj = Object.entries(this.props.cards);
-      const array: ICard[] = [];
-      cardsObj.forEach(([key, value]) => {
-        array.push(value);
-      });
-      return array.map((card) => card.value.toString());
-    }
-    return null;
   }
 
   public renderContent(room: IRoom) : React.ReactNode {
