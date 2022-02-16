@@ -2,7 +2,7 @@ import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import Button from "../button/button";
-import {IDiscussion, IUser} from "../../store/types";
+import {IDiscussion, IUser, IVote} from "../../store/types";
 import './players.css';
 
 
@@ -11,7 +11,7 @@ interface IProps {
   title: string,
   className?: string,
   users: Array<IUser>,
-  story: IDiscussion | null,
+  discussion: IDiscussion | null,
   status: string,
   onSubmitInput: () => void,
   onSubmitGo: (value: string) => void,
@@ -40,6 +40,14 @@ const Players: React.FC<IProps> = (props) => {
     }
   }
 
+  function getVoteValue(userId: string): string | null {
+    const vote = props.discussion?.votes.find((v) => (v.userId === userId));
+    if(vote != null) {
+      return vote.card.value.toString();
+    }
+    return null;
+  }
+
   return <div className={`players ${props.className || ''}`}>
     <p className="players__header">{props.title}</p>
     <div className="players__body">
@@ -54,7 +62,7 @@ const Players: React.FC<IProps> = (props) => {
               key={user.id}
               name={user.name}
               status={props.status}
-              voteValue={props.story?.votes[user.id]} />
+              voteValue={getVoteValue(user.id)} />
           ))
         }
       </ul>

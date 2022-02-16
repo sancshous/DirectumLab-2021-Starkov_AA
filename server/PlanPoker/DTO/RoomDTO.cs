@@ -15,6 +15,6 @@ namespace PlanPoker.DTO
 
     public IEnumerable<DiscussionDTO> Discussions { get; set; }
 
-    public List<string> Cards { get; set; }
+    //public List<string> Cards { get; set; }
   }
 }

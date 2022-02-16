@@ -18,7 +18,7 @@ namespace PlanPoker.DTO.DTOBuilder
         OwnerId = room.OwnerId,
         Users = users,
         Discussions = discussionsInRoom,
-        Cards = new List<string> { "0", "0.5", "1", "2", "3", "5", "8", "13", "20", "40", "100", "-10", "-100" }
+        //Cards = new List<string> { "0", "0.5", "1", "2", "3", "5", "8", "13", "20", "40", "100", "-10", "-100" }
       };
     }
 

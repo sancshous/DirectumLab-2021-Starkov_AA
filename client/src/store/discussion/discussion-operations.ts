@@ -6,11 +6,9 @@ import {updateDiscussionsAction} from "./discussion-action-creators";
 export const createDiscussionOperation = (roomId: string): any => {
   return async (dispatch: Dispatch, getState: () => IRootState) => {
     const responseDiscussion = await createDiscussionRequest(roomId);
-    //const responseCards = await getCardsRequest();
     const response = await getDiscussionListRequest(roomId);
-    if (responseDiscussion != null /*&& responseCards != null*/ && response != null) {
+    if (responseDiscussion != null && response != null) {
       dispatch(updateDiscussionsAction(response));
-      //dispatch(cardAction(responseCards));
     }
   }
 }

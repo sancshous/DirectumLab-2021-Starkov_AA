@@ -1,4 +1,4 @@
-import {IRoom, IUser, IRootState, IDiscussion} from "./types";
+import {IUser, IRootState} from "./types";
 
 export const store: IRootState = {
   user: null,

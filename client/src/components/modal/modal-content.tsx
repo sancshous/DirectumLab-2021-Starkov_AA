@@ -15,9 +15,9 @@ const ModalContent: React.FC<IProps> = (props) => {
       {
         store.room?.discussions?.map((story) => (
           <ModalPlayer
-            key={story.votes[user.id]}
-            name={store.user?.id == (Object.keys(story.votes) as Array<string>).find(key => story.votes[key]) && store.user?.name}
-            value={+story.votes[user.id]} />
+            key={story.votes[0].id}
+            name={store.user?.id == (Object.keys(story.votes) as Array<string>).find(key => story.votes[0]) && store.user?.name}
+            value={+story.votes[0].userId} />
         ))
       }
     </table>

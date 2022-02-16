@@ -1,8 +1,9 @@
 import {Dispatch} from "redux";
-import { IRoom, IRootState} from "../types";
+import {IRoom, IRootState, IVote} from "../types";
 import {updateUser} from "../user/user-action-creators";
 import {toggleIndicator} from "../loading/reducer";
 import {
+  addVoteRequest,
   createRoomRequest,
   getRoomInfoRequest
 } from "../../api/poker-api";
@@ -34,5 +35,11 @@ export const updateRoomOperation = (roomId: string): any => {
       return response;
     }
     return null;
+  }
+}
+
+export const addVoteOperation = (cardId: string, userId: string, discussionId: string): any => {
+  return async (dispatch: Dispatch, getState: () => IRootState) => {
+    const response = await addVoteRequest(cardId, userId, discussionId);
   }
 }

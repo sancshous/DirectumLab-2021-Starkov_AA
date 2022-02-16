@@ -1,6 +1,6 @@
 import {Api} from "./api";
 import authService from "../service/auth-service";
-import {ICard, IDiscussion, IRoom, IUser} from "../store/types";
+import {ICard, IDiscussion, IRoom, IUser, IVote} from "../store/types";
 
 const baseUrl = 'http://localhost:5000/api';
 
@@ -34,11 +34,6 @@ export const createDiscussionRequest = async (roomId: string): Promise<IDiscussi
   return response;
 }
 
-export const getDiscussionInfoRequest = async (discussionId: string): Promise<IDiscussion | null> => {
-  const response = await api.get<IDiscussion>(`Discussion/GetDiscussionInfo?discussionId=${discussionId}`, getHeaders());
-  return response;
-}
-
 export const getDiscussionListRequest = async (roomId: string): Promise<IDiscussion[] | null> => {
   const response = await api.get<IDiscussion[]>(`Discussion/GetDiscussionList?roomId=${roomId}`, getHeaders());
   return response;
@@ -46,6 +41,11 @@ export const getDiscussionListRequest = async (roomId: string): Promise<IDiscuss
 
 export const getCardsRequest = async (): Promise<ICard[] | null> => {
   const response = await api.get<ICard[]>(`Card/GetCards`, getHeaders());
+  return response;
+}
+
+export const addVoteRequest = async (cardId: string, userId: string, discussionId: string): Promise<IVote> => {
+  const response = await api.get<IVote>(`Discussion/AddVote?cardId=${cardId}&userId=${userId}&discussionId=${discussionId}`);
   return response;
 }
 

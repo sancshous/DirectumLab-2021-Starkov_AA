@@ -13,8 +13,8 @@ export interface IDiscussion {
   roomId: string,
   average: number | null,
   start: Date,
-  end: Date
-  votes: Record<UserId, CardValue>
+  end: Date,
+  votes: Array<IVote>
 }
 
 export interface IRoom {
@@ -32,10 +32,16 @@ export interface ICard {
   title: string
 }
 
+export interface IVote {
+  id: string,
+  card: ICard,
+  userId: string
+}
+
 export  interface IRootState {
   room: IRoom | null,
   user: IUser | null,
   //discussions: Array<IDiscussion>,
-  cards: ICard[]| null,
+  cards: Array<ICard> | null,
   loading: boolean
 }

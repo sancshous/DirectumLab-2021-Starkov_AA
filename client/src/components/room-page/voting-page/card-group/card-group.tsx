@@ -3,7 +3,7 @@ import Card from "./card/card";
 import "./card-group.css";
 
 interface IProps {
-  cards: string[],
+  cards: string[] | null,
   selectedCard?: string | null,
   vote: (value: string) => void
 }
