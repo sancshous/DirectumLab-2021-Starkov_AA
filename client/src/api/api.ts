@@ -1,4 +1,5 @@
-import {UnauthorizedError} from "./unauthorizedError";
+import {RoutePath} from "../routes";
+import {history} from "../service/history";
 
 export class Api {
   private readonly baseUrl: string;
@@ -13,35 +14,40 @@ export class Api {
     };
   }
 
-  private async http<T>(url: string, method: 'POST' | 'GET', body?: any, headers?: any): Promise<T> {
-    const response = await fetch(`${this.baseUrl}/${url}`, {
-      method: method,
-      headers: {
-        ...this.getHeaders(),
-        ...headers
-      },
-      credentials: 'include',
-      mode: 'cors',
-      body:
-        body &&
-        JSON.stringify({
-          ...body
-        }),
-    });
+  private async http<T>(url: string, method: 'POST' | 'GET', body?: any, headers?: any): Promise<T | null> {
+    try {
+      const response = await fetch(`${this.baseUrl}/${url}`, {
+        method: method,
+        headers: {
+          ...this.getHeaders(),
+          ...headers
+        },
+        credentials: 'include',
+        mode: 'cors',
+        body:
+          body &&
+          JSON.stringify({
+            ...body
+          }),
+      });
 
-    if (response.ok)
-      return await response.json();
-    else if (response.status === 401)
-      throw new UnauthorizedError();
-    else
-      throw new Error();
+      if (response.ok) {
+        return await response.json();
+      }
+      return null;
+    }
+    catch (e) {
+      window.console.log(e);
+      history.push(RoutePath.ERROR);
+      return null;
+    }
   }
 
-  public async post<T>(url: string, body?: any, headers?: any): Promise<T> {
+  public async post<T>(url: string, body?: any, headers?: any): Promise<T | null> {
     return await this.http(url, 'POST', body, headers)
   }
 
-  public async get<T>(url: string, headers?: any): Promise<T> {
+  public async get<T>(url: string, headers?: any): Promise<T | null> {
     return await this.http(url, 'GET', null, headers);
   }
 }

@@ -11,15 +11,23 @@ const ring = <svg width="328px" height="328px" viewBox="0 0 42 42" className="do
     stroke="#f4a460" strokeWidth="1.5" strokeDasharray="50 50" strokeDashoffset="25" />
 </svg>
 
-const VoteResultContainer: React.FC = () => {
+interface IProps {
+  playersQuantityVoted: number | null,
+  average: number | null,
+  valueVotes: number[] | null
+}
+
+const VoteResultContainer: React.FC<IProps> = (props) => {
   return <div className="vote-result">
     <div className="ring">
       {ring}
-      <ResultInfo />
+      <ResultInfo playersQuantityVoted={props.playersQuantityVoted} average={props.average} />
     </div>
     <ul className="stat-group">
-      <StatInfo />
-      <StatInfo />
+      {props.valueVotes?.map((value) => (
+        // eslint-disable-next-line react/jsx-key
+        <StatInfo value={value} />
+      ))}
     </ul>
   </div>
     ;

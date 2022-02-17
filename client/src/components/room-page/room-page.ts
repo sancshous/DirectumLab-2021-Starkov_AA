@@ -5,8 +5,9 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import RoomPageView from "./room-page-view";
 import {addVoteOperation, updateRoomOperation} from "../../store/room/room-operations";
-import {createDiscussionOperation, updateDiscussionsOperation} from "../../store/discussion/discussion-operations";
+import {closeDiscussionOperation, createDiscussionOperation} from "../../store/discussion/discussion-operations";
 import {getCardsOperation} from "../../store/cards/card-operation";
+import {searchUserOperation} from "../../store/user/user-operations";
 
 const mapStateToProps = (state: IRootState) => {
   return{
@@ -21,22 +22,22 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     createDiscussion: async (roomId: string) => {
       return dispatch( await createDiscussionOperation(roomId))
     },
+    closeDiscussion: async (discussionId: string, roomId: string) => {
+      return dispatch( await closeDiscussionOperation(discussionId, roomId))
+    },
     updateRoom: async (roomId: string) => {
       return dispatch( await updateRoomOperation(roomId))
     },
     loadCards: async () => {
       return dispatch(await getCardsOperation())
     },
-    updateDiscussions: async (roomId: string) => {
-      return dispatch(await updateDiscussionsOperation(roomId));
+
+    searchUser: async (userId: string, roomId: string) => {
+      return dispatch(await searchUserOperation(userId, roomId));
     },
 
     addVote: async (cardId: string, userId: string, discussionId: string) => {
       return dispatch(await addVoteOperation(cardId, userId, discussionId));
-    },
-
-    getRoomInfo: async (roomId: string) => {
-      return compose(dispatch(updateRoomOperation(roomId)), dispatch(updateDiscussionsOperation(roomId)));
     }
   };
 }

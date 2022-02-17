@@ -33,7 +33,7 @@ namespace Tests
       this.userService = new UserService(new UserRepository(userContext));
       this.roomService = new RoomService(new RoomRepository(roomContext), new UserRepository(userContext));
       this.cardService = new CardService(new CardRepository(cardContext));
-      this.voteService = new VoteService(new VoteRepository(voteContext));
+      this.voteService = new VoteService(new VoteRepository(voteContext), new DiscussionRepository(discussionContext));
       this.discussionService = new DiscussionService(new DiscussionRepository(discussionContext), new CardRepository(cardContext));
     }
 

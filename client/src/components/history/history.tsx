@@ -45,7 +45,7 @@ class History extends React.Component<IProps, IState> {
       <table className="history__body">
         {
           store.room?.discussions.map((story) => (
-            <Story onClick={this.handleClickOpen} key={story.id} title={story.name} average={story.average} />
+            <Story onClick={this.handleClickOpen} key={story.id} title={story.name} average={story.averageVote} />
           ))
         }
       </table>

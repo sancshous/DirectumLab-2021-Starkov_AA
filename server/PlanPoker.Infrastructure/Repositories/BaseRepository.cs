@@ -41,12 +41,16 @@ namespace PlanPoker.Infrastructure.Repositories
     {
       T element = this.Context.Elements.Find(id);
       this.Context.Elements.Remove(element);
+      this.Context.SaveChanges();
     }
 
     public virtual void Delete(T element)
     {
       if (this.Context.Elements.Any(o => o.Id == element.Id))
+      {
         this.Context.Elements.Remove(element);
+        this.Context.SaveChanges();
+      }  
     }
 
     public virtual void Dispose(bool disposing)

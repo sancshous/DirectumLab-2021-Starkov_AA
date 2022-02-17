@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PlanPoker.Domain.Entities;
@@ -18,7 +19,7 @@ namespace PlanPoker.DTO.DTOBuilder
         Start = discussion.Start,
         End = discussion.End,
         Votes = votes,
-        AverageVote = discussionService.CalculateAverageVote(discussion.Id)
+        AverageVote = Math.Round((double)discussionService.CalculateAverageVote(discussion.Id), 2)
       };
     }
 

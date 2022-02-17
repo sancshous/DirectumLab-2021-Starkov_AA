@@ -6,13 +6,17 @@ const li1 = <svg className="circle" width="10" height="10" viewBox="0 0 10 10" f
   <ellipse cx="5.09086" cy="5" rx="4.72727" ry="5" fill="#DC493A" />
 </svg>
 
-const StatInfo: React.FC = () => {
+interface IProps {
+  value: number
+}
+
+const StatInfo: React.FC<IProps> = (props) => {
   return <li className="stat">
     <div className="stat__title">
       {li1}
-      <p className="stat__title-text">3</p>
+      <p className="stat__title-text">{props.value}</p>
     </div>
-    <p className="stat__text">50% (1 player)</p>
+    {/*<p className="stat__text">50% (1 player)</p>*/}
   </li>
     ;
 }

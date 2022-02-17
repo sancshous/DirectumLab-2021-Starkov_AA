@@ -1,7 +1,6 @@
 import {Dispatch} from "redux";
-import {IRoom, IRootState, IVote} from "../types";
+import {IRoom, IRootState, IUser} from "../types";
 import {updateUser} from "../user/user-action-creators";
-import {toggleIndicator} from "../loading/reducer";
 import {
   addVoteRequest,
   createRoomRequest,
@@ -11,19 +10,13 @@ import {updateRoom} from "./room-action-creators";
 
 export const createRoomOperation = (userName: string, roomName: string): any => {
   return async (dispatch: Dispatch, getState: () => IRootState): Promise<string | void> => {
-    dispatch(toggleIndicator(true));
-    try {
-      const response = await createRoomRequest(userName, roomName);
-      dispatch(updateUser(response.users[0]));
-      dispatch(updateRoom(response));
-      return response?.id;
-    }
-    catch (e) {
-      window.console.log(e);
-    }
-    finally {
-      dispatch(toggleIndicator(false));
-    }
+    const response = await createRoomRequest(userName, roomName);
+    if (response != null) {
+        const user: IUser = { name: response?.users[0].name, id: response?.users[0].id };
+        dispatch(updateUser(user));
+        dispatch(updateRoom(response));
+        return response?.id;
+      }
   }
 }
 

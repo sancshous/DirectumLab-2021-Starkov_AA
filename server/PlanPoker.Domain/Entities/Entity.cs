@@ -9,7 +9,7 @@ namespace PlanPoker.Domain.Entities
     /// Id сущности.
     /// </summary>
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public Guid Id { get; private set; }
+    public Guid Id { get; set; }
 
     public Entity(Guid id)
     {

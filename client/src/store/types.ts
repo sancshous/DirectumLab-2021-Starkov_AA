@@ -11,7 +11,7 @@ export interface IDiscussion {
   id: string,
   name: string,
   roomId: string,
-  average: number | null,
+  averageVote: number | null,
   start: Date,
   end: Date,
   votes: Array<IVote>

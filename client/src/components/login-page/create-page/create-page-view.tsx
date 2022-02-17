@@ -1,24 +1,15 @@
 import * as React from "react";
 import {RouteComponentProps} from "react-router";
-import Header from "../header/header";
-import Form from "./form/form";
-import Footer from "../footer/footer";
-import {RoutePath} from "../../routes";
-import {compose, Dispatch} from "redux";
-import {withRouter} from "react-router-dom";
-import {connect} from "react-redux";
-import {createRoomOperation} from '../../store/room/room-operations';
+import Header from "../../header/header";
+import Form from "../form/form";
+import Footer from "../../footer/footer";
+import {RoutePath} from "../../../routes";
 
 interface IProps extends RouteComponentProps{
   createRoom: (userName: string, roomName: string) => Promise<any>
 }
 
-class CreatePage extends React.Component<IProps, any>  {
-
-  // eslint-disable-next-line react/sort-comp
-  private readonly userNameRef: React.RefObject<HTMLInputElement>;
-  private readonly roomNameRef: React.RefObject<HTMLInputElement>;
-
+class CreatePageView extends React.Component<IProps, any>  {
   constructor(props: IProps) {
     super(props);
     this.userNameRef = React.createRef();
@@ -29,6 +20,9 @@ class CreatePage extends React.Component<IProps, any>  {
   componentDidMount() {
     this.userNameRef.current && this.userNameRef.current.focus();
   }
+
+  private readonly userNameRef: React.RefObject<HTMLInputElement>;
+  private readonly roomNameRef: React.RefObject<HTMLInputElement>;
 
   public async handleSubmit(evt: React.FormEvent) {
     evt.preventDefault();
@@ -59,12 +53,4 @@ class CreatePage extends React.Component<IProps, any>  {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    createRoom: async (userName: string, roomName: string) => {
-      return dispatch(await createRoomOperation(userName, roomName));
-    }
-  }
-}
-
-export default compose<React.ComponentClass>(withRouter, connect(null, mapDispatchToProps))(CreatePage);
+export default CreatePageView;

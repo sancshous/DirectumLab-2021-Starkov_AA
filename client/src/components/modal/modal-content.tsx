@@ -1,6 +1,6 @@
 import * as React from "react";
 import ModalPlayer from "./modal-player/modal-player";
-import {store, user} from "../../store/mockStore";
+import {store} from "../../store/mockStore";
 import "./modal.css";
 
 interface IProps {

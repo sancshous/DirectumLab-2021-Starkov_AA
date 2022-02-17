@@ -1,8 +1,9 @@
 import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
+import {IDiscussion, IUser} from "../../store/types";
+import PlayersPlaceholder from "./players-placeholder/players-placeholder";
 import Button from "../button/button";
-import {IDiscussion, IUser, IVote} from "../../store/types";
 import './players.css';
 
 
@@ -11,9 +12,10 @@ interface IProps {
   title: string,
   className?: string,
   users: Array<IUser>,
+  quantityVoted: number | undefined,
   discussion: IDiscussion | null,
   status: string,
-  onSubmitInput: () => void,
+  isOwner: boolean,
   onSubmitGo: (value: string) => void,
   onSubmitFinish: () => void,
 }
@@ -30,12 +32,11 @@ const Players: React.FC<IProps> = (props) => {
     switch (props.input) {
       case 'go':
         return <div className="players__placeholder">
-          <input ref={inputRef} className="players__input players__storyname" type="text" placeholder="I" required={true} />
-          <Button onClick={handleSubmit} className={'players__btn-next'} title={'Go'} />
+          {props.isOwner === true && <PlayersPlaceholder inputRef={inputRef} handleSubmit={handleSubmit} />}
         </div>
       case 'finish':
         return <>
-          <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />
+          {props.isOwner === true && <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />}
         </>
     }
   }
@@ -48,13 +49,13 @@ const Players: React.FC<IProps> = (props) => {
     return null;
   }
 
-  return <div className={`players ${props.className || ''}`}>
+  return <div className={`players story ${props.className || ''}`}>
     <p className="players__header">{props.title}</p>
     <div className="players__body">
       {
         RenderInputButton()
       }
-      <h2 className="players__title">Players(1/{props.users.length})</h2>
+      <h2 className="players__title">Players({props.quantityVoted == null ? 0 : props.quantityVoted}/{props.users.length})</h2>
       <ul className="players__group">
         {
           props.users.map((user) => (
@@ -66,7 +67,7 @@ const Players: React.FC<IProps> = (props) => {
           ))
         }
       </ul>
-      <PlayersInput onSubmit={props.onSubmitInput} />
+      <PlayersInput />
     </div>
   </div>
     ;
