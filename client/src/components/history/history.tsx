@@ -41,14 +41,14 @@ class History extends React.Component<IProps, IState> {
   render() {
     const {showModal} = this.state;
     return <div className="history">
-      <HistoryHeader mark={this.props.room?.discussions.length} />
+      <HistoryHeader mark={this.props.room?.discussions.filter((d) => d.end != null).length} />
       <table className="history__body">
         {
-          this.props.room?.discussions.map((d) => (
+          this.props.room?.discussions.map((d) => d.end != null && (
             // eslint-disable-next-line react/jsx-key
             <div>
               {showModal && <Modal room={this.props.room} discussion={d} onClick={this.handleClickClose} /> }
-              <Story onClick={this.handleClickOpen} key={d.id} title={d.title} average={d.averageVote} />
+              <Story discussionId={d.id} onClick={this.handleClickOpen} key={d.id} title={d.title} average={d.averageVote} />
             </div>
           ))
         }

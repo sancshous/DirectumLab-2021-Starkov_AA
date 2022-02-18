@@ -172,7 +172,7 @@ class RoomPageView extends React.Component<IProps, any> {
           cards={this.parseCards()}
           vote={this.handleVote}
           selectedCard={this.getCurrentVote(this.props.user?.id)?.card.value.toString() || null} />
-        {this.getCurrentDiscussion()?.end != null && <History room={room} defaultState={false} />}
+        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History room={room} defaultState={false} />}
       </div>
     </>
   }
