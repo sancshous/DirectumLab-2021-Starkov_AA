@@ -19,8 +19,8 @@ const mapStateToProps = (state: IRootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    createDiscussion: async (roomId: string) => {
-      return dispatch( await createDiscussionOperation(roomId))
+    createDiscussion: async (roomId: string, title: string) => {
+      return dispatch( await createDiscussionOperation(roomId, title))
     },
     closeDiscussion: async (discussionId: string, roomId: string) => {
       return dispatch( await closeDiscussionOperation(discussionId, roomId))

@@ -38,8 +38,8 @@ export const searchUserRequest = async (userId: string, roomId: string): Promise
   }
 };
 
-export const createDiscussionRequest = async (roomId: string): Promise<IDiscussion | null> => {
-  const response = await api.get<IDiscussion>(`Discussion/Create?roomId=${roomId}&title=Bingo`);
+export const createDiscussionRequest = async (roomId: string, title: string): Promise<IDiscussion | null> => {
+  const response = await api.get<IDiscussion>(`Discussion/Create?roomId=${roomId}&title=${title}`);
   return response;
 }
 

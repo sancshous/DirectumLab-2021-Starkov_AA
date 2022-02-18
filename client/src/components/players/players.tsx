@@ -2,7 +2,6 @@ import * as React from "react";
 import Player from "./player/player";
 import PlayersInput from "./players-input/players-input";
 import {IDiscussion, IUser} from "../../store/types";
-import PlayersPlaceholder from "./players-placeholder/players-placeholder";
 import Button from "../button/button";
 import './players.css';
 
@@ -21,22 +20,28 @@ interface IProps {
 }
 
 const Players: React.FC<IProps> = (props) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
 
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const handleSubmit = () => {
     if(inputRef.current) {
       props.onSubmitGo(inputRef.current.value);
     }
   }
+
   function RenderInputButton() {
     switch (props.input) {
       case 'go':
         return <div className="players__placeholder">
-          {props.isOwner === true && <PlayersPlaceholder inputRef={inputRef} handleSubmit={handleSubmit} />}
+          {props.isOwner &&
+            <>
+              <input ref={inputRef} className="players__input players__storyname" type="text" placeholder="I" required={true} />
+              <Button onClick={handleSubmit} className={'players__btn-next'} title={'Go'} />
+            </>
+          }
         </div>
       case 'finish':
         return <>
-          {props.isOwner === true && <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />}
+          {props.isOwner && <Button onClick={props.onSubmitFinish} className={'players__btn'} title={'Finish Voiting'} />}
         </>
     }
   }

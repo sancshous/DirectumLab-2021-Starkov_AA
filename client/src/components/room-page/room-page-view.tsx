@@ -20,7 +20,7 @@ interface IProps extends RouteComponentProps<IMatchParams>{
   room: IRoom | null,
   cards: ICard[],
   updateRoom: (roomId: string) => Promise<any>,
-  createDiscussion: (roomId: string) => Promise<any>,
+  createDiscussion: (roomId: string, title: string) => Promise<any>,
   closeDiscussion: (discussionId: string, roomId: string) => Promise<any>,
   searchUser: (userId: string, roomId: string) => Promise<IUser>,
   loadCards: () => Promise<ICard[]>,
@@ -73,9 +73,9 @@ class RoomPageView extends React.Component<IProps, any> {
     this.props.updateRoom(this.props.match.params.roomId);
   }
 
-  private handleClickGO  = async () => {
+  private handleClickGO = async (title: string) => {
     await this.props.loadCards();
-    await this.props.createDiscussion(this.props.match.params.roomId);
+    await this.props.createDiscussion(this.props.match.params.roomId, title);
     this.updateRoom();
   }
 
@@ -172,7 +172,7 @@ class RoomPageView extends React.Component<IProps, any> {
           cards={this.parseCards()}
           vote={this.handleVote}
           selectedCard={this.getCurrentVote(this.props.user?.id)?.card.value.toString() || null} />
-        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History room={room} defaultState={false} />}
+        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History room={room} defaultState={undefined} />}
       </div>
     </>
   }
@@ -189,7 +189,7 @@ class RoomPageView extends React.Component<IProps, any> {
       <div className="content">
         <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
         <VoteResultContainer valueVotes={this.parseVotesCardValue()} playersQuantityVoted={playersQuantity} average={average} />
-        {this.getCurrentDiscussion()?.end != null && <History room={this.props.room} defaultState={false} />}
+        {this.getCurrentDiscussion()?.end != null && <History room={this.props.room} defaultState={undefined} />}
       </div>
     </>
   }
