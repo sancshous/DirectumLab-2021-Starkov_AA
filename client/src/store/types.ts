@@ -9,7 +9,7 @@ export interface IUser {
 
 export interface IDiscussion {
   id: string,
-  name: string,
+  title: string,
   roomId: string,
   averageVote: number | null,
   start: Date,

@@ -49,7 +49,7 @@ const Players: React.FC<IProps> = (props) => {
     return null;
   }
 
-  return <div className={`players story ${props.className || ''}`}>
+  return <div className={`players ${props.className || ''}`}>
     <p className="players__header">{props.title}</p>
     <div className="players__body">
       {

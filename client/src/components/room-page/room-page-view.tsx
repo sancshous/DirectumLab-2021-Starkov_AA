@@ -167,12 +167,12 @@ class RoomPageView extends React.Component<IProps, any> {
   public renderDeck(room: IRoom): React.ReactNode {
     return <>
       <div className="content">
-        <p className={'Story'}>{this.getCurrentDiscussion()?.name}</p>
+        <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
         <CardGroup
           cards={this.parseCards()}
           vote={this.handleVote}
           selectedCard={this.getCurrentVote(this.props.user?.id)?.card.value.toString() || null} />
-        {this.getCurrentDiscussion()?.end != null && <History defaultState={false} />}
+        {this.getCurrentDiscussion()?.end != null && <History room={room} defaultState={false} />}
       </div>
     </>
   }
@@ -187,9 +187,9 @@ class RoomPageView extends React.Component<IProps, any> {
     }
     return <>
       <div className="content">
-        <p className={'Story'}>{this.getCurrentDiscussion()?.name}</p>
+        <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
         <VoteResultContainer valueVotes={this.parseVotesCardValue()} playersQuantityVoted={playersQuantity} average={average} />
-        {this.getCurrentDiscussion()?.end != null && <History defaultState={false} />}
+        {this.getCurrentDiscussion()?.end != null && <History room={this.props.room} defaultState={false} />}
       </div>
     </>
   }
