@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   position: absolute;
+  margin-left: -10px;
   top: auto;
   left: calc(50% - 45px);
 }

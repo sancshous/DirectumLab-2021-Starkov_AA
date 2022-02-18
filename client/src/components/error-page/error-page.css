@@ -1,0 +1,17 @@
+.ErrorPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.oops {
+  display: flex;
+  flex-grow: 1;
+}
+
+.text {
+  margin: auto;
+
+  color: #13406d;
+  font-size: 30px;
+}

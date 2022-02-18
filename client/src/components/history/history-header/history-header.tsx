@@ -4,7 +4,7 @@ import Button from "../../button/button";
 import "./history-header.css";
 
 interface IProps {
-  mark: number
+  mark: number | undefined
 }
 
 const HistoryHeader: React.FC<IProps> = (props) => {

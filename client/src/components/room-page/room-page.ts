@@ -1,27 +1,43 @@
-import {IRoom, IRootState, IStory} from "../../store/types";
+import {IRootState} from "../../store/types";
 import {compose, Dispatch} from "redux";
 import * as React from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import RoomPageView from "./room-page-view";
-import {updateRoom} from "../../store/room/room-action-creators";
-import {addIntoHistory} from "../../store/history/history-action-creators";
+import {addVoteOperation, updateRoomOperation} from "../../store/room/room-operations";
+import {closeDiscussionOperation, createDiscussionOperation} from "../../store/discussion/discussion-operations";
+import {getCardsOperation} from "../../store/cards/card-operation";
+import {searchUserOperation} from "../../store/user/user-operations";
 
 const mapStateToProps = (state: IRootState) => {
   return{
     user: state.user,
     room: state.room,
-    history: state.historyStory
+    cards: state.cards
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    updateRoom: (room: IRoom) => {
-      dispatch(updateRoom(room));
+    createDiscussion: async (roomId: string, title: string) => {
+      return dispatch( await createDiscussionOperation(roomId, title))
     },
-    addIntoHistory: (story: IStory) => {
-      dispatch(addIntoHistory(story))
+    closeDiscussion: async (discussionId: string, roomId: string) => {
+      return dispatch( await closeDiscussionOperation(discussionId, roomId))
+    },
+    updateRoom: async (roomId: string) => {
+      return dispatch( await updateRoomOperation(roomId))
+    },
+    loadCards: async () => {
+      return dispatch(await getCardsOperation())
+    },
+
+    searchUser: async (userId: string, roomId: string) => {
+      return dispatch(await searchUserOperation(userId, roomId));
+    },
+
+    addVote: async (cardId: string, userId: string, discussionId: string) => {
+      return dispatch(await addVoteOperation(cardId, userId, discussionId));
     }
   };
 }

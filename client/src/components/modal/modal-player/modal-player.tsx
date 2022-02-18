@@ -3,7 +3,7 @@ import user from "../../../images/user.svg";
 import "./modal-player.css";
 
 interface IProps {
-  name: string | undefined | boolean,
+  name: string | undefined,
   value: number
 }
 

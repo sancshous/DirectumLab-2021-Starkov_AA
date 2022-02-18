@@ -49,6 +49,12 @@ namespace PlanPoker.Domain.Services
       this.discussionRepository.Save();
     }
 
+    public void DeleteVote(Guid discussionId, Vote vote)
+    {
+      this.discussionRepository.GetAll().First(d => d.Id == discussionId).Votes.Remove(vote);
+      this.discussionRepository.Save();
+    }
+
     public ICollection<Vote> GetVotes(Guid discussionId)
     {
       return this.discussionRepository.Get(discussionId).Votes;

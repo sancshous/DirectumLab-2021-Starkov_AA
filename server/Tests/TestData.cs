@@ -36,10 +36,9 @@ namespace Tests
     {
       var userId = GetTestUser().Id;
       var cardId = GetTestCard().Id;
-      var roomId = GetTestRoom().Id;
       var discussionId = GetTestDiscussion().Id;
       string stringGuidId = "e89de7d7-d3f2-4310-9347-fb3b7cfac374";
-      return new Vote(Guid.Parse(stringGuidId), cardId, roomId, userId, discussionId);
+      return new Vote(Guid.Parse(stringGuidId), cardId, userId, discussionId);
     }
   }
 }

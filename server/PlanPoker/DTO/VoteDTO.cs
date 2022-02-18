@@ -9,10 +9,8 @@ namespace PlanPoker.DTO
 
     public Card Card { get; set; }
 
-    public Guid RoomId { get; set; }
-
     public Guid UserId { get; set; }
 
-    public Guid DiscussionId { get; set; }
+    //public Guid DiscussionId { get; set; }
   }
 }

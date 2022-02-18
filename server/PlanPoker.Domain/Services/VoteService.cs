@@ -9,19 +9,27 @@ namespace PlanPoker.Domain.Services
   {
     private readonly IRepository<Vote> repository;
 
-    public VoteService(IRepository<Vote> repository)
+    private readonly IRepository<Discussion> disRepository;
+
+    public VoteService(IRepository<Vote> repository, IRepository<Discussion> disRepository)
     {
       this.repository = repository;
+      this.disRepository = disRepository;
     }
 
-    public Vote Create(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
+    public Vote Create(Guid cardId, Guid userId, Guid discussionId)
     {
       var votes = this.GetVotes(discussionId).ToList();
       if (votes.Any(vote => vote.UserId == userId))
       {
-        this.repository.Delete(votes.Find(vote => vote.UserId == userId));
-        var id = Guid.NewGuid();
-        var vote = new Vote(id, cardId, roomId, userId, discussionId);
+        var discus = this.disRepository.GetAll().First(d => d.Id == discussionId);
+        var vote = discus.Votes.First(v => v.UserId == userId);
+        var vote1 = this.repository.Get(votes.Find(vote => vote.UserId == userId).Id);
+        this.repository.Delete(vote1);
+        discus.Votes.Remove(vote);
+        this.disRepository.Save();
+        vote.CardId = cardId;
+        vote.Id = Guid.NewGuid();
         this.repository.Add(vote);
         this.repository.Save();
         return vote;
@@ -29,7 +37,7 @@ namespace PlanPoker.Domain.Services
       else
       {
         var id = Guid.NewGuid();
-        var vote = new Vote(id, cardId, roomId, userId, discussionId);
+        var vote = new Vote(id, cardId, userId, discussionId);
         this.repository.Add(vote);
         this.repository.Save();
         return vote;

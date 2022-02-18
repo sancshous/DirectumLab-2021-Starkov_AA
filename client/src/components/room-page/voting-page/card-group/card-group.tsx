@@ -3,7 +3,7 @@ import Card from "./card/card";
 import "./card-group.css";
 
 interface IProps {
-  cards: string[],
+  cards: string[] | null,
   selectedCard?: string | null,
   vote: (value: string) => void
 }
@@ -11,7 +11,7 @@ interface IProps {
 const CardGroup: React.FC<IProps> = (props) => {
   return <ul className="card_group">
     {
-      props.cards.map((card) => (
+      props.cards?.map((card) => (
         <Card className={`${props.selectedCard === card && 'card_selected'}`} key={card} value={card} onClick={() => props.vote(card)} />
       ))
     }

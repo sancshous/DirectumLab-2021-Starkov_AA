@@ -7,24 +7,41 @@ export interface IUser {
   name: string
 }
 
-export interface IStory {
+export interface IDiscussion {
   id: string,
-  name: string,
-  average: number | null,
-  votes: Record<UserId, CardValue>
+  title: string,
+  roomId: string,
+  averageVote: number | null,
+  start: Date,
+  end: Date,
+  votes: Array<IVote>
 }
 
 export interface IRoom {
   id: string,
   name: string,
-  cards: Array<CardValue>,
   ownerId: UserId,
   users: Array<IUser>,
-  stories: Array<IStory>
+  cards: Array<string>,
+  discussions: Array<IDiscussion>
+}
+
+export interface ICard {
+  id: string,
+  value: number,
+  title: string
+}
+
+export interface IVote {
+  id: string,
+  card: ICard,
+  userId: string
 }
 
 export  interface IRootState {
   room: IRoom | null,
   user: IUser | null,
-  historyStory: IStory[]
+  //discussions: Array<IDiscussion>,
+  cards: Array<ICard> | null,
+  loading: boolean
 }

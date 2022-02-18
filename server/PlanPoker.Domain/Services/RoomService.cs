@@ -38,6 +38,33 @@ namespace PlanPoker.Domain.Services
       return this.userRepository.Get(id);
     }
 
+    public User SearchUser(Guid userId, Guid roomId)
+    {
+      var room = this.roomRepository.Get(roomId);
+      User user = null;
+      foreach (var item in room.Users)
+      {
+        if (item.Id == userId)
+        {
+          user = item;
+        }
+      }
+      return user;
+    }
+
+    public Room SearchRoom(Guid roomId)
+    {
+      Room room = null;
+      foreach (var item in this.roomRepository.GetAll())
+      {
+        if (item.Id == roomId)
+        {
+          room = item;
+        }
+      }
+      return room;
+    }
+
     public void AddUser(Guid roomId, Guid userId)
     {
       var user = this.GetUser(userId);

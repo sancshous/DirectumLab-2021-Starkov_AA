@@ -9,11 +9,11 @@ import {cleanActionCreator} from "../../store/reducer";
 import './logo.css';
 
 interface IProps {
-  updateUser: (user?: IUser) => void;
+  cleanStore: () => void;
 }
 
 const Logo: React.FC<IProps> = (props) => {
-  return <Link className="logo" to={RoutePath.INDEX} onClick={() => props.updateUser()}>
+  return <Link className="logo" to={RoutePath.INDEX} onClick={() => props.cleanStore()}>
     <img className="logo__icon" src={icon} alt="logo" />
     <h1 className="logo__text">PlanPoker</h1>
   </Link>
@@ -22,7 +22,7 @@ const Logo: React.FC<IProps> = (props) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    updateUser: (user?: IUser) => {
+    cleanStore: () => {
       dispatch(cleanActionCreator());
     }
   }

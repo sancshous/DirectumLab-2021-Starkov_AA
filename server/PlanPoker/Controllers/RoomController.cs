@@ -40,9 +40,30 @@ namespace PlanPoker.Controllers
     }
 
     [HttpPost]
-    public void AddUser(Guid roomId, Guid userId)
+    public RoomDTO AddUser(Guid roomId, Guid userId)
     {
       this.roomService.AddUser(roomId, userId);
+      var room = this.roomService.GetRooms().First(room => room.Id == roomId);
+      var discussions = this.discussionService.GetDiscussions(roomId);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService, this.discussionService);
+    }
+
+    [HttpPost]
+    public UserDTO SearchUser(Guid userId, Guid roomId)
+    {
+      var user = this.roomService.SearchUser(userId, roomId);
+      if (user == null)
+        return null;
+      return UserDTOBuilder.Build(user);
+    }
+
+    [HttpPost]
+    public bool SearchRoom(Guid roomId)
+    {
+      var room = this.roomService.SearchRoom(roomId);
+      if (room == null)
+        return false;
+      return true;
     }
 
     [HttpPost]

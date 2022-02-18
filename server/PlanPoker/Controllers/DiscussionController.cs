@@ -33,17 +33,32 @@ namespace PlanPoker.Controllers
     }
 
     [HttpPost]
-    public void Close(Guid discussionId)
+    public DiscussionDTO Close(Guid discussionId)
     {
       this.discussionService.Close(discussionId);
+      var roomId = this.discussionService.GetDiscussion(discussionId).RoomId;
+      var discussion = this.discussionService.GetDiscussions(roomId).First(discus => discus.Id == discussionId);
+      return DiscussionDTOBuilder.Build(discussion, this.cardService, this.discussionService);
+    }
+
+    [HttpPost]
+    public VoteDTO AddVote(Guid cardId, Guid userId, Guid discussionId)
+    {
+      var vote = this.voteService.Create(cardId, userId, discussionId);
+      var roomId = this.discussionService.GetDiscussion(discussionId).RoomId;
+      var discussion = this.discussionService.GetDiscussions(roomId).First(discus => discus.Id == discussionId);
+      if (discussion.Votes.Any(v => v.UserId == vote.UserId))
+        this.discussionService.DeleteVote(discussionId, vote);
+      this.discussionService.AddVote(discussionId, vote);
+      return VoteDTOBuilder.Build(vote, this.cardService);
     }
 
     [HttpGet]
-    public VoteDTO AddVote(Guid cardId, Guid roomId, Guid userId, Guid discussionId)
+    public DiscussionDTO GetDiscussionInfo(Guid discussionId)
     {
-      var vote = this.voteService.Create(cardId, roomId, userId, discussionId);
-      this.discussionService.AddVote(discussionId, vote);
-      return VoteDTOBuilder.Build(vote, this.cardService);
+      var roomId = this.discussionService.GetDiscussion(discussionId).RoomId;
+      var discussion = this.discussionService.GetDiscussions(roomId).First(discus => discus.Id == discussionId);
+      return DiscussionDTOBuilder.Build(discussion, this.cardService, this.discussionService);
     }
 
     [HttpGet]

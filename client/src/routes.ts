@@ -1,5 +1,6 @@
 export const RoutePath = {
   INDEX: '/',
   ROOM: '/room',
-  INVITE: '/invite'
+  INVITE: '/invite',
+  ERROR: '/error'
 }
