@@ -148,14 +148,46 @@ class RoomPageView extends React.Component<IProps, any> {
     return null;
   }
 
-  public parseVotesCardValue(): number[] | null {
+  public parseVotes(): [string, number][] | null {
     const discus = this.getCurrentDiscussion();
     if(discus != null) {
       const array: number[] = [];
       discus.votes.map((vote) => {
         array.push(vote.card.value)
       })
-      return array;
+      const result = array.reduce(function(acc:Record<string, number>, el) {
+        acc[el] = (acc[el] || 0) + 1;
+        return acc;
+      }, {});
+      const cardsObj = Object.entries(result);
+      return cardsObj;
+    }
+    return null;
+  }
+
+  public parseVoteValue(cardsObj: [string, number][] | null): string[] | null {
+    if(cardsObj != null) {
+      const labels: string[] = [];
+      cardsObj.forEach(([key, value]) => {
+        if(key === '-10') {
+          key = 'coffee'
+          labels.push(key);
+        }
+        else
+          labels.push(key);
+      });
+      return labels;
+    }
+    return null;
+  }
+
+  public parseCountVoteValue(cardsObj: [string, number][] | null): number[] | null {
+    if(cardsObj != null) {
+      const numbers: number[] = [];
+      cardsObj.forEach(([key, value]) => {
+        numbers.push(value);
+      });
+      return numbers;
     }
     return null;
   }
@@ -188,7 +220,7 @@ class RoomPageView extends React.Component<IProps, any> {
     return <>
       <div className="content">
         <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
-        <VoteResultContainer valueVotes={this.parseVotesCardValue()} playersQuantityVoted={playersQuantity} average={average} />
+        <VoteResultContainer valueLabels={this.parseVoteValue(this.parseVotes())} valueVotes={this.parseCountVoteValue(this.parseVotes())} playersQuantityVoted={playersQuantity} average={average} />
         {this.getCurrentDiscussion()?.end != null && <History room={this.props.room} defaultState={undefined} />}
       </div>
     </>

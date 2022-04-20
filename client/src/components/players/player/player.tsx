@@ -21,8 +21,6 @@ const Player: React.FC<IProps> = (props) => {
   function renderValueCard() {
     switch (props.voteValue) {
       case '-10':
-        return '?';
-      case '-100':
         return coffeeIcon
       default:
         return props.voteValue

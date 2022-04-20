@@ -17,9 +17,7 @@ const Card: React.FC<IProps> = (props) => {
   function renderValueCard() {
     switch (props.value) {
       case '-10':
-        return '?';
-      case '-100':
-        return coffeeIcon
+        return coffeeIcon;
       default:
         return props.value
     }
