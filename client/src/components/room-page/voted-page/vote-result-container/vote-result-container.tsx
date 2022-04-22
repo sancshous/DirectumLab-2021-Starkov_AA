@@ -1,6 +1,5 @@
 import * as React from "react";
 import ResultInfo from "./result-info/result-info";
-import StatInfo from "./stat-info/stat-info";
 import Donut from "../donut/donut";
 import "./vote-result-container.css";
 

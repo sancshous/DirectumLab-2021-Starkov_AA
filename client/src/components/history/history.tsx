@@ -9,7 +9,8 @@ import "./history.css";
 
 interface IProps {
   defaultState: IDiscussion | undefined,
-  room: IRoom | null
+  room: IRoom | null,
+  onClick: (discussionId: string) => void
 }
 
 interface IState {
@@ -48,10 +49,9 @@ class History extends React.Component<IProps, IState> {
       <table id={'tableH'} className="history__body">
         {
           this.props.room?.discussions.map((d) => d.end != null && (
-            // eslint-disable-next-line react/jsx-key
             <div className={'history__story__body'}>
               <Story discussionId={d.id} onClick={this.handleClickOpen} key={d.id} title={d.title} average={d.averageVote} />
-              <Button onClick={undefined} className={'history__story-btnDelete'} title={<img src={remove} />} />
+              <Button onClick={() => this.props.onClick(d.id)} className={'history__story-btnDelete'} title={<img src={remove} />} />
             </div>
           ))
         }

@@ -5,7 +5,11 @@ import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import RoomPageView from "./room-page-view";
 import {addVoteOperation, updateRoomOperation} from "../../store/room/room-operations";
-import {closeDiscussionOperation, createDiscussionOperation} from "../../store/discussion/discussion-operations";
+import {
+  closeDiscussionOperation,
+  createDiscussionOperation,
+  deleteDiscussionOperation
+} from "../../store/discussion/discussion-operations";
 import {getCardsOperation} from "../../store/cards/card-operation";
 import {searchUserOperation} from "../../store/user/user-operations";
 
@@ -24,6 +28,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     closeDiscussion: async (discussionId: string, roomId: string) => {
       return dispatch( await closeDiscussionOperation(discussionId, roomId))
+    },
+    deleteDiscussion: async (roomId: string, discussionId: string) => {
+      return dispatch( await deleteDiscussionOperation(roomId, discussionId))
     },
     updateRoom: async (roomId: string) => {
       return dispatch( await updateRoomOperation(roomId))

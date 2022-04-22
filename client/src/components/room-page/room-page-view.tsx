@@ -22,6 +22,7 @@ interface IProps extends RouteComponentProps<IMatchParams>{
   updateRoom: (roomId: string) => Promise<any>,
   createDiscussion: (roomId: string, title: string) => Promise<any>,
   closeDiscussion: (discussionId: string, roomId: string) => Promise<any>,
+  deleteDiscussion: (roomId: string, discussionId: string) => Promise<any>,
   searchUser: (userId: string, roomId: string) => Promise<IUser>,
   loadCards: () => Promise<ICard[]>,
   addVote: (cardId: string | null, userId: string | undefined, discussionId: string | undefined) => Promise<any>,
@@ -40,6 +41,7 @@ class RoomPageView extends React.Component<IProps, any> {
 
     this.handleClickGO = this.handleClickGO.bind(this);
     this.handleClickFinish = this.handleClickFinish.bind(this);
+    this.handleClickDeleteDiscus = this.handleClickDeleteDiscus.bind(this);
     this.handleVote = this.handleVote.bind(this);
   }
 
@@ -85,6 +87,11 @@ class RoomPageView extends React.Component<IProps, any> {
       await this.props.closeDiscussion(discus.id, this.props.match.params.roomId);
       this.updateRoom();
     }
+  }
+
+  private handleClickDeleteDiscus = async (discussionId: string) => {
+    await this.props.deleteDiscussion(this.props.match.params.roomId, discussionId);
+    this.updateRoom();
   }
 
   private getCardIdByCardValue = (value: string): string | null => {
@@ -204,7 +211,7 @@ class RoomPageView extends React.Component<IProps, any> {
           cards={this.parseCards()}
           vote={this.handleVote}
           selectedCard={this.getCurrentVote(this.props.user?.id)?.card.value.toString() || null} />
-        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History room={room} defaultState={undefined} />}
+        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History onClick={this.handleClickDeleteDiscus} room={room} defaultState={undefined} />}
       </div>
     </>
   }
@@ -221,7 +228,7 @@ class RoomPageView extends React.Component<IProps, any> {
       <div className="content">
         <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
         <VoteResultContainer valueLabels={this.parseVoteValue(this.parseVotes())} valueVotes={this.parseCountVoteValue(this.parseVotes())} playersQuantityVoted={playersQuantity} average={average} />
-        {this.getCurrentDiscussion()?.end != null && <History room={this.props.room} defaultState={undefined} />}
+        {this.getCurrentDiscussion()?.end != null && <History onClick={this.handleClickDeleteDiscus} room={this.props.room} defaultState={undefined} />}
       </div>
     </>
   }
