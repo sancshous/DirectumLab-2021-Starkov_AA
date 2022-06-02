@@ -72,6 +72,16 @@ namespace PlanPoker.Controllers
       this.roomService.RemoveUser(roomId, userId);
     }
 
+    [HttpPost]
+    public RoomDTO DeleteDiscussion(Guid roomId, Guid discussionId)
+    {
+      this.roomService.DeleteDiscussion(roomId, discussionId);
+      this.discussionService.Delete(discussionId);
+      var room = this.roomService.GetRooms().First(room => room.Id == roomId);
+      var discussions = this.discussionService.GetDiscussions(roomId);
+      return RoomDTOBuilder.Build(room, discussions, this.cardService, this.discussionService);
+    }
+
     [HttpGet]
     public RoomDTO GetRoomInfo(Guid roomId)
     {

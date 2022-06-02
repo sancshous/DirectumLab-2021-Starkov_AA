@@ -28,6 +28,12 @@ namespace PlanPoker.Domain.Services
       return discussion;
     }
 
+    public void Delete(Guid discussionId)
+    {
+      this.discussionRepository.Delete(discussionId);
+      this.discussionRepository.Save();
+    }
+
     public void Close(Guid discussionId)
     {
       this.discussionRepository.Get(discussionId).End = DateTime.Now;

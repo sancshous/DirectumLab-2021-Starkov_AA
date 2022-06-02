@@ -22,6 +22,7 @@ interface IProps extends RouteComponentProps<IMatchParams>{
   updateRoom: (roomId: string) => Promise<any>,
   createDiscussion: (roomId: string, title: string) => Promise<any>,
   closeDiscussion: (discussionId: string, roomId: string) => Promise<any>,
+  deleteDiscussion: (roomId: string, discussionId: string) => Promise<any>,
   searchUser: (userId: string, roomId: string) => Promise<IUser>,
   loadCards: () => Promise<ICard[]>,
   addVote: (cardId: string | null, userId: string | undefined, discussionId: string | undefined) => Promise<any>,
@@ -40,6 +41,7 @@ class RoomPageView extends React.Component<IProps, any> {
 
     this.handleClickGO = this.handleClickGO.bind(this);
     this.handleClickFinish = this.handleClickFinish.bind(this);
+    this.handleClickDeleteDiscus = this.handleClickDeleteDiscus.bind(this);
     this.handleVote = this.handleVote.bind(this);
   }
 
@@ -85,6 +87,11 @@ class RoomPageView extends React.Component<IProps, any> {
       await this.props.closeDiscussion(discus.id, this.props.match.params.roomId);
       this.updateRoom();
     }
+  }
+
+  private handleClickDeleteDiscus = async (discussionId: string) => {
+    await this.props.deleteDiscussion(this.props.match.params.roomId, discussionId);
+    this.updateRoom();
   }
 
   private getCardIdByCardValue = (value: string): string | null => {
@@ -148,14 +155,46 @@ class RoomPageView extends React.Component<IProps, any> {
     return null;
   }
 
-  public parseVotesCardValue(): number[] | null {
+  public parseVotes(): [string, number][] | null {
     const discus = this.getCurrentDiscussion();
     if(discus != null) {
       const array: number[] = [];
       discus.votes.map((vote) => {
         array.push(vote.card.value)
       })
-      return array;
+      const result = array.reduce(function(acc:Record<string, number>, el) {
+        acc[el] = (acc[el] || 0) + 1;
+        return acc;
+      }, {});
+      const cardsObj = Object.entries(result);
+      return cardsObj;
+    }
+    return null;
+  }
+
+  public parseVoteValue(cardsObj: [string, number][] | null): string[] | null {
+    if(cardsObj != null) {
+      const labels: string[] = [];
+      cardsObj.forEach(([key, value]) => {
+        if(key === '-10') {
+          key = 'coffee'
+          labels.push(key);
+        }
+        else
+          labels.push(key);
+      });
+      return labels;
+    }
+    return null;
+  }
+
+  public parseCountVoteValue(cardsObj: [string, number][] | null): number[] | null {
+    if(cardsObj != null) {
+      const numbers: number[] = [];
+      cardsObj.forEach(([key, value]) => {
+        numbers.push(value);
+      });
+      return numbers;
     }
     return null;
   }
@@ -172,7 +211,7 @@ class RoomPageView extends React.Component<IProps, any> {
           cards={this.parseCards()}
           vote={this.handleVote}
           selectedCard={this.getCurrentVote(this.props.user?.id)?.card.value.toString() || null} />
-        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History room={room} defaultState={undefined} />}
+        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History onClick={this.handleClickDeleteDiscus} room={room} defaultState={undefined} />}
       </div>
     </>
   }
@@ -188,8 +227,8 @@ class RoomPageView extends React.Component<IProps, any> {
     return <>
       <div className="content">
         <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
-        <VoteResultContainer valueVotes={this.parseVotesCardValue()} playersQuantityVoted={playersQuantity} average={average} />
-        {this.getCurrentDiscussion()?.end != null && <History room={this.props.room} defaultState={undefined} />}
+        <VoteResultContainer valueLabels={this.parseVoteValue(this.parseVotes())} valueVotes={this.parseCountVoteValue(this.parseVotes())} playersQuantityVoted={playersQuantity} average={average} />
+        {this.getCurrentDiscussion()?.end != null && <History onClick={this.handleClickDeleteDiscus} room={this.props.room} defaultState={undefined} />}
       </div>
     </>
   }

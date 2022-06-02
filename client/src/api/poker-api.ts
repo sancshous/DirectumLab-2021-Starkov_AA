@@ -43,6 +43,11 @@ export const createDiscussionRequest = async (roomId: string, title: string): Pr
   return response;
 }
 
+export const deleteDiscussionRequest = async (roomId: string | undefined, discussionId: string): Promise<IRoom | null> => {
+  const response = await api.post<IRoom>(`Room/DeleteDiscussion?roomId=${roomId}&discussionId=${discussionId}`);
+  return response;
+}
+
 export const getDiscussionListRequest = async (roomId: string): Promise<IDiscussion[] | null> => {
   const response = await api.get<IDiscussion[]>(`Discussion/GetDiscussionList?roomId=${roomId}`);
   return response;

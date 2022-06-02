@@ -1,8 +1,8 @@
 .history__story {
   display: flex;
-  border: 1px solid #F2F3F4;
+  width: 590px;
+  flex-grow: 4;
   align-items: center;
-  box-sizing: border-box;
   height: 67px;
   font-size: 18px;
   padding: 0 15px;
@@ -11,14 +11,20 @@
 }
 
 .history__story-btnDelete {
+  flex-grow: 1;
   border: none;
   cursor: pointer;
+  margin: 0;
   height: 65px;
   padding: 0;
-  width: 40px;
-  margin-left: auto;
-  margin-right: -8px;
+  width: 15px;
   background-color: white;
+}
+
+.history__story__body {
+  display: flex;
+  border-bottom: 1px solid #F2F3F4;
+  align-items: center;
 }
 
 .history__story-btnDelete:hover {
