@@ -22,9 +22,9 @@ namespace PlanPoker.Infrastructure.Contexts
       var card9 = new Card(Guid.Parse("476092fd-4d22-4e6c-adc8-79c1d0644a40"), 20, "twenty");
       var card10 = new Card(Guid.Parse("6f5e844b-7b6c-4422-8a16-5b994f5c4e92"), 40, "fourty");
       var card11 = new Card(Guid.Parse("5c16289b-9051-49d4-a407-8c78d2215380"), 100, "onehundred");
-      //var card12 = new Card(Guid.Parse("228105e8-bcf0-444f-8a95-590a4dba44d1"), -10, "question");
-      var card13 = new Card(Guid.Parse("d3ab380a-cf6c-4ac5-8ac2-5e1f52be977c"), -10, "coffee");
-      this.Elements.AddRange(card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card13);
+      var card12 = new Card(Guid.Parse("228105e8-bcf0-444f-8a95-590a4dba44d1"), -10, "question");
+      var card13 = new Card(Guid.Parse("d3ab380a-cf6c-4ac5-8ac2-5e1f52be977c"), -20, "coffee");
+      this.Elements.AddRange(card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13);
       this.SaveChanges();
     }
   }
