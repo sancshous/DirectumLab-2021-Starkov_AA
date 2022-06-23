@@ -34,7 +34,7 @@ const Players: React.FC<IProps> = (props) => {
         return <div className="players__placeholder">
           {props.isOwner &&
             <>
-              <input ref={inputRef} className="players__input players__storyname" type="text" placeholder="I" required={true} />
+              <input ref={inputRef} className="players__input players__storyname" type="text" placeholder="" required={true} />
               <Button onClick={handleSubmit} className={'players__btn-next'} title={'Go'} />
             </>
           }

@@ -18,7 +18,7 @@ const Card: React.FC<IProps> = (props) => {
     switch (props.value) {
       case '-10':
         return '?';
-      case '-20':
+      case '0':
         return coffeeIcon;
       default:
         return props.value

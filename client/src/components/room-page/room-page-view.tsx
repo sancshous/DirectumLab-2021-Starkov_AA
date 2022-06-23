@@ -176,8 +176,12 @@ class RoomPageView extends React.Component<IProps, any> {
     if(cardsObj != null) {
       const labels: string[] = [];
       cardsObj.forEach(([key, value]) => {
-        if(key === '-10') {
+        if(key === '0') {
           key = 'coffee'
+          labels.push(key);
+        }
+        else if (key === '-10') {
+          key = '?'
           labels.push(key);
         }
         else
@@ -204,6 +208,7 @@ class RoomPageView extends React.Component<IProps, any> {
   }
 
   public renderDeck(room: IRoom): React.ReactNode {
+    const isOwner = this.props.user?.id == this.props.room?.ownerId ? true : false;
     return <>
       <div className="content">
         <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
@@ -211,7 +216,7 @@ class RoomPageView extends React.Component<IProps, any> {
           cards={this.parseCards()}
           vote={this.handleVote}
           selectedCard={this.getCurrentVote(this.props.user?.id)?.card.value.toString() || null} />
-        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History onClick={this.handleClickDeleteDiscus} room={room} defaultState={undefined} />}
+        {this.props.room?.discussions.find((d) => d.end != null) != undefined && <History isOwner={isOwner} onClick={this.handleClickDeleteDiscus} room={room} defaultState={undefined} />}
       </div>
     </>
   }
@@ -220,6 +225,7 @@ class RoomPageView extends React.Component<IProps, any> {
     const discus = this.getCurrentDiscussion();
     let playersQuantity = 0;
     let average: number | null = 0;
+    const isOwner = this.props.user?.id == this.props.room?.ownerId ? true : false;
     if(discus != null) {
       playersQuantity = discus.votes.length;
       average = discus.averageVote;
@@ -228,7 +234,7 @@ class RoomPageView extends React.Component<IProps, any> {
       <div className="content">
         <p className={'Story'}>{this.getCurrentDiscussion()?.title}</p>
         <VoteResultContainer valueLabels={this.parseVoteValue(this.parseVotes())} valueVotes={this.parseCountVoteValue(this.parseVotes())} playersQuantityVoted={playersQuantity} average={average} />
-        {this.getCurrentDiscussion()?.end != null && <History onClick={this.handleClickDeleteDiscus} room={this.props.room} defaultState={undefined} />}
+        {this.getCurrentDiscussion()?.end != null && <History isOwner={isOwner} onClick={this.handleClickDeleteDiscus} room={this.props.room} defaultState={undefined} />}
       </div>
     </>
   }

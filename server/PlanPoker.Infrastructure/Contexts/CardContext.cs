@@ -11,7 +11,7 @@ namespace PlanPoker.Infrastructure.Contexts
     {
       foreach (var entity in this.Elements)
         this.Elements.Remove(entity);
-      var card1 = new Card(Guid.Parse("4b543ed7-9a5c-42b7-9f45-9902d2ba7ef8"), 0, "zero");
+      // var card1 = new Card(Guid.Parse("4b543ed7-9a5c-42b7-9f45-9902d2ba7ef8"), 0, "zero");
       var card2 = new Card(Guid.Parse("81042fa0-2a0c-4ac6-b88b-76262ca1ed26"), 0.5, "zeropointfive");
       var card3 = new Card(Guid.Parse("e0afecaa-ea62-4233-be0e-5f68df780755"), 1, "first");
       var card4 = new Card(Guid.Parse("b64988a5-8ee8-40b4-ba41-2c2cc23d41aa"), 2, "second");
@@ -23,8 +23,8 @@ namespace PlanPoker.Infrastructure.Contexts
       var card10 = new Card(Guid.Parse("6f5e844b-7b6c-4422-8a16-5b994f5c4e92"), 40, "fourty");
       var card11 = new Card(Guid.Parse("5c16289b-9051-49d4-a407-8c78d2215380"), 100, "onehundred");
       var card12 = new Card(Guid.Parse("228105e8-bcf0-444f-8a95-590a4dba44d1"), -10, "question");
-      var card13 = new Card(Guid.Parse("d3ab380a-cf6c-4ac5-8ac2-5e1f52be977c"), -20, "coffee");
-      this.Elements.AddRange(card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13);
+      var card13 = new Card(Guid.Parse("d3ab380a-cf6c-4ac5-8ac2-5e1f52be977c"), 0, "coffee");
+      this.Elements.AddRange(card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13);
       this.SaveChanges();
     }
   }

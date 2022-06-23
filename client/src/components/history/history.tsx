@@ -10,6 +10,7 @@ import "./history.css";
 interface IProps {
   defaultState: IDiscussion | undefined,
   room: IRoom | null,
+  isOwner: boolean,
   onClick: (discussionId: string) => void
 }
 
@@ -44,14 +45,14 @@ class History extends React.Component<IProps, IState> {
   render() {
     const {modalInfo} = this.state;
     return <div className="history">
-      <HistoryHeader mark={this.props.room?.discussions.filter((d) => d.end != null).length} />
+      <HistoryHeader isOwner={this.props.isOwner} mark={this.props.room?.discussions.filter((d) => d.end != null).length} />
       {modalInfo != undefined && <Modal room={this.props.room} discussion={modalInfo} onClick={this.handleClickClose} /> }
       <table id={'tableH'} className="history__body">
         {
           this.props.room?.discussions.map((d) => d.end != null && (
             <div className={'history__story__body'}>
               <Story discussionId={d.id} onClick={this.handleClickOpen} key={d.id} title={d.title} average={d.averageVote} />
-              <Button onClick={() => this.props.onClick(d.id)} className={'history__story-btnDelete'} title={<img src={remove} />} />
+              {this.props.isOwner && <Button onClick={() => this.props.onClick(d.id)} className={'history__story-btnDelete'} title={<img src={remove} />} /> }
             </div>
           ))
         }

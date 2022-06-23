@@ -6,7 +6,8 @@ import { saveAs } from 'file-saver';
 import "./history-header.css";
 
 interface IProps {
-  mark: number | undefined
+  mark: number | undefined,
+  isOwner: boolean
 }
 
 class HistoryHeader extends React.Component<IProps, any> {
@@ -34,7 +35,7 @@ class HistoryHeader extends React.Component<IProps, any> {
       <div className="history__header-container">Completed Stories
         <div className="history__mark">{this.props.mark}</div>
       </div>
-      <Button onClick={this.handleDownloadHistory} className={'history__btn-download'} title={<img src={download} />} />
+      {this.props.isOwner && <Button onClick={this.handleDownloadHistory} className={'history__btn-download'} title={<img src={download} />} /> }
     </header>
       ;
   }
